@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    app:cardCornerRadius="25dp"
+android:elevation="50dp"
+    android:layout_margin="30dp"
+android:backgroundTint="#FFFFFF"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp"
+        android:background="#FFFFFF"
+        >
+
+        <ImageView
+            android:id="@+id/txtImage"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_launcher_round"
+           />
+
+        <TextView
+            android:id="@+id/txtName"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtImage"
+            android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+            android:text="Product Name"
+            android:textColor="@color/black"
+            android:textSize="32dp"/>
+
+
+
+        <TextView
+            android:id="@+id/txtPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/txtName"
+            android:text="Product Price"
+            android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+            android:textColor="@color/black"
+            android:textSize="22dp"/>
+
+
+        <TextView
+            android:id="@+id/txtSeller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtPrice"
+            android:text="Product Seller"
+            android:textSize="18dp"
+            android:layout_marginTop="5dp"
+            android:textStyle="italic"
+            android:textColor="#FE8D9E"
+            android:textColorHint="#FFFEC86C"
+            android:fontFamily="@font/notoserifvithkuqivariablefontwght"            />
+
+
+        <TextView
+            android:id="@+id/txtPercentOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtPrice"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+            android:text="70"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

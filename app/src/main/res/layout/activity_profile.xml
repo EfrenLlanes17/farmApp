@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity"
+    android:background="@drawable/background"
+    android:id="@+id/profileRelativelayout">
+
+
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_settings_24"
+        android:background="#FFFFFF"
+        android:id="@+id/settingsButton"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello,"
+        android:id="@+id/HelloUser"
+        android:textColor="#FF8E9F"
+        android:textSize="60dp"
+        android:layout_marginLeft="400dp"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:textStyle="bold"
+        android:layout_marginTop="105dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NNNNNNNNNNN"
+        android:id="@+id/HelloUserName"
+        android:textColor="#FF8E9F"
+        android:textSize="35dp"
+        android:layout_marginLeft="400dp"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:textStyle="bold"
+        android:layout_below="@+id/HelloUser"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/line"
+        android:textColor="#FED064"
+        android:layout_marginTop="240dp"
+        android:textSize="50dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attending"
+        android:textColor="#FF8E9F"
+        android:layout_marginTop="275dp"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:textStyle="bold"
+        android:id="@+id/HelloFollowing"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/FollowingRV"
+        android:layout_below="@+id/HelloFollowing"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="___________________"
+        android:id="@+id/line2"
+        android:layout_marginTop="565dp"
+        android:textColor="#FF8E9F"
+        android:textSize="50dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saved"
+        android:layout_below="@id/line2"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:textStyle="bold"
+        android:id="@+id/Saved"
+        android:textColor="#FF8E9F"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SavedRV"
+        android:layout_below="@+id/Saved"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome"
+        android:id="@+id/welcome"
+        android:textColor="#FFFFFF"
+        android:textSize="40dp"
+
+        android:layout_marginLeft="30dp"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:textStyle="bold"
+        android:layout_marginTop="150dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Sign in for more personalized events"
+        android:id="@+id/signInHeader"
+        android:textColor="#FFFFFF"
+        android:textSize="15dp"
+android:layout_below="@+id/welcome"
+        android:layout_marginLeft="30dp"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:text="username already taken"
+        android:id="@+id/usernameTakenError"
+        android:textSize="20dp"
+       android:layout_marginLeft="75dp"
+        android:layout_marginTop="355dp"
+       />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:text="username or password is wrong"
+        android:id="@+id/usernameWrongError"
+        android:textSize="20dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="355dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:text="cannot have more than 11 characters"
+        android:id="@+id/usernameCharacterError"
+        android:textSize="20dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="355dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:text="cannot have spaces"
+        android:id="@+id/usernameSpaceError"
+        android:textSize="20dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="355dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:text="username not found"
+        android:id="@+id/usernameNotFoundError"
+        android:textSize="20dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="355dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:id="@+id/passwordShortError"
+        android:text="must be at least 10 characters"
+        android:textSize="20dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="458dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:id="@+id/passwordSpaceError"
+        android:text="cannot have spaces"
+        android:textSize="20dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="458dp"
+       />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:id="@+id/uppercaseError"
+        android:text="must have at least one uppercase letter"
+        android:textSize="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="458dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:id="@+id/numberError"
+        android:text="must have at least one number"
+        android:textSize="20dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="458dp"
+        />
+
+    <TextView
+        android:id="@+id/or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="640dp"
+        android:text="or"
+        android:textColor="#FC8B9C"
+        android:textSize="30dp" />
+
+
+    <EditText
+        android:layout_marginTop="375dp"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/edtTxtUsername"
+        android:hint="Username"
+        android:textColorHint="#FD8C9D"
+        android:textColor="#FD8C9D"
+        android:textSize="30dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+     />
+    <EditText
+        android:layout_marginTop="50dp"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/edtTxtPassword"
+        android:layout_below="@+id/edtTxtUsername"
+        android:hint="Password"
+        android:textColorHint="#FD8C9D"
+        android:textColor="#FD8C9D"
+        android:textSize="30dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign in"
+        android:id="@+id/signInProfileBtn"
+        android:backgroundTint="#FD8C9D"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:textStyle="bold"
+        android:elevation="10dp"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="550dp"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Account"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/createAccountProfileBtn"
+        android:textSize="30dp"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:textStyle="bold"
+        android:backgroundTint="#FD8C9D"
+        android:textColor="#FFFFFF"
+        android:elevation="10dp"
+        android:layout_below="@+id/signInProfileBtn"
+        android:layout_marginTop="100dp"
+       />
+
+
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout3"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+
+    </FrameLayout>
+</RelativeLayout>

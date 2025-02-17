@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ForYouActivity"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Event"
+        android:id="@+id/createPostText"
+        android:textColor="#FE8D9E"
+        android:textSize="50dp"
+
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:textStyle="bold"
+        android:layout_marginTop="60dp"/>
+
+    <EditText
+        android:layout_width="550dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:textColorHint="#FD8C9D"
+        android:textStyle="bold"
+        android:imeOptions="actionDone"
+        android:textColor="#FD8C9D"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:textSize="35dp"
+        android:layout_marginTop="125dp"
+        android:id="@+id/edtTextTitle"
+
+        ></EditText>
+
+    <EditText
+        android:layout_width="550dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:hint="Date"
+        android:textColorHint="#FD8C9D"
+        android:textColor="#FD8C9D"
+        android:textStyle="bold"
+        android:inputType="date"
+        android:textSize="25dp"
+        android:layout_marginTop="425dp"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:id="@+id/edtTextDate"
+
+        ></EditText>
+
+
+    <EditText
+        android:layout_width="550dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:hint="Location"
+        android:textColorHint="#FD8C9D"
+        android:imeOptions="actionDone"
+        android:textColor="#FD8C9D"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:layout_marginTop="525dp"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:id="@+id/edtTextLoc"
+
+        ></EditText>
+
+    <EditText
+        android:layout_width="550dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:hint="Price"
+        android:layout_marginTop="225dp"
+        android:textColor="#FD8C9D"
+        android:inputType="number"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:id="@+id/edtTextPrice"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:textColorHint="#FD8C9D"
+
+
+        ></EditText>
+
+    <EditText
+        android:layout_width="550dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:hint="Attending"
+        android:textColorHint="#FD8C9D"
+        android:textStyle="bold"
+        android:imeOptions="actionNext"
+        android:textColor="#FD8C9D"
+        android:inputType="number"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:textSize="25dp"
+        android:layout_marginTop="325dp"
+        android:id="@+id/edtTextAttending"
+
+        ></EditText>
+
+    <EditText
+        android:layout_width="550dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:textColor="#FD8C9D"
+        android:textColorHint="#FD8C9D"
+        android:imeOptions="actionDone"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+
+        android:layout_marginTop="625dp"
+        android:id="@+id/edtTextDisc"
+
+        ></EditText>
+
+
+    <Button
+        android:id="@+id/foryouSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:backgroundTint="#FE8D9E"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:text="Go to Sign In"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/createPostBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#FE8D9E"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:textSize="35dp"
+        android:text="CREATE"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/ImageTing"
+        android:layout_marginBottom="125dp"
+        android:layout_marginLeft="285dp"
+        android:layout_alignParentBottom="true"
+android:background="@drawable/baseline_image_search_24"
+
+        ></ImageButton>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:id="@+id/topNavView2"
+        android:layout_height="45dp"
+        app:menu="@menu/top_nav_menu"
+        app:labelVisibilityMode="labeled"
+        android:background="@drawable/gradient1"
+        app:itemTextColor="#FFFFFF"
+        app:itemIconTint="#FFFFFF"
+        app:itemTextAppearanceActive="@color/black"
+
+
+        />
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout5"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+
+    </FrameLayout>
+
+
+
+</RelativeLayout>
