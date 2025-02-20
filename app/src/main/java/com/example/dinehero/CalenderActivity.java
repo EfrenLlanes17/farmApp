@@ -1,11 +1,15 @@
 package com.example.dinehero;
 
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -135,23 +140,41 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
     private void openDatePicker() {
-        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select Event Date")
-                .setPositiveButtonText("OK")
-                .setNegativeButtonText("Cancel")
-                .build();
+        Calendar calendar = Calendar.getInstance();
 
-        datePicker.addOnPositiveButtonClickListener(selection -> {
-            // Convert UTC timestamp to Local Date
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-            String date = sdf.format(new Date(selection));
+        // Create a DatePickerDialog
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                android.R.style.Theme_DeviceDefault_Light_Dialog,
+                (view, year, month, dayOfMonth) -> {
+                    // This will be triggered when the user selects a date
+                    String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+                    showEventDialog(selectedDate); // Pass the selected date to event dialog
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
 
-            showEventDialog(date);
+        // Set the positive (OK) button with a custom listener
+        datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", (dialog, which) -> {
+            DatePicker datePicker = datePickerDialog.getDatePicker();
+            int selectedYear = datePicker.getYear();
+            int selectedMonth = datePicker.getMonth();
+            int selectedDay = datePicker.getDayOfMonth();
+            String confirmedDate = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay;
+            showEventDialog(confirmedDate); // Show event dialog with confirmed date
         });
 
-        datePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+        // Set the negative (Cancel) button
+        datePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", (dialog, which) -> {
+            dialog.dismiss(); // Simply dismiss the dialog
+        });
+
+        // Show the date picker dialog
+        datePickerDialog.show();
     }
+
 
     private void showEventDialog(String date) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -175,18 +198,34 @@ public class CalenderActivity extends AppCompatActivity {
 
         builder.setView(dialogView);
 
-        builder.setPositiveButton("Save", (dialog, which) -> {
+        // Create the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show(); // Show the dialog
+
+        // Set the "OK" button behavior
+        Button okButton = dialog.findViewById(R.id.btnOk);
+        okButton.setOnClickListener(v -> {
             String title = eventTitleInput.getText().toString();
             String type = eventTypeSpinner.getSelectedItem().toString();
             String recurrence = recurrenceSpinner.getSelectedItem().toString();
 
+            // Save the event
             eventList.add(new Event(date, title, type, recurrence));
-            adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged(); // Update the event list view
+
+            // Dismiss the dialog
+            dialog.dismiss();
         });
 
-        builder.setNegativeButton("Cancel", null);
-        builder.show();
+        // Set the "Cancel" button behavior
+        builder.setNegativeButton("Cancel", (dialogInterface, which) -> dialogInterface.dismiss());
     }
+
+
+
+
+
+
 
     public void openMainActivity(){
 
