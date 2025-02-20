@@ -2,4 +2,19 @@
     <string name="app_name">BuddySystem</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="event_types">
+        <item>Task</item>
+        <item>Employee Schedule</item>
+        <item>Harvest</item>
+        <item>IoT</item>
+    </string-array>
+
+    <string-array name="recurrence_options">
+        <item>None</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
 </resources>
