@@ -7,7 +7,7 @@
         android:id="@+id/btnDiscover"
         android:checkable="false"
         android:enabled="true"
-        android:title="EVENTS"
+        android:title="Calendar"
         android:visible="true"
         app:showAsAction="always"
 
@@ -15,19 +15,20 @@
 
     <item
         android:id="@+id/btnForYou"
-        android:title="CREATE"
+        android:title="Image Analysis"
         android:visible="true"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/btnFollowing"
-        android:title="ME"
+        android:title="AI Aid"
         app:showAsAction="always" />
 
+<!--    android:icon="@drawable/baseline_search_24"-->
     <item
         android:id="@+id/btnSearch"
-        android:icon="@drawable/baseline_search_24"
-        android:title=""
+
+        android:title="Connect"
         app:showAsAction="always" />
 
 </menu>

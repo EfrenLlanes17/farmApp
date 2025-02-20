@@ -56,15 +56,18 @@ public class FollowingActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == findViewById(R.id.btnDiscover).getId()) {
+                    openSearchActivity();
 
-                    openMainActivity();
                 } else if (item.getItemId() == findViewById(R.id.btnForYou).getId()) {
                     openForYouActivity();
                 } else if (item.getItemId() == findViewById(R.id.btnFollowing).getId()) {
                     openProfileActivity();
-                }else if (item.getItemId() == findViewById(R.id.btnSearch).getId()) {
-                    openSearchActivity();
                 }
+                else if (item.getItemId() == findViewById(R.id.btnSearch).getId()) {
+                    openMainActivity();
+                }
+
+
 
                 return false;
             }

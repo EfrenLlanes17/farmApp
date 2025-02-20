@@ -144,14 +144,15 @@ public class ForYouActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == findViewById(R.id.btnDiscover).getId()) {
+                    openCalenderActivity();
 
-                    openMainActivity();
                 } else if (item.getItemId() == findViewById(R.id.btnForYou).getId()) {
                     openForYouActivity();
                 } else if (item.getItemId() == findViewById(R.id.btnFollowing).getId()) {
                     openProfileActivity();
-                }else if (item.getItemId() == findViewById(R.id.btnSearch).getId()) {
-                    openSearchActivity();
+                }
+                else if (item.getItemId() == findViewById(R.id.btnSearch).getId()) {
+                    openMainActivity();
                 }
 
                 return false;
@@ -192,6 +193,12 @@ public class ForYouActivity extends AppCompatActivity {
 
     public void openFollowingActivity(){
         Intent intent = new Intent(this, FollowingActivity.class);
+        this.startActivity(intent);
+    }
+
+    public void openCalenderActivity(){
+
+        Intent intent = new Intent(this, CalenderActivity.class);
         this.startActivity(intent);
     }
     public void openSearchActivity(){

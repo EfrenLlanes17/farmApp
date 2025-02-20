@@ -35,6 +35,9 @@
             android:name=".settings"
             android:exported="false" />
         <activity
+            android:name=".CalenderActivity"
+            android:exported="false" />
+        <activity
             android:name=".splashScreen"
             android:exported="false" />
         <activity
