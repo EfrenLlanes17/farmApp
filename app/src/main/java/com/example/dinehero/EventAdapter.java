@@ -43,9 +43,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         Event event = eventList.get(position);
 
-        // Set the event date and title
+        // Set the event date, title, event type, and recurrence status
         holder.eventDate.setText(event.getDate());
         holder.eventTitle.setText(event.getTitle());
+        holder.eventType.setText(event.getType());
+        holder.recurrenceStatus.setText(event.getRecurrence());
 
         // Set text color based on event title
         switch (event.getTitle()) {
@@ -181,12 +183,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
     static class EventViewHolder extends RecyclerView.ViewHolder {
-        TextView eventDate, eventTitle;
+        TextView eventDate, eventTitle, eventType, recurrenceStatus;
 
         EventViewHolder(View itemView) {
             super(itemView);
             eventDate = itemView.findViewById(R.id.eventDate);
             eventTitle = itemView.findViewById(R.id.eventTitle);
+            eventType = itemView.findViewById(R.id.eventType);
+            recurrenceStatus = itemView.findViewById(R.id.recurrenceStatus);
         }
     }
 }

@@ -1,32 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="8dp"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:gravity="center_vertical">
 
+    <!-- Event Date -->
     <TextView
         android:id="@+id/eventDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="Date"
+        android:text="2025-02-21"
         android:textSize="16sp"
-        android:textStyle="bold"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="Dickkkkkkk"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_marginEnd="8dp" />
 
+    <!-- Event Title -->
     <TextView
         android:id="@+id/eventTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="description"
+        android:text="Event Title"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:layout_marginStart="8dp"/>
+        android:layout_marginEnd="8dp" />
+
+    <!-- Event Type (e.g., Task, Harvest) -->
+    <TextView
+        android:id="@+id/eventType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_marginEnd="8dp"
+        android:textStyle="italic" />
+
+    <!-- Recurrence Status (e.g., Daily, Weekly, None) -->
+    <TextView
+        android:id="@+id/recurrenceStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="None"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="italic" />
 </LinearLayout>
