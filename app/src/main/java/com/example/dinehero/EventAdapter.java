@@ -3,6 +3,7 @@ package com.example.dinehero;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -27,9 +31,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public EventAdapter(Context context, List<Event> eventList) {
         this.context = context;
         this.eventList = eventList;
-        generateRecurringEvents(eventList);
+        Log.d("EventAdapter", "EventAdapter constructor called");
+        generateRecurringEvents(eventList);  // Ensure this method is being called
         sortEvents();
     }
+
 
     @NonNull
     @Override
@@ -70,6 +76,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             showEditEventDialog(event, position);
             return true;
         });
+    }
+
+
+    public void updateEventList(List<Event> updatedEventList) {
+        eventList.clear();
+        eventList.addAll(updatedEventList);  // Update the event list
+        generateRecurringEvents(updatedEventList);  // Generate recurring events
+        sortEvents();  // Sort events
+        notifyDataSetChanged();  // Notify adapter to refresh the UI
     }
 
     private void showEditEventDialog(Event event, int position) {
@@ -114,17 +129,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             event.setRecurrence(recurrenceSpinner.getSelectedItem().toString());
 
             // Update the event list and UI
-            eventList.set(position, event);
-            Collections.sort(eventList, Comparator.comparing(Event::getDate));
-            notifyDataSetChanged();
-
+            eventList.add(event);  // Add the event to the list
+            updateEventList(eventList);  // Update the list and trigger generateRecurringEvents
             dialog.dismiss();
         });
 
         // Delete Event
         btnDelete.setOnClickListener(v -> {
             eventList.remove(position);
-            notifyDataSetChanged();
+            updateEventList(eventList);
             dialog.dismiss();
         });
 
@@ -142,35 +155,64 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
     private void generateRecurringEvents(List<Event> originalEvents) {
+        Log.d("EventAdapter", "generateRecurringEvents called");
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        List<Event> newEvents = new ArrayList<>(); // Temporary list to store events
+
         for (Event event : originalEvents) {
-            eventList.add(event);
+            newEvents.add(event);  // Add the original event
 
             if (event.getRecurrence() != null && !event.getRecurrence().equals("None")) {
-                Date eventDate = parseDate(event.getDate());
-                for (int i = 0; i < 10; i++) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(parseDate(event.getDate()));
+
+                for (int i = 1; i <= 12; i++) {
                     switch (event.getRecurrence()) {
                         case "Daily":
-                            eventDate.setTime(eventDate.getTime() + 24 * 60 * 60 * 1000); // Add one day
+                            calendar.add(Calendar.DAY_OF_YEAR, 1);
                             break;
                         case "Weekly":
-                            eventDate.setTime(eventDate.getTime() + 7 * 24 * 60 * 60 * 1000); // Add one week
+                            calendar.add(Calendar.WEEK_OF_YEAR, 1);
                             break;
                         case "Monthly":
-                            // Add one month (not fully accurate, you can improve this logic)
-                            eventDate.setMonth(eventDate.getMonth() + 1);
+                            calendar.add(Calendar.MONTH, 1);
                             break;
                         case "Yearly":
-                            eventDate.setYear(eventDate.getYear() + 1);
+                            calendar.add(Calendar.YEAR, 1);
                             break;
                     }
 
-                    Event recurringEvent = new Event(event.getTitle(), sdf.format(eventDate), event.getType(), event.getRecurrence());
-                    eventList.add(recurringEvent);
+                    Event recurringEvent = new Event(event.getTitle(), sdf.format(calendar.getTime()), event.getType(), event.getRecurrence());
+                    newEvents.add(recurringEvent);
                 }
             }
         }
+
+        // Log before updating the event list
+        Log.d("EventAdapter", "Generated events, total count: " + newEvents.size());
+
+        // Update eventList and notify the adapter
+        eventList.clear();
+        eventList.addAll(newEvents);
+        Collections.sort(eventList, Comparator.comparing(Event::getDate));
+
+        // Log after updating the event list
+        Log.d("EventAdapter", "Updated event list size: " + eventList.size());
+
+        // Show toast if event list is updated
+        if (context != null) {
+            Toast.makeText(context, "Updated event list size: " + eventList.size(), Toast.LENGTH_SHORT).show();
+        }
+
+        notifyDataSetChanged();
     }
+
+
+
+
+
+
 
     private Date parseDate(String dateStr) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -194,3 +236,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         }
     }
 }
+
+
+
+
+
