@@ -27,10 +27,20 @@
         android:id="@+id/btnOk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="Save Changes"
         android:layout_marginTop="16dp"
         android:textColor="#FFFFFF"
         android:backgroundTint="@color/green" />
+
+    <!-- Delete Button -->
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Event"
+        android:layout_marginTop="8dp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/red" />
 
     <!-- Cancel Button -->
     <Button
@@ -40,5 +50,5 @@
         android:text="Cancel"
         android:layout_marginTop="8dp"
         android:textColor="#FFFFFF"
-        android:backgroundTint="@color/red" />
+        android:backgroundTint="@color/gray" />
 </LinearLayout>

@@ -33,6 +33,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
@@ -176,49 +177,51 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
 
+
+
     private void showEventDialog(String date) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(CalenderActivity.this);
         builder.setTitle("Add Event");
 
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_event, null);
-        EditText eventTitleInput = dialogView.findViewById(R.id.eventTitle);
+        builder.setView(dialogView);
+
+        AutoCompleteTextView eventTitleInput = dialogView.findViewById(R.id.eventTitle);
         Spinner eventTypeSpinner = dialogView.findViewById(R.id.eventType);
         Spinner recurrenceSpinner = dialogView.findViewById(R.id.recurrence);
+        Button okButton = dialogView.findViewById(R.id.btnOk);
+        Button cancelButton = dialogView.findViewById(R.id.btnCancel);
 
         // Set up spinners
-        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this,
-                R.array.event_types, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(
+                this, R.array.event_types, android.R.layout.simple_spinner_item);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         eventTypeSpinner.setAdapter(typeAdapter);
 
-        ArrayAdapter<CharSequence> recurrenceAdapter = ArrayAdapter.createFromResource(this,
-                R.array.recurrence_options, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> recurrenceAdapter = ArrayAdapter.createFromResource(
+                this, R.array.recurrence_options, android.R.layout.simple_spinner_item);
         recurrenceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         recurrenceSpinner.setAdapter(recurrenceAdapter);
 
-        builder.setView(dialogView);
-
-        // Create the dialog
         AlertDialog dialog = builder.create();
-        dialog.show(); // Show the dialog
 
-        // Set the "OK" button behavior
-        Button okButton = dialog.findViewById(R.id.btnOk);
         okButton.setOnClickListener(v -> {
             String title = eventTitleInput.getText().toString();
             String type = eventTypeSpinner.getSelectedItem().toString();
             String recurrence = recurrenceSpinner.getSelectedItem().toString();
 
-            // Save the event
             eventList.add(new Event(date, title, type, recurrence));
-            adapter.notifyDataSetChanged(); // Update the event list view
 
-            // Dismiss the dialog
+            // Sort events by date
+            Collections.sort(eventList, (e1, e2) -> e1.getDate().compareTo(e2.getDate()));
+
+            adapter.notifyDataSetChanged();
             dialog.dismiss();
         });
 
-        // Set the "Cancel" button behavior
-        builder.setNegativeButton("Cancel", (dialogInterface, which) -> dialogInterface.dismiss());
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
 
 
