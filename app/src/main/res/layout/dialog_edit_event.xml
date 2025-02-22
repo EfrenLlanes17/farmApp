@@ -42,6 +42,15 @@
         android:textColor="#FFFFFF"
         android:backgroundTint="@color/red" />
 
+    <Button
+        android:id="@+id/btnDeleteRecurrence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete With Recurrence"
+        android:layout_marginTop="8dp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/orange" />
+
     <!-- Cancel Button -->
     <Button
         android:id="@+id/btnCancel"
@@ -51,4 +60,8 @@
         android:layout_marginTop="8dp"
         android:textColor="#FFFFFF"
         android:backgroundTint="@color/gray" />
+
+    <!-- Delete Recurrence Button -->
+
+
 </LinearLayout>

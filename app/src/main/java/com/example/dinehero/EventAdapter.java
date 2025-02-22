@@ -31,7 +31,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public EventAdapter(Context context, List<Event> eventList) {
         this.context = context;
         this.eventList = eventList;
-//        sortEvents();
     }
 
 
@@ -93,6 +92,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         Button btnOk = dialogView.findViewById(R.id.btnOk);
         Button btnDelete = dialogView.findViewById(R.id.btnDelete);
         Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+        Button btnDeleteRecurrence = dialogView.findViewById(R.id.btnDeleteRecurrence);
+
 
         // Set existing values
         eventTitleInput.setText(event.getTitle());
@@ -136,6 +137,25 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             dialog.dismiss();
         });
 
+        btnDeleteRecurrence.setOnClickListener(v -> {
+            List<Event> toRemove = new ArrayList<>();
+            String selectedDate = event.getDate();
+            toRemove.add(event);
+            for (Event e : eventList) {
+                if (e.getTitle().equals(event.getTitle()) &&
+                        e.getType().equals(event.getType()) &&
+                        e.getRecurrence().equals(event.getRecurrence()) &&
+                        e.getDate().compareTo(selectedDate) > 0) { // Future events only
+                    toRemove.add(e);
+                }
+            }
+
+            eventList.removeAll(toRemove);
+            notifyDataSetChanged();
+            dialog.dismiss();
+        });
+
+
         // Cancel
         btnCancel.setOnClickListener(v -> dialog.dismiss());
     }
@@ -149,75 +169,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         Collections.sort(eventList, (e1, e2) -> e1.getDate().compareTo(e2.getDate()));
     }
 
-    private void generateRecurringEvents(List<Event> originalEvents) {
-        Log.d("EventAdapter", "generateRecurringEvents called");
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        List<Event> newEvents = new ArrayList<>(); // Temporary list to store events
-
-        for (Event event : originalEvents) {
-            newEvents.add(event);  // Add the original event
-
-            if (event.getRecurrence() != null && !event.getRecurrence().equals("None")) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(parseDate(event.getDate()));
-
-                for (int i = 1; i <= 12; i++) {
-                    switch (event.getRecurrence()) {
-                        case "Daily":
-                            calendar.add(Calendar.DAY_OF_YEAR, 1);
-                            break;
-                        case "Weekly":
-                            calendar.add(Calendar.WEEK_OF_YEAR, 1);
-                            break;
-                        case "Monthly":
-                            calendar.add(Calendar.MONTH, 1);
-                            break;
-                        case "Yearly":
-                            calendar.add(Calendar.YEAR, 1);
-                            break;
-                    }
-
-                    Event recurringEvent = new Event(event.getTitle(), sdf.format(calendar.getTime()), event.getType(), event.getRecurrence());
-                    newEvents.add(recurringEvent);
-                }
-            }
-        }
-
-        // Log before updating the event list
-        Log.d("EventAdapter", "Generated events, total count: " + newEvents.size());
-
-        // Update eventList and notify the adapter
-        eventList.clear();
-        eventList.addAll(newEvents);
-        Collections.sort(eventList, Comparator.comparing(Event::getDate));
-
-        // Log after updating the event list
-        Log.d("EventAdapter", "Updated event list size: " + eventList.size());
-
-        // Show toast if event list is updated
-        if (context != null) {
-            Toast.makeText(context, "Updated event list size: " + eventList.size(), Toast.LENGTH_SHORT).show();
-        }
-
-        notifyDataSetChanged();
-    }
 
 
-
-
-
-
-
-    private Date parseDate(String dateStr) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        try {
-            return sdf.parse(dateStr);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Date();
-        }
-    }
 
     static class EventViewHolder extends RecyclerView.ViewHolder {
         TextView eventDate, eventTitle, eventType, recurrenceStatus;
