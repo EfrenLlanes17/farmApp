@@ -144,63 +144,62 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
 
-    private void generateRecurringEvents(List<Event> originalEvents) {
-        Log.d("EventAdapter", "generateRecurringEvents called");
+    private void generateRecurringEvents(Event event) {
+        Log.d("EventAdapter", "Generating recurrence for: " + event.getTitle());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        List<Event> newEvents = new ArrayList<>(); // Temporary list to store events
+        List<Event> newEvents = new ArrayList<>();
+        newEvents.add(event); // Add the original event
 
-        for (Event event : originalEvents) {
-            newEvents.add(event);  // Add the original event
+        if (event.getRecurrence() != null && !event.getRecurrence().equals("None")) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(parseDate(event.getDate()));
 
-            if (event.getRecurrence() != null && !event.getRecurrence().equals("None")) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(parseDate(event.getDate()));
+            int recurrenceCount;
+            switch (event.getRecurrence()) {
+                case "Daily":
+                    recurrenceCount = 365;
+                    break;
+                case "Weekly":
+                    recurrenceCount = 52;
+                    break;
+                case "Monthly":
+                    recurrenceCount = 12;
+                    break;
+                case "Yearly":
+                    recurrenceCount = 1;
+                    break;
+                default:
+                    recurrenceCount = 0; // No recurrence
+            }
 
-                for (int i = 1; i <= 12; i++) {
-                    switch (event.getRecurrence()) {
-                        case "Daily":
-                            calendar.add(Calendar.DAY_OF_YEAR, 1);
-                            break;
-                        case "Weekly":
-                            calendar.add(Calendar.WEEK_OF_YEAR, 1);
-                            break;
-                        case "Monthly":
-                            calendar.add(Calendar.MONTH, 1);
-                            break;
-                        case "Yearly":
-                            calendar.add(Calendar.YEAR, 1);
-                            break;
-                    }
-
-                    Event recurringEvent = new Event(event.getTitle(), sdf.format(calendar.getTime()), event.getType(), event.getRecurrence());
-                    newEvents.add(recurringEvent);
+            for (int i = 1; i <= recurrenceCount; i++) {
+                switch (event.getRecurrence()) {
+                    case "Daily":
+                        calendar.add(Calendar.DAY_OF_YEAR, 1);
+                        break;
+                    case "Weekly":
+                        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+                        break;
+                    case "Monthly":
+                        calendar.add(Calendar.MONTH, 1);
+                        break;
+                    case "Yearly":
+                        calendar.add(Calendar.YEAR, 1);
+                        break;
                 }
+
+                Event recurringEvent = new Event(sdf.format(calendar.getTime()) , event.getTitle(), event.getType(), event.getRecurrence());
+                newEvents.add(recurringEvent);
             }
         }
 
-        // Log before updating the event list
-        Log.d("EventAdapter", "Generated events, total count: " + newEvents.size());
-
-        // Update eventList and notify the adapter
-        eventList.clear();
         eventList.addAll(newEvents);
         Collections.sort(eventList, Comparator.comparing(Event::getDate));
-
-
-
-
-
-        // Log after updating the event list
-        Log.d("EventAdapter", "Updated event list size: " + eventList.size());
-
-        // Show toast if event list is updated
-
-        Toast.makeText(this, "Updated event list size: " + eventList.size(), Toast.LENGTH_SHORT).show();
-
-
-
+        adapter.notifyDataSetChanged();
     }
+
+
 
 
     private Date parseDate(String dateStr) {
@@ -284,12 +283,14 @@ public class CalenderActivity extends AppCompatActivity {
             String type = eventTypeSpinner.getSelectedItem().toString();
             String recurrence = recurrenceSpinner.getSelectedItem().toString();
 
-            eventList.add(new Event(date, title, type, recurrence));
+            //eventList.add(new Event(date, title, type, recurrence));
 
-            generateRecurringEvents(eventList);
+            generateRecurringEvents(new Event(date, title, type, recurrence));
 
             // Sort events by date
             Collections.sort(eventList, (e1, e2) -> e1.getDate().compareTo(e2.getDate()));
+
+            Toast.makeText(this, "Updated event list size: " + eventList.size(), Toast.LENGTH_SHORT).show();
 
             adapter.notifyDataSetChanged();
             dialog.dismiss();
