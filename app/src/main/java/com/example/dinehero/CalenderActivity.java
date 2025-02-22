@@ -161,10 +161,10 @@ public class CalenderActivity extends AppCompatActivity {
                     recurrenceCount = 365;
                     break;
                 case "Weekly":
-                    recurrenceCount = 52;
+                    recurrenceCount = 53;
                     break;
                 case "Monthly":
-                    recurrenceCount = 12;
+                    recurrenceCount = 13;
                     break;
                 case "Yearly":
                     recurrenceCount = 1;

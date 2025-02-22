@@ -79,13 +79,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
 
-    public void updateEventList(List<Event> updatedEventList) {
-        eventList.clear();
-        eventList.addAll(updatedEventList);  // Update the event list
-        generateRecurringEvents(updatedEventList);  // Generate recurring events
-        sortEvents();  // Sort events
-        notifyDataSetChanged();  // Notify adapter to refresh the UI
-    }
+
 
     private void showEditEventDialog(Event event, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -129,15 +123,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             event.setRecurrence(recurrenceSpinner.getSelectedItem().toString());
 
             // Update the event list and UI
-            eventList.add(event);  // Add the event to the list
-            updateEventList(eventList);  // Update the list and trigger generateRecurringEvents
+            eventList.remove(position);
+            eventList.add(event);
+            sortEvents();
+            notifyDataSetChanged();
             dialog.dismiss();
         });
 
         // Delete Event
         btnDelete.setOnClickListener(v -> {
             eventList.remove(position);
-            updateEventList(eventList);
+
+            notifyDataSetChanged();
             dialog.dismiss();
         });
 
