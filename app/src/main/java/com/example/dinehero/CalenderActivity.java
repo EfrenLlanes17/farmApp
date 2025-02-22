@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -34,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
@@ -67,6 +69,7 @@ import android.app.AlertDialog;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 public class CalenderActivity extends AppCompatActivity {
@@ -140,6 +143,77 @@ public class CalenderActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
+
+    private void generateRecurringEvents(List<Event> originalEvents) {
+        Log.d("EventAdapter", "generateRecurringEvents called");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        List<Event> newEvents = new ArrayList<>(); // Temporary list to store events
+
+        for (Event event : originalEvents) {
+            newEvents.add(event);  // Add the original event
+
+            if (event.getRecurrence() != null && !event.getRecurrence().equals("None")) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(parseDate(event.getDate()));
+
+                for (int i = 1; i <= 12; i++) {
+                    switch (event.getRecurrence()) {
+                        case "Daily":
+                            calendar.add(Calendar.DAY_OF_YEAR, 1);
+                            break;
+                        case "Weekly":
+                            calendar.add(Calendar.WEEK_OF_YEAR, 1);
+                            break;
+                        case "Monthly":
+                            calendar.add(Calendar.MONTH, 1);
+                            break;
+                        case "Yearly":
+                            calendar.add(Calendar.YEAR, 1);
+                            break;
+                    }
+
+                    Event recurringEvent = new Event(event.getTitle(), sdf.format(calendar.getTime()), event.getType(), event.getRecurrence());
+                    newEvents.add(recurringEvent);
+                }
+            }
+        }
+
+        // Log before updating the event list
+        Log.d("EventAdapter", "Generated events, total count: " + newEvents.size());
+
+        // Update eventList and notify the adapter
+        eventList.clear();
+        eventList.addAll(newEvents);
+        Collections.sort(eventList, Comparator.comparing(Event::getDate));
+
+
+
+
+
+        // Log after updating the event list
+        Log.d("EventAdapter", "Updated event list size: " + eventList.size());
+
+        // Show toast if event list is updated
+
+        Toast.makeText(this, "Updated event list size: " + eventList.size(), Toast.LENGTH_SHORT).show();
+
+
+
+    }
+
+
+    private Date parseDate(String dateStr) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        try {
+            return sdf.parse(dateStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Date();
+        }
+    }
+
+
     private void openDatePicker() {
         Calendar calendar = Calendar.getInstance();
 
@@ -211,6 +285,8 @@ public class CalenderActivity extends AppCompatActivity {
             String recurrence = recurrenceSpinner.getSelectedItem().toString();
 
             eventList.add(new Event(date, title, type, recurrence));
+
+            generateRecurringEvents(eventList);
 
             // Sort events by date
             Collections.sort(eventList, (e1, e2) -> e1.getDate().compareTo(e2.getDate()));
