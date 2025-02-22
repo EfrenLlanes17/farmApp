@@ -77,7 +77,7 @@ public class CalenderActivity extends AppCompatActivity {
 
     private BottomNavigationView TNV;
 
-    private List<Event> eventList = new ArrayList<>();
+    private static List<Event> eventList;
     private EventAdapter adapter;
     private RecyclerView recyclerView;
     private FloatingActionButton fabAddEvent;
@@ -98,6 +98,13 @@ public class CalenderActivity extends AppCompatActivity {
         fabAddEvent = findViewById(R.id.fabAddEvent);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        if (eventList == null){
+            eventList = new ArrayList<>();
+            adapter = new EventAdapter(this, eventList);
+        }
+        else{
+            adapter = new EventAdapter(this, eventList);
+        }
         adapter = new EventAdapter(this, eventList);
         recyclerView.setAdapter(adapter);
 

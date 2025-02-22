@@ -31,9 +31,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public EventAdapter(Context context, List<Event> eventList) {
         this.context = context;
         this.eventList = eventList;
-        Log.d("EventAdapter", "EventAdapter constructor called");
-        generateRecurringEvents(eventList);  // Ensure this method is being called
-        sortEvents();
+//        sortEvents();
     }
 
 
