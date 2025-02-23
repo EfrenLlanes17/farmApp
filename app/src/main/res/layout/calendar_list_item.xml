@@ -1,51 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="700dp"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="8dp"
-    android:background="#FFFFFF"
-    android:gravity="center_vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="10dp"
+    android:elevation="20dp"
+    android:background="@color/white">
 
-    <!-- Event Date -->
-    <TextView
-        android:id="@+id/eventDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="2025-02-21"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginEnd="8dp" />
 
-    <!-- Event Title -->
-    <TextView
-        android:id="@+id/eventTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Event Title"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginEnd="8dp" />
 
-    <!-- Event Type (e.g., Task, Harvest) -->
-    <TextView
-        android:id="@+id/eventType"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Type"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:layout_marginEnd="8dp"
-        android:textStyle="italic" />
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/white">
 
-    <!-- Recurrence Status (e.g., Daily, Weekly, None) -->
-    <TextView
-        android:id="@+id/recurrenceStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="None"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="italic" />
-</LinearLayout>
+        <!-- Event Date -->
+        <TextView
+            android:id="@+id/eventDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="2025-02-21"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Event Title -->
+        <TextView
+            android:id="@+id/eventTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Event Title"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Horizontal Row: Event Type + Recurrence -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start">
+
+            <!-- Event Type Badge -->
+            <TextView
+                android:id="@+id/eventType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:background="@color/red"
+                android:textStyle="bold"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Recurrence Badge -->
+            <TextView
+                android:id="@+id/recurrenceStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="None"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:background="@color/red"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

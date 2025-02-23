@@ -47,7 +47,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         Event event = eventList.get(position);
 
         // Set the event date, title, event type, and recurrence status
-        holder.eventDate.setText(event.getDate());
+        try {
+            SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            SimpleDateFormat newFormat = new SimpleDateFormat("MM-dd-yy", Locale.getDefault());
+
+            Date date = oldFormat.parse(event.getDate());
+            String formattedDate = newFormat.format(date);
+
+            holder.eventDate.setText(formattedDate);
+        } catch (Exception e) {
+            holder.eventDate.setText(event.getDate());
+        }
+
         holder.eventTitle.setText(event.getTitle());
         holder.eventType.setText(event.getType());
         holder.recurrenceStatus.setText(event.getRecurrence());
