@@ -180,7 +180,7 @@ public class CalenderActivity extends AppCompatActivity {
                 default:
                     recurrenceCount = 0; // No recurrence
             }
-
+            newEvents.add(new Event(sdf.format(calendar.getTime()) , event.getTitle(), event.getType(), event.getRecurrence()));
             for (int i = 1; i <= recurrenceCount; i++) {
                 switch (event.getRecurrence()) {
                     case "Daily":
@@ -200,6 +200,11 @@ public class CalenderActivity extends AppCompatActivity {
                 Event recurringEvent = new Event(sdf.format(calendar.getTime()) , event.getTitle(), event.getType(), event.getRecurrence());
                 newEvents.add(recurringEvent);
             }
+        }
+        else{
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(parseDate(event.getDate()));
+            newEvents.add(new Event(sdf.format(calendar.getTime()) , event.getTitle(), event.getType(), event.getRecurrence()));
         }
 
         eventList.addAll(newEvents);
