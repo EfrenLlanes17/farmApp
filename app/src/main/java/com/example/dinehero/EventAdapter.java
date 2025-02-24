@@ -50,26 +50,26 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
         if (event.isHeader()) {
 
-//            try {
-//                SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-//                SimpleDateFormat newFormat = new SimpleDateFormat("MM-dd-yy", Locale.getDefault());
-//                Date date = oldFormat.parse(event.getDate());
-//                String formattedDate = newFormat.format(date);
-//                holder.headerTitle.setText(formattedDate);
-//            } catch (Exception e) {
+            try {
+                SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                SimpleDateFormat newFormat = new SimpleDateFormat("MM-dd-yy", Locale.getDefault());
+                Date date = oldFormat.parse(event.getDate());
+                String formattedDate = newFormat.format(date);
+                holder.headerTitle.setText(formattedDate);
+            } catch (Exception e) {
                 holder.headerTitle.setText(event.getDate()); // Display date header
-//            }
+            }
 
         } else {
-//            try {
-//                SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-//                SimpleDateFormat newFormat = new SimpleDateFormat("MM-dd-yy", Locale.getDefault());
-//                Date date = oldFormat.parse(event.getDate());
-//                String formattedDate = newFormat.format(date);
-//                holder.eventDate.setText(formattedDate);
-//            } catch (Exception e) {
+            try {
+                SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                SimpleDateFormat newFormat = new SimpleDateFormat("MM-dd-yy", Locale.getDefault());
+                Date date = oldFormat.parse(event.getDate());
+                String formattedDate = newFormat.format(date);
+                holder.eventDate.setText(formattedDate);
+            } catch (Exception e) {
                 holder.eventDate.setText(event.getDate());
-//            }
+            }
 
             holder.eventTitle.setText(event.getTitle());
             holder.eventType.setText(event.getType());
