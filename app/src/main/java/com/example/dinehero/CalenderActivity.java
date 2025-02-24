@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import android.os.Bundle;
@@ -156,7 +157,7 @@ public class CalenderActivity extends AppCompatActivity {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         List<Event> newEvents = new ArrayList<>();
-        newEvents.add(event); // Add the original event
+//        newEvents.add(event); // Add the original event
 
         if (event.getRecurrence() != null && !event.getRecurrence().equals("None")) {
             Calendar calendar = Calendar.getInstance();
@@ -202,7 +203,10 @@ public class CalenderActivity extends AppCompatActivity {
         }
 
         eventList.addAll(newEvents);
-        Collections.sort(eventList, Comparator.comparing(Event::getDate));
+        adapter.notifyDataSetChanged();
+        adapter.updateEvents(eventList);
+        //Collections.sort(eventList, Comparator.comparing(Event::getDate));
+        sortEventsByDate(eventList);
         adapter.notifyDataSetChanged();
     }
 
@@ -306,6 +310,23 @@ public class CalenderActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
+    }
+
+    public void sortEventsByDate(List<Event> eventList) {
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Collections.sort(eventList, new Comparator<Event>() {
+            @Override
+            public int compare(Event e1, Event e2) {
+                try {
+                    Date d1 = sdf.parse(e1.getDate());
+                    Date d2 = sdf.parse(e2.getDate());
+                    return d1.compareTo(d2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
     }
 
 
