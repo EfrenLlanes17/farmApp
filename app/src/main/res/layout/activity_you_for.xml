@@ -24,7 +24,7 @@
         android:layout_width="550dp"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:hint="Title"
+        android:hint="Title Plant Name"
         android:textColorHint="#FD8C9D"
         android:textStyle="bold"
         android:imeOptions="actionDone"
@@ -36,30 +36,30 @@
 
         ></EditText>
 
-    <EditText
+    <TextView
+        android:id="@+id/edtTextDate"
         android:layout_width="550dp"
-        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:hint="Date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="425dp"
+        android:hint="Select Date"
         android:textColorHint="#FD8C9D"
         android:textColor="#FD8C9D"
         android:textStyle="bold"
-        android:inputType="date"
-        android:textSize="25dp"
-        android:layout_marginTop="425dp"
+        android:textSize="25sp"
         android:fontFamily="@font/notoserifvithkuqivariablefontwght"
-        android:id="@+id/edtTextDate"
+        android:gravity="center"
+        android:padding="10dp"
+        android:background="@android:color/transparent"/>
 
-        ></EditText>
 
 
-    <EditText
-        android:layout_width="550dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:hint="Location"
+        android:text="Location"
         android:textColorHint="#FD8C9D"
-        android:imeOptions="actionDone"
         android:textColor="#FD8C9D"
         android:textStyle="bold"
         android:textSize="25dp"
@@ -67,58 +67,24 @@
         android:fontFamily="@font/notoserifvithkuqivariablefontwght"
         android:id="@+id/edtTextLoc"
 
-        ></EditText>
+        ></TextView>
 
-    <EditText
-        android:layout_width="550dp"
-        android:layout_centerHorizontal="true"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
-        android:hint="Price"
-        android:layout_marginTop="225dp"
+        android:text="Text Here"
         android:textColor="#FD8C9D"
-        android:inputType="number"
         android:textStyle="bold"
         android:textSize="25dp"
-        android:id="@+id/edtTextPrice"
         android:fontFamily="@font/notoserifvithkuqivariablefontwght"
-        android:textColorHint="#FD8C9D"
+        android:id="@+id/imageOutputText"
+
+        ></TextView>
 
 
-        ></EditText>
 
-    <EditText
-        android:layout_width="550dp"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:hint="Attending"
-        android:textColorHint="#FD8C9D"
-        android:textStyle="bold"
-        android:imeOptions="actionNext"
-        android:textColor="#FD8C9D"
-        android:inputType="number"
-        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
-        android:textSize="25dp"
-        android:layout_marginTop="325dp"
-        android:id="@+id/edtTextAttending"
 
-        ></EditText>
-
-    <EditText
-        android:layout_width="550dp"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:hint="Description"
-        android:textColor="#FD8C9D"
-        android:textColorHint="#FD8C9D"
-        android:imeOptions="actionDone"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
-
-        android:layout_marginTop="625dp"
-        android:id="@+id/edtTextDisc"
-
-        ></EditText>
 
 
     <Button
