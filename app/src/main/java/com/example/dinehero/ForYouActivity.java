@@ -76,7 +76,14 @@ public class ForYouActivity extends AppCompatActivity {
     private EditText eventAttending;
     private TextView eventDate;
 
+    private int month2;
+
+    private static boolean alreadyPlants = false;
+
     private Uri uriiiii;
+
+    private static ArrayList<Plant> plantList = new ArrayList<>();
+
 
 
     ActivityMainBinding binding;
@@ -87,7 +94,13 @@ public class ForYouActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_you_for);
-
+        if (!alreadyPlants) {
+            plantList.add(new Plant("Tomato", "red", "green", "yellow", "brown", "bees", 12, "bushy", "flowers attract bees"));
+            plantList.add(new Plant("Sunflower", "yellow", "yellow", "yellow", "brown", "bees, butterflies", 24, "tall stalk", "large, bright flowers attract pollinators"));
+            plantList.add(new Plant("Blueberry", "green", "green", "white", "red", "bees, birds", 36, "shrub", "small flowers attract bees"));
+            alreadyPlants = true;
+        }
+        Toast.makeText(ForYouActivity.this, "" + plantList.size(), Toast.LENGTH_SHORT).show();
 
         eventLoc = findViewById(R.id.edtTextLoc);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -131,6 +144,7 @@ public class ForYouActivity extends AppCompatActivity {
         createPostTxt.setVisibility(View.VISIBLE);
         eventLoc.setVisibility(View.VISIBLE);
         eventName.setVisibility(View.VISIBLE);
+        imageOutputText.setVisibility(View.INVISIBLE);
 
 
 
@@ -154,7 +168,7 @@ public class ForYouActivity extends AppCompatActivity {
                         String selectedDate = (selectedMonth + 1)  + "/" + selectedDay + "/" + selectedYear;
                         eventDate.setText(selectedDate);
                     }, year, month, day);
-
+            this.month2 = month;
             datePickerDialog.show();
         });
 
@@ -171,7 +185,7 @@ public class ForYouActivity extends AppCompatActivity {
                 String location = eventLoc.getText().toString().trim();
                 String date = eventDate.getText().toString().trim();
 
-                if (plantName.isEmpty() || location.isEmpty() || date.isEmpty()) {
+                if (plantName.isEmpty() || location.equals("Location") || date.isEmpty()) {
                     Toast.makeText(ForYouActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -180,16 +194,32 @@ public class ForYouActivity extends AppCompatActivity {
                 String colorName = getColorName(dominantColor);
                 String suggestion = getSuggestionBasedOnColor(colorName);
 
+                // Get additional plant information
+                String plantInfo = getPlantInfo(plantName);
+
+                // Expected color in the current season
+                String expectedColor = expectedColorForSeason(date);
+
                 String outputText = String.format(
                         "Based on the %s color of your %s in %s, you should %s more. " +
-                                "The plant should look more %s this time of year.",
-                        colorName, plantName, location, suggestion, expectedColorForSeason(date)
+                                "The plant should look more %s this time of year.\n\n%s",
+                        colorName, plantName, location, suggestion, expectedColor, plantInfo
                 );
 
                 imageOutputText.setText(outputText);
+                ImageTings.setVisibility(View.INVISIBLE);
+                eventDate.setVisibility(View.INVISIBLE);
+                creatBtn.setVisibility(View.INVISIBLE);
+                goToSignIN.setVisibility(View.INVISIBLE);
+                createPostTxt.setVisibility(View.INVISIBLE);
+                eventLoc.setVisibility(View.INVISIBLE);
+                eventName.setVisibility(View.INVISIBLE);
+                imageOutputText.setVisibility(View.VISIBLE);
+
                 Toast.makeText(ForYouActivity.this, "Analysis Complete", Toast.LENGTH_SHORT).show();
             }
         });
+
 
 
 
@@ -337,6 +367,93 @@ public class ForYouActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    private String getPlantInfo(String plantName) {
+        for (Plant plant : plantList) {
+            if (plant.getName().equalsIgnoreCase(plantName)) {
+                return "The " + plant.getName() + " typically has " + plant.getColorBySeason(getCurrentSeason()) +
+                        " color in this season. It is best planted " + plant.getPlantSpacing() + " inches apart. " +
+                        "Common pollinators include " + plant.getPollinators() + ". It grows in a " + plant.getGrowthPattern() +
+                        " pattern, and " + plant.getPollinatorAttraction() + ".";
+            }
+        }
+        return "Information on " + plantName + " is limited. Ensure proper spacing and consider local pollinators.";
+    }
+
+
+    private String getCurrentSeason() {
+        if (month2 >= 3 && month2 <= 5) return "spring";
+        if (month2 >= 6 && month2 <= 8) return "summer";
+        if (month2 >= 9 && month2 <= 11) return "fall";
+        return "winter";
+    }
+    private Plant getPlantByName(String name) {
+        for (Plant plant : plantList) {
+            if (plant.getName().equalsIgnoreCase(name)) {
+                return plant;
+            }
+        }
+        return null;
+    }
+
+
+    class Plant {
+        private String name;
+        private String winterColor;
+        private String summerColor;
+        private String springColor;
+        private String fallColor;
+        private String pollinators;
+        private int plantSpacing;
+        private String growthPattern;
+        private String pollinatorAttraction;
+
+        public Plant(String name, String winterColor, String summerColor, String springColor, String fallColor,
+                     String pollinators, int plantSpacing, String growthPattern, String pollinatorAttraction) {
+            this.name = name;
+            this.winterColor = winterColor;
+            this.summerColor = summerColor;
+            this.springColor = springColor;
+            this.fallColor = fallColor;
+            this.pollinators = pollinators;
+            this.plantSpacing = plantSpacing;
+            this.growthPattern = growthPattern;
+            this.pollinatorAttraction = pollinatorAttraction;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getColorBySeason(String season) {
+            switch (season.toLowerCase()) {
+                case "winter": return winterColor;
+                case "summer": return summerColor;
+                case "spring": return springColor;
+                case "fall": return fallColor;
+                default: return "unknown";
+            }
+        }
+
+        public String getPollinators() {
+            return pollinators;
+        }
+
+        public int getPlantSpacing() {
+            return plantSpacing;
+        }
+
+        public String getGrowthPattern() {
+            return growthPattern;
+        }
+
+        public String getPollinatorAttraction() {
+            return pollinatorAttraction;
+        }
+    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode,int resultCode, @NonNull Intent data){
