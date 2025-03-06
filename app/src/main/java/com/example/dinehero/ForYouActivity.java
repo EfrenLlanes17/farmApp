@@ -3,10 +3,13 @@ package com.example.dinehero;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -159,22 +162,38 @@ public class ForYouActivity extends AppCompatActivity {
         creatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (uriiiii == null) {
+                    Toast.makeText(ForYouActivity.this, "Please select an image first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-//
-//                ProfileActivity.addToFollowing(new Product(eventName.getText().toString(),eventDisc.getText().toString(),eventLoc.getText().toString(),null,uriiiii,false,eventDate.getText().toString(),1,Integer.parseInt(eventAttending.getText().toString()), Integer.parseInt(eventPrice.getText().toString())));
-//                MainActivity2.addToProdList(new Product(eventName.getText().toString(),eventDisc.getText().toString(),eventLoc.getText().toString(),null,uriiiii,false,eventDate.getText().toString(),1,Integer.parseInt(eventAttending.getText().toString()), Integer.parseInt(eventPrice.getText().toString())));
-//
-//                eventName.setText("");
-//                eventDisc.setText("");
-//                eventLoc.setText("");
-//                eventAttending.setText("");
-//                eventDate.setText("");
-//                ImageTings.setImageDrawable(ContextCompat.getDrawable(ForYouActivity.this,R.drawable.baseline_image_search_24222222222));
-//                //ImageTings.setBackground(ContextCompat.getDrawable(ForYouActivity.this,R.drawable.baseline_image_search_24));
-                imageOutputText.setText("Test Test");
-                Toast.makeText(ForYouActivity.this, "Event Created Successfully", Toast.LENGTH_SHORT).show();
+                String plantName = eventName.getText().toString().trim();
+                String location = eventLoc.getText().toString().trim();
+                String date = eventDate.getText().toString().trim();
+
+                if (plantName.isEmpty() || location.isEmpty() || date.isEmpty()) {
+                    Toast.makeText(ForYouActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                int dominantColor = analyzeImageColor(uriiiii);
+                String colorName = getColorName(dominantColor);
+                String suggestion = getSuggestionBasedOnColor(colorName);
+
+                String outputText = String.format(
+                        "Based on the %s color of your %s in %s, you should %s more. " +
+                                "The plant should look more %s this time of year.",
+                        colorName, plantName, location, suggestion, expectedColorForSeason(date)
+                );
+
+                imageOutputText.setText(outputText);
+                Toast.makeText(ForYouActivity.this, "Analysis Complete", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+
 
         ImageTings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,6 +228,67 @@ public class ForYouActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
+    private int analyzeImageColor(Uri imageUri) {
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            int pixel = bitmap.getPixel(width / 2, height / 2); // Sample the center pixel
+            return pixel;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Color.BLACK; // Default to black in case of error
+        }
+    }
+
+
+    private String getColorName(int color) {
+        int red = Color.red(color);
+        int green = Color.green(color);
+        int blue = Color.blue(color);
+
+        if (green > red && green > blue) return "green";
+        if (red > green && red > blue) return "red";
+        if (blue > red && blue > green) return "blue";
+        if (red > 100 && green > 100 && blue < 100) return "yellow";
+        if (red > 139 && green < 69 && blue < 19) return "brown";
+
+        return "unknown";
+    }
+
+
+    private String getSuggestionBasedOnColor(String color) {
+        switch (color) {
+            case "green":
+                return "continue regular care";
+            case "yellow":
+                return "water";
+            case "brown":
+                return "prune and check for pests";
+            case "red":
+                return "monitor for diseases";
+            default:
+                return "observe and take action as needed";
+        }
+    }
+
+
+    private String expectedColorForSeason(String date) {
+        if (date.contains("12/") || date.contains("1/") || date.contains("2/")) {
+            return "darker green";
+        } else if (date.contains("3/") || date.contains("4/") || date.contains("5/")) {
+            return "bright green";
+        } else if (date.contains("6/") || date.contains("7/") || date.contains("8/")) {
+            return "lush green";
+        } else {
+            return "yellowish-green";
+        }
+    }
+
 
     private void getUserLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
