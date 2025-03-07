@@ -38,6 +38,9 @@
             android:name=".settings"
             android:exported="false" />
         <activity
+            android:name=".AiChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".CalenderActivity"
             android:exported="false" />
         <activity

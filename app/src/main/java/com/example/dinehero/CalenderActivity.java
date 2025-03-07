@@ -123,7 +123,7 @@ public class CalenderActivity extends AppCompatActivity {
                 } else if (item.getItemId() == findViewById(R.id.btnForYou).getId()) {
                     openForYouActivity();
                 } else if (item.getItemId() == findViewById(R.id.btnFollowing).getId()) {
-                    openProfileActivity();
+                    openAIChatActivity();//openProfileActivity();
                 }
                 else if (item.getItemId() == findViewById(R.id.btnSearch).getId()) {
                     openMainActivity();
@@ -140,6 +140,12 @@ public class CalenderActivity extends AppCompatActivity {
     public void openCalenderActivity(){
 
         Intent intent = new Intent(this, CalenderActivity.class);
+        this.startActivity(intent);
+    }
+
+    public void openAIChatActivity(){
+
+        Intent intent = new Intent(this, AiChatActivity.class);
         this.startActivity(intent);
     }
 

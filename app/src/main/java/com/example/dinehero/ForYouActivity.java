@@ -246,7 +246,7 @@ public class ForYouActivity extends AppCompatActivity {
                 } else if (item.getItemId() == findViewById(R.id.btnForYou).getId()) {
                     openForYouActivity();
                 } else if (item.getItemId() == findViewById(R.id.btnFollowing).getId()) {
-                    openProfileActivity();
+                    openAIChatActivity();//openProfileActivity();
                 }
                 else if (item.getItemId() == findViewById(R.id.btnSearch).getId()) {
                     openMainActivity();
@@ -289,6 +289,7 @@ public class ForYouActivity extends AppCompatActivity {
 
         return "unknown";
     }
+
 
 
     private String getSuggestionBasedOnColor(String color) {
@@ -471,6 +472,12 @@ public class ForYouActivity extends AppCompatActivity {
     public void openInboxActivity(){
 
         Intent intent = new Intent(this, ForYouActivity.class);
+        this.startActivity(intent);
+    }
+
+    public void openAIChatActivity(){
+
+        Intent intent = new Intent(this, AiChatActivity.class);
         this.startActivity(intent);
     }
     public void openProfileActivity(){
