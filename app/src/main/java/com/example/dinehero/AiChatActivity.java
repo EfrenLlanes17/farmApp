@@ -2,6 +2,7 @@ package com.example.dinehero;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,9 @@ public class AiChatActivity extends AppCompatActivity {
     private MessageAdapter messageAdapter;
     private List<Message> messages = new ArrayList<>();
 
+    private Handler handler = new Handler();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +64,12 @@ public class AiChatActivity extends AppCompatActivity {
                     messageInput.setText("");
 
                     // Simulate AI response
-                    recyclerView.postDelayed(() -> {
-                        messages.add(new Message("Test", false)); // AI response
-                        messageAdapter.notifyItemInserted(messages.size() - 1);
-                        recyclerView.scrollToPosition(messages.size() - 1);
-                    }, 500);
+//                    recyclerView.postDelayed(() -> {
+//                        messages.add(new Message("Test", false)); // AI response
+//                        messageAdapter.notifyItemInserted(messages.size() - 1);
+//                        recyclerView.scrollToPosition(messages.size() - 1);
+//                    }, 500);
+                    handler.postDelayed(() -> simulateTypingEffect("the thethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethe", recyclerView), 500);
                 }
             }
         });
@@ -113,10 +118,44 @@ public class AiChatActivity extends AppCompatActivity {
             return text;
         }
 
+        public void setText(String t) {
+            text =  t;
+        }
+
         public boolean isUser() {
             return isUser;
         }
     }
+
+    private void simulateTypingEffect(String fullMessage, RecyclerView recyclerView) {
+        Message typingMessage = new Message("", false);
+        messages.add(typingMessage);
+        messageAdapter.notifyItemInserted(messages.size() - 1);
+        recyclerView.scrollToPosition(messages.size() - 1);
+
+        int messageLength = fullMessage.length();
+        int typingDelay = Math.max(30, 200 / messageLength); // Speed scales with text length
+
+        new Thread(() -> {
+            StringBuilder currentText = new StringBuilder();
+            for (char c : fullMessage.toCharArray()) {
+                currentText.append(c);
+                typingMessage.setText(currentText.toString());
+
+                runOnUiThread(() -> {
+                    messageAdapter.notifyItemChanged(messages.size() - 1);
+                    recyclerView.scrollToPosition(messages.size() - 1);
+                });
+
+                try {
+                    Thread.sleep(typingDelay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
     public void openMainActivity(){
 
         Intent intent = new Intent(this, MainActivity2.class);
