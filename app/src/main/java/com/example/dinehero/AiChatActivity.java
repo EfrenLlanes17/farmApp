@@ -69,7 +69,7 @@ public class AiChatActivity extends AppCompatActivity {
 //                        messageAdapter.notifyItemInserted(messages.size() - 1);
 //                        recyclerView.scrollToPosition(messages.size() - 1);
 //                    }, 500);
-                    handler.postDelayed(() -> simulateTypingEffect("the thethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethethe", recyclerView), 500);
+                    handler.postDelayed(() -> simulateTypingEffect(message, recyclerView), 500);
                 }
             }
         });
@@ -83,7 +83,7 @@ public class AiChatActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == findViewById(R.id.btnDiscover).getId()) {
-                    openSearchActivity();
+                    openCalendarActivity();
 
                 } else if (item.getItemId() == findViewById(R.id.btnForYou).getId()) {
                     openForYouActivity();
@@ -189,6 +189,12 @@ public class AiChatActivity extends AppCompatActivity {
     public void openSearchActivity(){
 
         Intent intent = new Intent(this, SearchActivity.class);
+        this.startActivity(intent);
+    }
+
+    public void openCalendarActivity(){
+
+        Intent intent = new Intent(this, CalenderActivity.class);
         this.startActivity(intent);
     }
     public static ArrayList<Product> getFollowingProductList(){

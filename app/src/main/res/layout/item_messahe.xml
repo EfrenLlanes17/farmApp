@@ -31,5 +31,6 @@
         android:textColor="@android:color/black"
         android:padding="8dp"
         android:textSize="16sp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:maxWidth="700dp"/>
 </LinearLayout>

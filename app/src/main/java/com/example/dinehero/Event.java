@@ -7,6 +7,8 @@ public class Event {
     private String recurrence;
     private boolean isHeader;
 
+    private boolean finished;
+
     // Constructor for regular event
     public Event(String date, String title, String type, String recurrence) {
         this.date = date;
@@ -14,6 +16,7 @@ public class Event {
         this.type = type;
         this.recurrence = recurrence;
         this.isHeader = false;
+        this.finished = false;
     }
 
     // Constructor for date headers
@@ -27,6 +30,8 @@ public class Event {
 
     // Getters
     public String getDate() { return date; }
+
+    public boolean getFinished() { return finished; }
     public String getTitle() { return title; }
     public String getType() { return type; }
     public String getRecurrence() { return recurrence; }
@@ -43,6 +48,9 @@ public class Event {
         if (!isHeader) {
             this.type = type;
         }
+    }
+    public void setFinished(boolean x){
+        finished = x;
     }
     public void setRecurrence(String recurrence) {
         if (!isHeader) {

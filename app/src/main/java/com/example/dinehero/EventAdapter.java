@@ -3,6 +3,7 @@ package com.example.dinehero;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,25 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             }
 
             holder.eventTitle.setText(event.getTitle());
+            if (event.getFinished()) {
+                // Remove strikethrough
+                holder.eventTitle.setPaintFlags(holder.eventTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+
+            holder.eventTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if ((holder.eventTitle.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0) {
+                        // Remove strikethrough
+                        holder.eventTitle.setPaintFlags(holder.eventTitle.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                        event.setFinished(false);
+                    } else {
+                        // Apply strikethrough
+                        holder.eventTitle.setPaintFlags(holder.eventTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        event.setFinished(true);
+                    }
+                }
+            });
             holder.eventType.setText(event.getType());
             holder.recurrenceStatus.setText(event.getRecurrence());
 
