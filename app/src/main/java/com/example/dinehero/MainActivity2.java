@@ -116,7 +116,7 @@ public class MainActivity2 extends AppCompatActivity {
         ProductAdapter adapter = new ProductAdapter(this);
         adapter.setProducts(productsList);
         products.setAdapter(adapter);
-        products.setLayoutManager(new GridLayoutManager(this,2));
+        products.setLayoutManager(new GridLayoutManager(this,1));
 
 
     }

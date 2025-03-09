@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -64,6 +65,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
        holder.txtPrice.setText((products.get(position).getSignedUp()) + " / " + products.get(position).getMaxSignedUp() + " Attending");
        holder.txtPercentOff.setText(products.get(position).getDate());
        holder.txtSeller.setText(products.get(position).getLocation());
+
+       holder.btnContact.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Context context = view.getContext();
+               Intent intent = new Intent(Intent.ACTION_SEND);
+               String email = holder.txtSeller.getText().toString() + "Main@" + holder.txtSeller.getText().toString() + ".com";
+               intent.setType("message/rfc822");
+               intent.putExtra(Intent.EXTRA_EMAIL, new String[]{ email.toString().replace(" ","")});
+               intent.putExtra(Intent.EXTRA_SUBJECT, "Check Out This Petition on VoiceIt : " );
+               intent.putExtra(Intent.EXTRA_TEXT, "" + "Test");
+
+               // Check if there is an app that can handle this intent
+               if (intent.resolveActivity(context.getPackageManager()) != null) {
+                   context.startActivity(Intent.createChooser(intent, "Choose an email client"));
+               }
+           }
+       });
+
        holder.parent.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
@@ -146,6 +166,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         private ImageView image;
         private TextView PPProductName;
 
+        private Button btnContact;
+
+        private Button btnAccept;
+
+        private Button btnDecline;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txtName);
@@ -155,6 +181,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             parent = itemView.findViewById(R.id.parent);
             image = itemView.findViewById(R.id.txtImage);
             PPProductName = itemView.findViewById(R.id.txtPPName);
+            btnContact = itemView.findViewById(R.id.btnContact);
+            btnAccept = itemView.findViewById(R.id.btnAccept);
+            btnDecline = itemView.findViewById(R.id.btnDecline);
 
         }
     }

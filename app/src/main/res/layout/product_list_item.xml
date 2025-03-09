@@ -6,38 +6,32 @@
     android:layout_height="wrap_content"
     android:padding="5dp"
     app:cardCornerRadius="25dp"
-android:elevation="50dp"
+    android:elevation="50dp"
     android:layout_margin="30dp"
-android:backgroundTint="#FFFFFF"
-    >
+    android:backgroundTint="#FFFFFF">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="15dp"
-        android:background="#FFFFFF"
-        >
+        android:background="#FFFFFF">
 
         <ImageView
             android:id="@+id/txtImage"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/ic_launcher_round"
-           />
+            android:src="@mipmap/ic_launcher_round" />
 
         <TextView
             android:id="@+id/txtName"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtImage"
             android:fontFamily="@font/notoserifvithkuqivariablefontwght"
             android:text="Product Name"
             android:textColor="@color/black"
-            android:textSize="32dp"/>
-
-
+            android:textSize="32dp" />
 
         <TextView
             android:id="@+id/txtPrice"
@@ -48,8 +42,7 @@ android:backgroundTint="#FFFFFF"
             android:text="Product Price"
             android:fontFamily="@font/notoserifvithkuqivariablefontwght"
             android:textColor="@color/black"
-            android:textSize="22dp"/>
-
+            android:textSize="22dp" />
 
         <TextView
             android:id="@+id/txtSeller"
@@ -62,8 +55,7 @@ android:backgroundTint="#FFFFFF"
             android:textStyle="italic"
             android:textColor="#FE8D9E"
             android:textColorHint="#FFFEC86C"
-            android:fontFamily="@font/notoserifvithkuqivariablefontwght"            />
-
+            android:fontFamily="@font/notoserifvithkuqivariablefontwght" />
 
         <TextView
             android:id="@+id/txtPercentOff"
@@ -79,9 +71,39 @@ android:backgroundTint="#FFFFFF"
             android:textSize="15dp"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/btnAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtSeller"
+            android:layout_marginTop="10dp"
+            android:text="Accept"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF" />
 
+        <Button
+            android:id="@+id/btnDecline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtSeller"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/btnAccept"
+            android:layout_marginLeft="10dp"
+            android:text="Decline"
+            android:backgroundTint="#F44336"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtSeller"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/btnDecline"
+            android:layout_marginLeft="10dp"
+            android:text="Contact"
+            android:backgroundTint="#2196F3"
+            android:textColor="#FFFFFF" />
 
     </RelativeLayout>
-
-
 </androidx.cardview.widget.CardView>

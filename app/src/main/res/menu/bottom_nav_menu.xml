@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+    <item
+        android:id="@+id/btnDiscover"
+        android:checkable="false"
+        android:enabled="true"
+        android:title="Requests"
+        android:visible="true"
+        app:showAsAction="always"
+
+        />
+
+    <item
+        android:id="@+id/btnForYou"
+        android:title="My Orders"
+        android:visible="true"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/btnFollowing"
+        android:title="AI Aid"
+        app:showAsAction="always" />
+
+
+
+</menu>
