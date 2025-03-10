@@ -52,8 +52,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         if (event.isHeader()) {
 
             try {
-                SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                SimpleDateFormat newFormat = new SimpleDateFormat("MM-dd-yy", Locale.getDefault());
+                SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+                SimpleDateFormat newFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
                 Date date = oldFormat.parse(event.getDate());
                 String formattedDate = newFormat.format(date);
                 holder.headerTitle.setText(formattedDate);
@@ -63,8 +63,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
         } else {
             try {
-                SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                SimpleDateFormat newFormat = new SimpleDateFormat("MM-dd-yy", Locale.getDefault());
+                SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+                SimpleDateFormat newFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
                 Date date = oldFormat.parse(event.getDate());
                 String formattedDate = newFormat.format(date);
                 holder.eventDate.setText(formattedDate);

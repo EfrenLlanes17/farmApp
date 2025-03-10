@@ -111,7 +111,7 @@ public class CalenderActivity extends AppCompatActivity {
 
         fabAddEvent.setOnClickListener(v -> openDatePicker());
 
-
+        scrollToClosestEvent();
 
 
         TNV.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -161,7 +161,7 @@ public class CalenderActivity extends AppCompatActivity {
     private void generateRecurringEvents(Event event) {
         Log.d("EventAdapter", "Generating recurrence for: " + event.getTitle());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
         List<Event> newEvents = new ArrayList<>();
 //        newEvents.add(event); // Add the original event
 
@@ -217,15 +217,18 @@ public class CalenderActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         adapter.updateEvents(eventList);
         //Collections.sort(eventList, Comparator.comparing(Event::getDate));
+
+        adapter.notifyDataSetChanged();
         sortEventsByDate(eventList);
         adapter.notifyDataSetChanged();
+
     }
 
 
 
 
     private Date parseDate(String dateStr) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
         try {
             return sdf.parse(dateStr);
         } catch (Exception e) {
@@ -244,7 +247,7 @@ public class CalenderActivity extends AppCompatActivity {
                 android.R.style.Theme_DeviceDefault_Light_Dialog,
                 (view, year, month, dayOfMonth) -> {
                     // This will be triggered when the user selects a date
-                    String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+                    String selectedDate = year + "/" + (month + 1) + "/" + dayOfMonth;
                     showEventDialog(selectedDate); // Pass the selected date to event dialog
                 },
                 calendar.get(Calendar.YEAR),
@@ -258,7 +261,7 @@ public class CalenderActivity extends AppCompatActivity {
             int selectedYear = datePicker.getYear();
             int selectedMonth = datePicker.getMonth();
             int selectedDay = datePicker.getDayOfMonth();
-            String confirmedDate = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay;
+            String confirmedDate = selectedYear + "/" + (selectedMonth + 1) + "/" + selectedDay;
             showEventDialog(confirmedDate); // Show event dialog with confirmed date
         });
 
@@ -269,6 +272,39 @@ public class CalenderActivity extends AppCompatActivity {
 
         // Show the date picker dialog
         datePickerDialog.show();
+    }
+
+    private void scrollToClosestEvent() {
+        if (eventList == null || eventList.isEmpty()) return;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+        //"yyyy/MM/dd"
+        Date today = new Date();
+        int closestIndex = 0;
+        long minDiff = Long.MAX_VALUE;
+        Toast.makeText(this, today.toString(), Toast.LENGTH_SHORT).show();
+
+        for (int i = 0; i < eventList.size(); i++) {
+            try {
+                Date eventDate = sdf.parse(eventList.get(i).getDate());
+                long diff = Math.abs(eventDate.getTime() - today.getTime());
+                //long diff =eventDate.getTime() - today.getTime();
+
+
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    closestIndex = i;
+                }
+            } catch (ParseException e) {
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // Scroll to the closest event
+        Toast.makeText(this, "Scrolling to: " + eventList.get(closestIndex).getDate(), Toast.LENGTH_SHORT).show();
+
+        int finalClosestIndex = closestIndex;
+        recyclerView.post(() -> recyclerView.smoothScrollToPosition(finalClosestIndex*2 + 5));
     }
 
 
@@ -324,7 +360,7 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
     public void sortEventsByDate(List<Event> eventList) {
-        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
         Collections.sort(eventList, new Comparator<Event>() {
             @Override
             public int compare(Event e1, Event e2) {

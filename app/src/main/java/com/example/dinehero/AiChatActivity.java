@@ -62,13 +62,16 @@ public class AiChatActivity extends AppCompatActivity {
                     messageAdapter.notifyItemInserted(messages.size() - 1);
                     recyclerView.scrollToPosition(messages.size() - 1);
                     messageInput.setText("");
-
+                    String finalMessage = "";
                     // Simulate AI response
 //                    recyclerView.postDelayed(() -> {
 //                        messages.add(new Message("Test", false)); // AI response
 //                        messageAdapter.notifyItemInserted(messages.size() - 1);
 //                        recyclerView.scrollToPosition(messages.size() - 1);
 //                    }, 500);
+
+
+
                     handler.postDelayed(() -> simulateTypingEffect(message, recyclerView), 500);
                 }
             }
