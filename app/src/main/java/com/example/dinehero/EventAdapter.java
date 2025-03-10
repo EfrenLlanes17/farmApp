@@ -108,6 +108,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 case "IoT":
                     holder.eventDate.setTextColor(Color.MAGENTA);
                     break;
+                case "Order":
+                    holder.eventDate.setTextColor(Color.BLACK);
+                    break;
             }
 
             holder.itemView.setOnLongClickListener(v -> {

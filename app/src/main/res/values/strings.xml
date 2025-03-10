@@ -8,6 +8,7 @@
         <item>Employee Schedule</item>
         <item>Harvest</item>
         <item>IoT</item>
+        <item>Order</item>
     </string-array>
 
     <string-array name="recurrence_options">

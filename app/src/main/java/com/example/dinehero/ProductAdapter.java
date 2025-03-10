@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -81,6 +83,44 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                if (intent.resolveActivity(context.getPackageManager()) != null) {
                    context.startActivity(Intent.createChooser(intent, "Choose an email client"));
                }
+           }
+       });
+
+       holder.btnDecline.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+                Product p = products.get(position);
+                products.remove(position);
+                notifyDataSetChanged();
+
+               Snackbar snackbar = Snackbar.make(view, "Item deleted", Snackbar.LENGTH_LONG)
+                       .setAction("UNDO", new View.OnClickListener() {
+                           @Override
+                           public void onClick(View v) {
+                               products.add(position,p);
+                               notifyDataSetChanged();
+
+                           }
+                       });
+
+// Customize the action button color (optional)
+               snackbar.setActionTextColor(Color.YELLOW);
+
+// Show the Snackbar
+               snackbar.show();
+           }
+       });
+
+
+       holder.btnAccept.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               CalenderActivity.eventList.add(new Event(products.get(position).getDate(),products.get(position).getProductName(),"Order","None"));
+               CalenderActivity.adapter.notifyDataSetChanged();
+               products.remove(position);
+               notifyDataSetChanged();
+               Toast.makeText(holder.btnAccept.getContext(), "Order Added To Calender", Toast.LENGTH_SHORT).show();
+
            }
        });
 

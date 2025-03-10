@@ -78,8 +78,8 @@ public class CalenderActivity extends AppCompatActivity {
 
     private BottomNavigationView TNV;
 
-    private static List<Event> eventList;
-    private EventAdapter adapter;
+    public static List<Event> eventList;
+    public static EventAdapter adapter;
     private RecyclerView recyclerView;
     private FloatingActionButton fabAddEvent;
 
