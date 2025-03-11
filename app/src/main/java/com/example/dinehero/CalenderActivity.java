@@ -1,14 +1,17 @@
 package com.example.dinehero;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -81,6 +84,7 @@ public class CalenderActivity extends AppCompatActivity {
     public static List<Event> eventList;
     public static EventAdapter adapter;
     private RecyclerView recyclerView;
+
     private FloatingActionButton fabAddEvent;
 
 
@@ -111,7 +115,7 @@ public class CalenderActivity extends AppCompatActivity {
 
         fabAddEvent.setOnClickListener(v -> openDatePicker());
 
-        scrollToClosestEvent();
+        scrollToClosestEvent(EventAdapter.eventList);
 
 
         TNV.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -274,38 +278,43 @@ public class CalenderActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void scrollToClosestEvent() {
-        if (eventList == null || eventList.isEmpty()) return;
+    private void scrollToClosestEvent(List<Event> x) {
+        if (x == null || x.isEmpty()) return;
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
-        //"yyyy/MM/dd"
         Date today = new Date();
-        int closestIndex = 0;
+        int closestIndex = -1;
         long minDiff = Long.MAX_VALUE;
-        Toast.makeText(this, today.toString(), Toast.LENGTH_SHORT).show();
+        int header = 0;
+        int notHeader = 0;
 
-        for (int i = 0; i < eventList.size(); i++) {
+
+        for (int i = 0; i < x.size(); i++) {
             try {
-                Date eventDate = sdf.parse(eventList.get(i).getDate());
-                long diff = Math.abs(eventDate.getTime() - today.getTime());
-                //long diff =eventDate.getTime() - today.getTime();
+                if (x.get(i).isHeader()) {
+                    header++;
+                } else {
+                    notHeader++;
+                }
 
+                Date eventDate = sdf.parse(x.get(i).getDate());
+                long diff = Math.abs(eventDate.getTime() - today.getTime());
 
                 if (diff < minDiff) {
                     minDiff = diff;
                     closestIndex = i;
                 }
+
             } catch (ParseException e) {
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                throw new RuntimeException(e);
             }
         }
+            Toast.makeText(this, "Headers: " + header + " Not: " + notHeader + " Scrolling to: " + closestIndex + " Today " + today.toString(), Toast.LENGTH_SHORT).show();
 
-        // Scroll to the closest event
-        Toast.makeText(this, "Scrolling to: " + eventList.get(closestIndex).getDate(), Toast.LENGTH_SHORT).show();
+        recyclerView.scrollToPosition(closestIndex);
 
-        int finalClosestIndex = closestIndex;
-        recyclerView.post(() -> recyclerView.smoothScrollToPosition(finalClosestIndex*2 + 5));
     }
+
 
 
 

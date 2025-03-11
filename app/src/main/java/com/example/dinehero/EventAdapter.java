@@ -24,7 +24,7 @@ import java.util.Locale;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
     private Context context;
-    private List<Event> eventList;
+    public static List<Event> eventList;
 
     public EventAdapter(Context context, List<Event> eventList) {
         this.context = context;
