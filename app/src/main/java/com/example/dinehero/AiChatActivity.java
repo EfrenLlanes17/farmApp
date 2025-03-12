@@ -17,8 +17,14 @@ import com.example.dinehero.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AiChatActivity extends AppCompatActivity {
 
@@ -62,20 +68,34 @@ public class AiChatActivity extends AppCompatActivity {
                     messageAdapter.notifyItemInserted(messages.size() - 1);
                     recyclerView.scrollToPosition(messages.size() - 1);
                     messageInput.setText("");
-                    String finalMessage = "";
+
+                    // Extract date from the message
+                    String extractedDate = extractDate(message);
+                    String responseMessage;
+
+                    if (extractedDate != null) {
+                        List<Event> eventsOnDate = getEventsForDate(extractedDate);
+                        if (!eventsOnDate.isEmpty()) {
+                            responseMessage = extractedDate + " contains these events:\n";
+                            for (Event event : eventsOnDate) {
+                                responseMessage += "- " + event.getTitle() + "\n";
+                            }
+                        } else {
+                            responseMessage = "No events found on " + extractedDate;
+                        }
+                    } else {
+                        responseMessage = "I couldn't find a date in your message.";
+                    }
+
                     // Simulate AI response
-//                    recyclerView.postDelayed(() -> {
-//                        messages.add(new Message("Test", false)); // AI response
-//                        messageAdapter.notifyItemInserted(messages.size() - 1);
-//                        recyclerView.scrollToPosition(messages.size() - 1);
-//                    }, 500);
-
-
-
-                    handler.postDelayed(() -> simulateTypingEffect(message, recyclerView), 500);
+                    String finalMessage = responseMessage;
+                    handler.postDelayed(() -> simulateTypingEffect(finalMessage, recyclerView), 500);
                 }
             }
         });
+
+
+
 
 
         TNV = findViewById(R.id.topNavView2);
@@ -129,6 +149,71 @@ public class AiChatActivity extends AppCompatActivity {
             return isUser;
         }
     }
+
+
+
+    private String extractDate(String message) {
+        Pattern datePattern = Pattern.compile(
+                "(\\d{1,2}/\\d{1,2}/\\d{2,4})|" +  // Matches 4/3/24 or 12/25/2025
+                        "(\\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\\s*\\d{1,2},?\\s*(?:\\d{2,4})?)",
+                Pattern.CASE_INSENSITIVE
+        );
+        Matcher matcher = datePattern.matcher(message);
+
+        if (matcher.find()) {
+            return formatDate(matcher.group()); // Convert to "yyyy/MM/dd"
+        }
+        return null;
+    }
+
+    private List<Event> getEventsForDate(String date) {
+        List<Event> eventsOnDate = new ArrayList<>();
+        for (Event event : CalenderActivity.eventList) {
+            if (event.getDate().equals(date)) {
+                eventsOnDate.add(event);
+            }
+        }
+        return eventsOnDate;
+    }
+
+
+
+    private String formatDate(String dateStr) {
+        SimpleDateFormat inputFormat1 = new SimpleDateFormat("M/d", Locale.getDefault());
+        SimpleDateFormat inputFormat2 = new SimpleDateFormat("M/d/yy", Locale.getDefault());
+        SimpleDateFormat inputFormat3 = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
+        SimpleDateFormat inputFormat4 = new SimpleDateFormat("MMMM d", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+
+        try {
+            return outputFormat.format(inputFormat2.parse(dateStr)); // Handles "4/3/24"
+        } catch (Exception ignored) {}
+
+        try {
+            return outputFormat.format(inputFormat3.parse(dateStr)); // Handles "April 3, 2024"
+        } catch (Exception ignored) {}
+
+        try {
+            Calendar cal = Calendar.getInstance();
+            Date parsedDate = inputFormat4.parse(dateStr); // Handles "April 3"
+            cal.setTime(parsedDate);
+            cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR)); // Assume current year
+            return outputFormat.format(cal.getTime());
+        } catch (Exception ignored) {}
+
+        try {
+            // Handles "04/03" -> Assumes current year
+            Calendar cal = Calendar.getInstance();
+            Date parsedDate = inputFormat1.parse(dateStr);
+            cal.setTime(parsedDate);
+            cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
+            return outputFormat.format(cal.getTime());
+        } catch (Exception ignored) {}
+
+        return null;
+    }
+
+
 
     private void simulateTypingEffect(String fullMessage, RecyclerView recyclerView) {
         Message typingMessage = new Message("", false);
