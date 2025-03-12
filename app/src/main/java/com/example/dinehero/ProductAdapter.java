@@ -124,7 +124,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
            }
        });
 
-       holder.parent.setOnClickListener(new View.OnClickListener() {
+       holder.image.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
                //Set Up producot Pages
@@ -152,6 +152,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                }
 
                openProductPage(name,image,sell);
+
+
+           }
+       });
+
+       holder.parent.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
 
 
            }

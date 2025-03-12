@@ -16,7 +16,7 @@
         android:padding="15dp"
         android:background="#FFFFFF">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/txtImage"
             android:layout_width="50dp"
             android:layout_height="50dp"

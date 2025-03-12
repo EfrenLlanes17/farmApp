@@ -8,7 +8,7 @@
     android:background="#FFFFFF">
 
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/txtPPImage"
                 android:layout_width="400dp"
                 android:layout_height="300dp"
