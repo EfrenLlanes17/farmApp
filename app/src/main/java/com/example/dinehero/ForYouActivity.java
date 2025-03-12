@@ -78,11 +78,11 @@ public class ForYouActivity extends AppCompatActivity {
 
     private int month2;
 
-    private static boolean alreadyPlants = false;
+    public static boolean alreadyPlants = false;
 
     private Uri uriiiii;
 
-    private static ArrayList<Plant> plantList = new ArrayList<>();
+    public static ArrayList<Plant> plantList = new ArrayList<>();
 
 
 
@@ -94,12 +94,12 @@ public class ForYouActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_you_for);
-        if (!alreadyPlants) {
-            plantList.add(new Plant("Tomato", "red", "green", "yellow", "brown", "bees", 12, "bushy", "flowers attract bees"));
-            plantList.add(new Plant("Sunflower", "yellow", "yellow", "yellow", "brown", "bees, butterflies", 24, "tall stalk", "large, bright flowers attract pollinators"));
-            plantList.add(new Plant("Blueberry", "green", "green", "white", "red", "bees, birds", 36, "shrub", "small flowers attract bees"));
-            alreadyPlants = true;
-        }
+//        if (!alreadyPlants) {
+//            plantList.add(new Plant("Tomato", "red", "green", "yellow", "brown", "bees", 12, "bushy", "flowers attract bees"));
+//            plantList.add(new Plant("Sunflower", "yellow", "yellow", "yellow", "brown", "bees, butterflies", 24, "tall stalk", "large, bright flowers attract pollinators"));
+//            plantList.add(new Plant("Blueberry", "green", "green", "white", "red", "bees, birds", 36, "shrub", "small flowers attract bees"));
+//            alreadyPlants = true;
+//        }
         Toast.makeText(ForYouActivity.this, "" + plantList.size(), Toast.LENGTH_SHORT).show();
 
         eventLoc = findViewById(R.id.edtTextLoc);
@@ -399,7 +399,7 @@ public class ForYouActivity extends AppCompatActivity {
     }
 
 
-    class Plant {
+    public static class Plant {
         private String name;
         private String winterColor;
         private String summerColor;

@@ -93,6 +93,13 @@ public class CalenderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calender);
 
+        if (!ForYouActivity.alreadyPlants) {
+            ForYouActivity.plantList.add(new ForYouActivity.Plant("Tomato", "red", "green", "yellow", "brown", "bees", 12, "bushy", "flowers attract bees"));
+            ForYouActivity.plantList.add(new ForYouActivity.Plant("Sunflower", "yellow", "yellow", "yellow", "brown", "bees, butterflies", 24, "tall stalk", "large, bright flowers attract pollinators"));
+            ForYouActivity.plantList.add(new ForYouActivity.Plant("Blueberry", "green", "green", "white", "red", "bees, birds", 36, "shrub", "small flowers attract bees"));
+            ForYouActivity.alreadyPlants = true;
+        }
+
 
 
 

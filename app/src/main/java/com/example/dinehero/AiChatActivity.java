@@ -69,22 +69,40 @@ public class AiChatActivity extends AppCompatActivity {
                     recyclerView.scrollToPosition(messages.size() - 1);
                     messageInput.setText("");
 
-                    // Extract date from the message
-                    String extractedDate = extractDate(message);
-                    String responseMessage;
+                    String responseMessage = null;
 
-                    if (extractedDate != null) {
-                        List<Event> eventsOnDate = getEventsForDate(extractedDate);
-                        if (!eventsOnDate.isEmpty()) {
-                            responseMessage = extractedDate + " contains these events:\n";
-                            for (Event event : eventsOnDate) {
-                                responseMessage += "- " + event.getTitle() + "\n";
+                    // Check if the message contains a plant name
+                    for (ForYouActivity.Plant plant : ForYouActivity.plantList) {
+                        if (message.toLowerCase().contains(plant.getName().toLowerCase())) {
+                            responseMessage = "Here’s some information about " + plant.getName() + ":\n";
+                            responseMessage += "- Color in Spring: " + plant.getColorBySeason("spring") + "\n";
+                            responseMessage += "- Color in Summer: " + plant.getColorBySeason("summer") + "\n";
+                            responseMessage += "- Color in Winter: " + plant.getColorBySeason("winter") + "\n";
+                            responseMessage += "- Color in Fall: " + plant.getColorBySeason("fall") + "\n";
+                            responseMessage += "- Pollinators: " + plant.getPollinators() + "\n";
+                            responseMessage += "- Plant Spacing: " + plant.getPlantSpacing() + "\n";
+                            responseMessage += "- Growth Pattern: " + plant.getGrowthPattern() + "\n";
+                            responseMessage += "- Pollinator Attraction: " + plant.getPollinatorAttraction() + "\n";
+                            break;
+                        }
+                    }
+
+                    // If no plant was found, check for a date
+                    if (responseMessage == null) {
+                        String extractedDate = extractDate(message);
+                        if (extractedDate != null) {
+                            List<Event> eventsOnDate = getEventsForDate(extractedDate);
+                            if (!eventsOnDate.isEmpty()) {
+                                responseMessage = extractedDate + " contains these events:\n";
+                                for (Event event : eventsOnDate) {
+                                    responseMessage += "- " + event.getTitle() + "\n";
+                                }
+                            } else {
+                                responseMessage = "No events found on " + extractedDate;
                             }
                         } else {
-                            responseMessage = "No events found on " + extractedDate;
+                            responseMessage = "I couldn't find relevant information in your message.";
                         }
-                    } else {
-                        responseMessage = "I couldn't find a date in your message.";
                     }
 
                     // Simulate AI response
@@ -93,6 +111,7 @@ public class AiChatActivity extends AppCompatActivity {
                 }
             }
         });
+
 
 
 
