@@ -93,17 +93,7 @@
             android:backgroundTint="#F44336"
             android:textColor="#FFFFFF" />
 
-        <Button
-            android:id="@+id/btnContact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtSeller"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/btnDecline"
-            android:layout_marginLeft="10dp"
-            android:text="Contact"
-            android:backgroundTint="#2196F3"
-            android:textColor="#FFFFFF" />
+
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

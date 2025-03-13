@@ -105,17 +105,7 @@ public class ProductPage extends AppCompatActivity {
         }
 
 
-            if (ProfileActivity.inSaved(MainActivity2.findProduct(text1))) {
-                saveButton.setText("    UNSAVE   ");
-            } else {
-                saveButton.setText("     SAVE    ");
-            }
 
-            if (!ProfileActivity.isFollowing(temp)) {
-                followingButton.setText("  ATTEND  ");
-            } else {
-                followingButton.setText("  ATTENDING  ");
-            }
 
 
 
@@ -124,21 +114,19 @@ public class ProductPage extends AppCompatActivity {
         followingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!(temp2)) {
-                    if (!ProfileActivity.isFollowing(temp)) {
-                        ProfileActivity.addToFollowing(temp);
-                        MainActivity2.findProduct(text1).changeSignedUpBy(1);
-                        followingButton.setText("  ATTENDING  ");
-                    }
-                    else{
-                        ProfileActivity.removeFromFollowing(temp);
-                        MainActivity2.findProduct(text1).changeSignedUpBy(-1);
-                        followingButton.setText("  ATTEND  ");
-                    }
+                // attend
 
-                }
-                else{
-                    Toast.makeText(ProductPage.this, "Sign in to attend events", Toast.LENGTH_SHORT).show();
+                Context context = view.getContext();
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                String email = MainActivity2.findProduct(text1).getLocation() + "Main@" + MainActivity2.findProduct(text1).getLocation() + ".com";
+                intent.setType("message/rfc822");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{ email.toString().replace(" ","")});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Check Out This Petition on VoiceIt : " );
+                intent.putExtra(Intent.EXTRA_TEXT, "" + "Test");
+
+                // Check if there is an app that can handle this intent
+                if (intent.resolveActivity(context.getPackageManager()) != null) {
+                    context.startActivity(Intent.createChooser(intent, "Choose an email client"));
                 }
             }
         });
@@ -147,24 +135,16 @@ public class ProductPage extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!(temp2)) {
-
-                    if (temp.getHasbeenSaved()) {
-
-                        ProfileActivity.removeFromSaved(temp);
-                        saveButton.setText("     SAVE    ");
-                        temp.setHasbeenSaved(false);
-                        Toast.makeText(ProductPage.this, "Event unsaved, reload tab", Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        ProfileActivity.addToSaved(temp);
-                        saveButton.setText("    UNSAVE   ");
-                       temp.setHasbeenSaved(true);
-
-                    }
-                }
-                else{
-                    Toast.makeText(ProductPage.this, "Sign in to save events", Toast.LENGTH_SHORT).show();
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=Googleplex, Mountain View, CA");
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps"); // Open in Google Maps app if available
+                if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(mapIntent);
+                } else {
+                    // If Google Maps app is not available, open in browser
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://www.google.com/maps/search/?api=1&query=Googleplex,Mountain+View,CA"));
+                    startActivity(browserIntent);
                 }
             }
         });
@@ -172,9 +152,8 @@ public class ProductPage extends AppCompatActivity {
         PPButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Uri uri = Uri.parse(text6);
-                //startActivity(new Intent(Intent.ACTION_VIEW,uri));
-               openUserPage();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
+                startActivity(intent);
             }
         });
 

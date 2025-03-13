@@ -68,23 +68,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
        holder.txtPercentOff.setText(products.get(position).getDate());
        holder.txtSeller.setText(products.get(position).getLocation());
 
-       holder.btnContact.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Context context = view.getContext();
-               Intent intent = new Intent(Intent.ACTION_SEND);
-               String email = holder.txtSeller.getText().toString() + "Main@" + holder.txtSeller.getText().toString() + ".com";
-               intent.setType("message/rfc822");
-               intent.putExtra(Intent.EXTRA_EMAIL, new String[]{ email.toString().replace(" ","")});
-               intent.putExtra(Intent.EXTRA_SUBJECT, "Check Out This Petition on VoiceIt : " );
-               intent.putExtra(Intent.EXTRA_TEXT, "" + "Test");
 
-               // Check if there is an app that can handle this intent
-               if (intent.resolveActivity(context.getPackageManager()) != null) {
-                   context.startActivity(Intent.createChooser(intent, "Choose an email client"));
-               }
-           }
-       });
 
        holder.btnDecline.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -229,7 +213,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             parent = itemView.findViewById(R.id.parent);
             image = itemView.findViewById(R.id.txtImage);
             PPProductName = itemView.findViewById(R.id.txtPPName);
-            btnContact = itemView.findViewById(R.id.btnContact);
             btnAccept = itemView.findViewById(R.id.btnAccept);
             btnDecline = itemView.findViewById(R.id.btnDecline);
 
