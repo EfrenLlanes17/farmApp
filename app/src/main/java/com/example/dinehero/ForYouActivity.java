@@ -100,13 +100,12 @@ public class ForYouActivity extends AppCompatActivity {
 //            plantList.add(new Plant("Blueberry", "green", "green", "white", "red", "bees, birds", 36, "shrub", "small flowers attract bees"));
 //            alreadyPlants = true;
 //        }
-        Toast.makeText(ForYouActivity.this, "" + plantList.size(), Toast.LENGTH_SHORT).show();
 
         eventLoc = findViewById(R.id.edtTextLoc);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
+        getUserLocation();
         // Request location on click
-        eventLoc.setOnClickListener(v -> getUserLocation());
+//        eventLoc.setOnClickListener(v -> getUserLocation());
 
 
         TNV = findViewById(R.id.topNavView2);
@@ -182,13 +181,15 @@ public class ForYouActivity extends AppCompatActivity {
                 }
 
                 String plantName = eventName.getText().toString().trim();
+
                 String location = eventLoc.getText().toString().trim();
                 String date = eventDate.getText().toString().trim();
 
-                if (plantName.isEmpty() || location.equals("Location") || date.isEmpty()) {
+                if (plantName.isEmpty() || date.isEmpty()) {
                     Toast.makeText(ForYouActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
 
                 int dominantColor = analyzeImageColor(uriiiii);
                 String colorName = getColorName(dominantColor);
@@ -332,7 +333,8 @@ public class ForYouActivity extends AppCompatActivity {
                     if (location != null) {
                         getCityStateCountry(location);
                     } else {
-                        Toast.makeText(this, "Unable to get location", Toast.LENGTH_SHORT).show();
+                        eventLoc.setText("Norman" + ", " + "Oklahoma" + ", " + "United States");
+                        Toast.makeText(this, "Unable to get location, Defaulting To Norman, Oklahoma, United States", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -349,11 +351,15 @@ public class ForYouActivity extends AppCompatActivity {
 
                 eventLoc.setText(city + ", " + state + ", " + country);
             } else {
-                eventLoc.setText("Location not found");
+                eventLoc.setText("Norman" + ", " + "Oklahoma" + ", " + "United States");
+                Toast.makeText(this, "Unable to get location, Defaulting To Norman, Oklahoma, United States", Toast.LENGTH_SHORT).show();
+
             }
         } catch (IOException e) {
             e.printStackTrace();
-            eventLoc.setText("Geocoder failed");
+            eventLoc.setText("Norman" + ", " + "Oklahoma" + ", " + "United States");
+            Toast.makeText(this, "Unable to get location, Defaulting To Norman, Oklahoma, United States", Toast.LENGTH_SHORT).show();
+
         }
     }
 
