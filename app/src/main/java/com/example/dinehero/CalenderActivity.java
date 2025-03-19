@@ -69,6 +69,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
 import android.app.AlertDialog;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -86,6 +89,8 @@ public class CalenderActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private FloatingActionButton fabAddEvent;
+
+    private FloatingActionButton fabFilterEvent;
 
 
     @Override
@@ -108,6 +113,7 @@ public class CalenderActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerViewEvents);
         fabAddEvent = findViewById(R.id.fabAddEvent);
+        fabFilterEvent = findViewById(R.id.fabFilterEvent);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         if (eventList == null){
@@ -123,6 +129,13 @@ public class CalenderActivity extends AppCompatActivity {
         fabAddEvent.setOnClickListener(v -> openDatePicker());
 
         scrollToClosestEvent(EventAdapter.eventList);
+
+        fabFilterEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFilterDialog();
+            }
+        });
 
 
         TNV.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -285,6 +298,7 @@ public class CalenderActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+
     private void scrollToClosestEvent(List<Event> x) {
         if (x == null || x.isEmpty()) return;
 
@@ -374,6 +388,84 @@ public class CalenderActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
+
+    private void showFilterDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(CalenderActivity.this);
+        builder.setTitle("Filter Dates");
+
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_filter_event, null);
+        builder.setView(dialogView);
+
+        AutoCompleteTextView eventTitleInput = dialogView.findViewById(R.id.eventTitle);
+        Spinner eventTypeSpinner = dialogView.findViewById(R.id.eventType);
+        Spinner recurrenceSpinner = dialogView.findViewById(R.id.recurrence);
+        TextView etStartDate = dialogView.findViewById(R.id.etStartDate);
+        TextView etEndDate = dialogView.findViewById(R.id.etEndDate);
+        Button okButton = dialogView.findViewById(R.id.btnOk);
+
+
+        // Set up spinners
+        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(
+                this, R.array.event_types, android.R.layout.simple_spinner_item);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        eventTypeSpinner.setAdapter(typeAdapter);
+
+
+
+        etStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                //Toast.makeText(getApplicationContext(), "Updated event list size: " + openDatePicker2(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Start Date " , Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        etEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                //Toast.makeText(getApplicationContext(), "Updated event list size: " + openDatePicker2(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "End Date " , Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+        ArrayAdapter<CharSequence> recurrenceAdapter = ArrayAdapter.createFromResource(
+                this, R.array.recurrence_options, android.R.layout.simple_spinner_item);
+        recurrenceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        recurrenceSpinner.setAdapter(recurrenceAdapter);
+
+        AlertDialog dialog = builder.create();
+
+        okButton.setOnClickListener(v -> {
+            String title = eventTitleInput.getText().toString();
+            String type = eventTypeSpinner.getSelectedItem().toString();
+            String recurrence = recurrenceSpinner.getSelectedItem().toString();
+
+
+            // Sort events by date
+            Collections.sort(eventList, (e1, e2) -> e1.getDate().compareTo(e2.getDate()));
+
+            Toast.makeText(this, "Updated event list size: " + eventList.size(), Toast.LENGTH_SHORT).show();
+
+            adapter.notifyDataSetChanged();
+            dialog.dismiss();
+        });
+
+
+
+        dialog.show();
+    }
+
+
 
     public void sortEventsByDate(List<Event> eventList) {
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
