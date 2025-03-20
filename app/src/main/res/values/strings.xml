@@ -11,7 +11,25 @@
         <item>Order</item>
     </string-array>
 
+    <string-array name="event_typesfilter">
+        <item>All</item>
+        <item>Task</item>
+        <item>Employee Schedule</item>
+        <item>Harvest</item>
+        <item>IoT</item>
+        <item>Order</item>
+    </string-array>
+
     <string-array name="recurrence_options">
+        <item>None</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
+
+    <string-array name="recurrence_optionsfilter">
+        <item>All</item>
         <item>None</item>
         <item>Daily</item>
         <item>Weekly</item>

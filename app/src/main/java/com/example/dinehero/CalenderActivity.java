@@ -129,6 +129,9 @@ public class CalenderActivity extends AppCompatActivity {
         adapter = new EventAdapter(this, eventList);
         recyclerView.setAdapter(adapter);
 
+
+
+
         checkList();
 
         fabAddEvent.setOnClickListener(v -> openDatePicker());
@@ -397,55 +400,138 @@ public class CalenderActivity extends AppCompatActivity {
 
 
     private void showFilterDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(CalenderActivity.this);
-        builder.setTitle("Filter Dates");
+        // Inflate the dialog layout
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View dialogView = inflater.inflate(R.layout.dialog_filter_event, null);
 
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_filter_event, null);
-        builder.setView(dialogView);
-
-        AutoCompleteTextView eventTitleInput = dialogView.findViewById(R.id.eventTitle);
-        Spinner eventTypeSpinner = dialogView.findViewById(R.id.eventType);
-        Spinner recurrenceSpinner = dialogView.findViewById(R.id.recurrence);
+        // Initialize dialog components
+        AutoCompleteTextView eventTitle = dialogView.findViewById(R.id.eventTitle);
+        Spinner eventType = dialogView.findViewById(R.id.eventType);
+        Spinner recurrence = dialogView.findViewById(R.id.recurrence);
         EditText etStartDate = dialogView.findViewById(R.id.etStartDate);
         EditText etEndDate = dialogView.findViewById(R.id.etEndDate);
-        Button okButton = dialogView.findViewById(R.id.btnOk);
+        Button btnOk = dialogView.findViewById(R.id.btnOk);
 
+        // Create and show dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
-        // Set up spinners
+        // Populate Spinners (Example: You can replace this with actual data)
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(
-                this, R.array.event_types, android.R.layout.simple_spinner_item);
+                this, R.array.event_typesfilter, android.R.layout.simple_spinner_item);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        eventTypeSpinner.setAdapter(typeAdapter);
-
-
-
+        eventType.setAdapter(typeAdapter);
 
         ArrayAdapter<CharSequence> recurrenceAdapter = ArrayAdapter.createFromResource(
-                this, R.array.recurrence_options, android.R.layout.simple_spinner_item);
+                this, R.array.recurrence_optionsfilter, android.R.layout.simple_spinner_item);
         recurrenceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        recurrenceSpinner.setAdapter(recurrenceAdapter);
+        recurrence.setAdapter(recurrenceAdapter);
 
-        AlertDialog dialog = builder.create();
-
-        okButton.setOnClickListener(v -> {
-            String title = eventTitleInput.getText().toString();
-            String type = eventTypeSpinner.getSelectedItem().toString();
-            String recurrence = recurrenceSpinner.getSelectedItem().toString();
+        // Handle date selection (You need to implement openDatePicker())
 
 
-            // Sort events by date
-//            Collections.sort(eventList, (e1, e2) -> e1.getDate().compareTo(e2.getDate()));
-//
-//            Toast.makeText(this, "Updated event list size: " + eventList.size(), Toast.LENGTH_SHORT).show();
-//
-//            adapter.notifyDataSetChanged();
+        // Filter on button click
+        btnOk.setOnClickListener(v -> {
+            String titleFilter = eventTitle.getText().toString().trim();
+            String typeFilter = eventType.getSelectedItem().toString();
+            String recurrenceFilter = recurrence.getSelectedItem().toString();
+            String startDateFilter = etStartDate.getText().toString();
+            String endDateFilter = etEndDate.getText().toString();
+
+            List<Event> filteredList = filterEvents(titleFilter, typeFilter, recurrenceFilter, startDateFilter, endDateFilter);
+
+            updateUI(filteredList); // Update calendar with filtered results
+
             dialog.dismiss();
         });
-
-
-
-        dialog.show();
     }
+
+    /**
+     * Filters the eventList based on the given parameters.
+     */
+    private List<Event> filterEvents(String title, String type, String recurrence, String startDate, String endDate) {
+        List<Event> filteredList = new ArrayList<>();
+        if(!title.isEmpty() || !type.equals("All") || !recurrence.equals("All") ||!startDate.isEmpty()||!endDate.isEmpty()) {
+            for (Event event : eventList) {
+                boolean matchesTitle = title.isEmpty() || event.getTitle().toLowerCase().contains(title.toLowerCase());
+                boolean matchesType = type.equals("All") || event.getType().equalsIgnoreCase(type);
+                boolean matchesRecurrence = recurrence.equals("All") || event.getRecurrence().equalsIgnoreCase(recurrence);
+                boolean matchesDateRange = isWithinDateRange(event.getDate(), startDate, endDate);
+
+                if (matchesTitle && matchesType && matchesRecurrence && matchesDateRange) {
+                    filteredList.add(event);
+                }
+            }
+
+            return filteredList;
+        }
+        else{
+            Toast.makeText(this, "Filter Cancled " , Toast.LENGTH_SHORT).show();
+
+            return eventList;
+        }
+
+    }
+
+    /**
+     * Checks if a given event date is within the selected date range.
+     */
+    private boolean isWithinDateRange(String eventDate, String startDate, String endDate) {
+        if (startDate.isEmpty() && endDate.isEmpty()) return true; // No date filter applied
+
+
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
+        try {
+            SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+            Date date = oldFormat.parse(eventDate);
+
+            Date start = startDate.isEmpty() ? null : sdf.parse(startDate);
+            Date end = endDate.isEmpty() ? null : sdf.parse(endDate);
+
+//            Toast.makeText(this, "Start:  " + start.toString(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(this,  "End: " + end.toString(), Toast.LENGTH_LONG).show();
+
+            if (start != null && date.before(start)) {
+                //Toast.makeText(this, date.toString() + " excluded: before " + start.toString(), Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            if (end != null && date.after(end)) {
+                //Toast.makeText(this, date.toString() + " excluded: after " + end.toString(), Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            //Toast.makeText(this, date.toString()+" included: within date range. Start: " + start.toString(), Toast.LENGTH_LONG).show();
+            return true;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            //Toast.makeText(this, "Error " , Toast.LENGTH_SHORT).show();
+
+            return false;
+        }
+    }
+
+    /**
+     * Updates the calendar UI with the filtered event list.
+     */
+    private void updateUI(List<Event> filteredList) {
+        Toast.makeText(this, "Filterrrr " , Toast.LENGTH_SHORT).show();
+        EventAdapter adapter2 = new EventAdapter(this, filteredList);
+        recyclerView.setAdapter(adapter2);
+        if(filteredList.size() ==0){
+            noResults.setVisibility(View.VISIBLE);
+        }
+        else{
+            noResults.setVisibility(View.INVISIBLE);
+
+        }
+
+    }
+
 
 
 
