@@ -30,7 +30,7 @@
         android:id="@+id/etStartDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Start Date (DD-MM-YY)"
+        android:hint="Start Date (MM-DD-YY)"
         android:inputType="date"
          />
 
@@ -38,7 +38,7 @@
         android:id="@+id/etEndDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="End Date (DD-MM-YY)"
+        android:hint="End Date (MM-DD-YY)"
         android:inputType="date"
         />
 
