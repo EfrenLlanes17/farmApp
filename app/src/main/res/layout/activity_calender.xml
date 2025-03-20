@@ -26,6 +26,16 @@ android:layout_height="match_parent"
         android:layout_marginBottom="100dp"
         android:src="@android:drawable/ic_menu_search" />
 
+    <TextView
+        android:id="@+id/noResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+        android:text="No Results"
+        android:textColor="#000000"
+        android:textSize="20dp" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddEvent"

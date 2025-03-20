@@ -86,6 +86,8 @@ public class CalenderActivity extends AppCompatActivity {
 
     public static List<Event> eventList;
     public static EventAdapter adapter;
+
+    private TextView noResults;
     private RecyclerView recyclerView;
 
     private FloatingActionButton fabAddEvent;
@@ -114,6 +116,7 @@ public class CalenderActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewEvents);
         fabAddEvent = findViewById(R.id.fabAddEvent);
         fabFilterEvent = findViewById(R.id.fabFilterEvent);
+        noResults = findViewById(R.id.noResults);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         if (eventList == null){
@@ -125,6 +128,8 @@ public class CalenderActivity extends AppCompatActivity {
         }
         adapter = new EventAdapter(this, eventList);
         recyclerView.setAdapter(adapter);
+
+        checkList();
 
         fabAddEvent.setOnClickListener(v -> openDatePicker());
 
@@ -241,10 +246,11 @@ public class CalenderActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         adapter.updateEvents(eventList);
         //Collections.sort(eventList, Comparator.comparing(Event::getDate));
-
+        checkList();
         adapter.notifyDataSetChanged();
         sortEventsByDate(eventList);
         adapter.notifyDataSetChanged();
+        checkList();
 
     }
 
@@ -400,8 +406,8 @@ public class CalenderActivity extends AppCompatActivity {
         AutoCompleteTextView eventTitleInput = dialogView.findViewById(R.id.eventTitle);
         Spinner eventTypeSpinner = dialogView.findViewById(R.id.eventType);
         Spinner recurrenceSpinner = dialogView.findViewById(R.id.recurrence);
-        TextView etStartDate = dialogView.findViewById(R.id.etStartDate);
-        TextView etEndDate = dialogView.findViewById(R.id.etEndDate);
+        EditText etStartDate = dialogView.findViewById(R.id.etStartDate);
+        EditText etEndDate = dialogView.findViewById(R.id.etEndDate);
         Button okButton = dialogView.findViewById(R.id.btnOk);
 
 
@@ -412,30 +418,6 @@ public class CalenderActivity extends AppCompatActivity {
         eventTypeSpinner.setAdapter(typeAdapter);
 
 
-
-        etStartDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-                //Toast.makeText(getApplicationContext(), "Updated event list size: " + openDatePicker2(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), "Start Date " , Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        etEndDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-                //Toast.makeText(getApplicationContext(), "Updated event list size: " + openDatePicker2(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), "End Date " , Toast.LENGTH_SHORT).show();
-
-            }
-        });
 
 
         ArrayAdapter<CharSequence> recurrenceAdapter = ArrayAdapter.createFromResource(
@@ -452,11 +434,11 @@ public class CalenderActivity extends AppCompatActivity {
 
 
             // Sort events by date
-            Collections.sort(eventList, (e1, e2) -> e1.getDate().compareTo(e2.getDate()));
-
-            Toast.makeText(this, "Updated event list size: " + eventList.size(), Toast.LENGTH_SHORT).show();
-
-            adapter.notifyDataSetChanged();
+//            Collections.sort(eventList, (e1, e2) -> e1.getDate().compareTo(e2.getDate()));
+//
+//            Toast.makeText(this, "Updated event list size: " + eventList.size(), Toast.LENGTH_SHORT).show();
+//
+//            adapter.notifyDataSetChanged();
             dialog.dismiss();
         });
 
@@ -487,7 +469,15 @@ public class CalenderActivity extends AppCompatActivity {
 
 
 
+ public void checkList(){
+     if(eventList.size() ==0){
+         noResults.setVisibility(View.VISIBLE);
+     }
+     else{
+         noResults.setVisibility(View.INVISIBLE);
 
+     }
+ }
 
 
     public void openMainActivity(){

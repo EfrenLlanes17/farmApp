@@ -2,14 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Filter Events"
-        android:textSize="18sp" />
 
     <AutoCompleteTextView
         android:id="@+id/eventTitle"
@@ -26,20 +22,24 @@
     <Spinner
         android:id="@+id/recurrence"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
 
-    <TextView
+        />
+
+    <EditText
         android:id="@+id/etStartDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Start Date"
+        android:hint="Start Date (DD-MM-YY)"
+        android:inputType="date"
          />
 
-    <TextView
+    <EditText
         android:id="@+id/etEndDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="End Date"
+        android:hint="End Date (DD-MM-YY)"
+        android:inputType="date"
         />
 
 
