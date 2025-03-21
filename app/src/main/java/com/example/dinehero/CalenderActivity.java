@@ -1,9 +1,16 @@
 package com.example.dinehero;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +26,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,9 +42,12 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.datepicker.MaterialDatePicker;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,12 +57,16 @@ import java.util.Date;
 import java.util.Locale;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,12 +74,16 @@ import java.util.List;
 import java.util.Locale;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -94,6 +115,8 @@ public class CalenderActivity extends AppCompatActivity {
 
     private FloatingActionButton fabFilterEvent;
 
+    private static final String CHANNEL_ID = "eventReminderChannel"; // Unique ID for notifications
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +131,7 @@ public class CalenderActivity extends AppCompatActivity {
         }
 
 
-
+        createNotificationChannel();
 
         TNV = findViewById(R.id.topNavView2);
         TNV.setItemActiveIndicatorEnabled(false);
@@ -119,17 +142,14 @@ public class CalenderActivity extends AppCompatActivity {
         noResults = findViewById(R.id.noResults);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        if (eventList == null){
+        if (eventList == null) {
             eventList = new ArrayList<>();
             adapter = new EventAdapter(this, eventList);
-        }
-        else{
+        } else {
             adapter = new EventAdapter(this, eventList);
         }
         adapter = new EventAdapter(this, eventList);
         recyclerView.setAdapter(adapter);
-
-
 
 
         checkList();
@@ -156,8 +176,7 @@ public class CalenderActivity extends AppCompatActivity {
                     openForYouActivity();
                 } else if (item.getItemId() == findViewById(R.id.btnFollowing).getId()) {
                     openAIChatActivity();//openProfileActivity();
-                }
-                else if (item.getItemId() == findViewById(R.id.btnSearch).getId()) {
+                } else if (item.getItemId() == findViewById(R.id.btnSearch).getId()) {
                     openMainActivity();
                 }
 
@@ -166,36 +185,48 @@ public class CalenderActivity extends AppCompatActivity {
         });
 
 
+    }
 
-        }
-
-    public void openCalenderActivity(){
+    public void openCalenderActivity() {
 
         Intent intent = new Intent(this, CalenderActivity.class);
         this.startActivity(intent);
     }
 
-    public void openAIChatActivity(){
+    public void openAIChatActivity() {
 
         Intent intent = new Intent(this, AiChatActivity.class);
         this.startActivity(intent);
     }
 
 
-
-    public void openForYouActivity(){
+    public void openForYouActivity() {
 
         Intent intent = new Intent(this, ForYouActivity.class);
         this.startActivity(intent);
     }
 
 
-    private void generateRecurringEvents(Event event) {
+    private void generateRecurringEvents(Event event) throws ParseException {
+        Boolean doISend = false;
+        String noteDate = "";
+
         Log.d("EventAdapter", "Generating recurrence for: " + event.getTitle());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
         List<Event> newEvents = new ArrayList<>();
 //        newEvents.add(event); // Add the original event
+
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/M/dd", Locale.getDefault());
+        String todayDate = sdf.format(Calendar.getInstance().getTime());
+        String todayDateEvent = sdf2.format(Calendar.getInstance().getTime());
+
+        if (event.getDate().equals(todayDateEvent)) {
+            doISend = true;
+            noteDate = event.getDate();
+
+        }
+
 
         if (event.getRecurrence() != null && !event.getRecurrence().equals("None")) {
             Calendar calendar = Calendar.getInstance();
@@ -218,7 +249,7 @@ public class CalenderActivity extends AppCompatActivity {
                 default:
                     recurrenceCount = 0; // No recurrence
             }
-            newEvents.add(new Event(sdf.format(calendar.getTime()) , event.getTitle(), event.getType(), event.getRecurrence()));
+            newEvents.add(new Event(sdf.format(calendar.getTime()), event.getTitle(), event.getType(), event.getRecurrence()));
             for (int i = 1; i <= recurrenceCount; i++) {
                 switch (event.getRecurrence()) {
                     case "Daily":
@@ -235,29 +266,49 @@ public class CalenderActivity extends AppCompatActivity {
                         break;
                 }
 
-                Event recurringEvent = new Event(sdf.format(calendar.getTime()) , event.getTitle(), event.getType(), event.getRecurrence());
+                Event recurringEvent = new Event(sdf.format(calendar.getTime()), event.getTitle(), event.getType(), event.getRecurrence());
                 newEvents.add(recurringEvent);
+
+
+
+
+                // Compare the event date with today's date
+                if (recurringEvent.getDate().equals(todayDate)) {
+                    doISend = true;
+                    noteDate = recurringEvent.getDate();
+
+                }
+//                else{
+//                    Toast.makeText(this,  recurringEvent.getDate() + " not equal  " + todayDate, Toast.LENGTH_SHORT).show();
+//
+//                }
+
+
             }
-        }
-        else{
+        } else {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(parseDate(event.getDate()));
-            newEvents.add(new Event(sdf.format(calendar.getTime()) , event.getTitle(), event.getType(), event.getRecurrence()));
+            newEvents.add(new Event(sdf.format(calendar.getTime()), event.getTitle(), event.getType(), event.getRecurrence()));
         }
 
         eventList.addAll(newEvents);
         adapter.notifyDataSetChanged();
         adapter.updateEvents(eventList);
-        //Collections.sort(eventList, Comparator.comparing(Event::getDate));
-        checkList();
+
+        if(doISend && !noteDate.isEmpty()){
+            sendInstantNotification(noteDate );
+        }
+
+
+
         adapter.notifyDataSetChanged();
         sortEventsByDate(eventList);
         adapter.notifyDataSetChanged();
         checkList();
 
+
+
     }
-
-
 
 
     private Date parseDate(String dateStr) {
@@ -268,6 +319,26 @@ public class CalenderActivity extends AppCompatActivity {
             e.printStackTrace();
             return new Date();
         }
+    }
+
+    private List<Event> getEventsForDate(String date) throws ParseException {
+
+
+
+
+        SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy/M/dd", Locale.getDefault());
+        SimpleDateFormat newFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+        Date tempdate = oldFormat.parse(date);
+        String formattedDate = newFormat.format(tempdate);
+        date = formattedDate;
+
+        List<Event> eventsOnDate = new ArrayList<>();
+        for (Event event : eventList) {
+            if (event.getDate().equals(date)) {
+                eventsOnDate.add(event);
+            }
+        }
+        return eventsOnDate;
     }
 
 
@@ -306,6 +377,85 @@ public class CalenderActivity extends AppCompatActivity {
         // Show the date picker dialog
         datePickerDialog.show();
     }
+
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "EventReminderChannel";
+            String description = "Channel for event reminders";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            channel.enableLights(true);
+            channel.enableVibration(true);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    // Send an immediate notification if the event is today
+    private void sendInstantNotification( String date) throws ParseException {
+
+        String responseMessage;
+
+        List<Event> eventsOnDate = getEventsForDate(date);
+        if (!eventsOnDate.isEmpty()) {
+            responseMessage = "Today contains these events:\n";
+            for (Event event : eventsOnDate) {
+                responseMessage += "\n- " + event.getTitle() + "\n";
+            }
+        }
+        else{
+            responseMessage = "Empty";
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.baseline_person_24)
+                .setContentTitle("Today's Events")
+                .setContentText(responseMessage)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setAutoCancel(true)
+                .setFullScreenIntent(null, true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        notificationManager.notify(100, builder.build()); // 100 is notification ID
+    }
+
+    // Schedule a notification using AlarmManager
+    private void scheduleEventNotification(String eventName, String eventDate) {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        try {
+            calendar.setTime(sdf.parse(eventDate));
+            calendar.set(Calendar.HOUR_OF_DAY, 9); // Set notification time (9 AM)
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Intent intent = new Intent(this, EventReminderReceiver.class);
+        intent.putExtra("eventName", eventName);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        }
+    }
+
+
 
 
     private void scrollToClosestEvent(List<Event> x) {
@@ -382,12 +532,16 @@ public class CalenderActivity extends AppCompatActivity {
 
             //eventList.add(new Event(date, title, type, recurrence));
 
-            generateRecurringEvents(new Event(date, title, type, recurrence));
+            try {
+                generateRecurringEvents(new Event(date, title, type, recurrence));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
 
             // Sort events by date
             Collections.sort(eventList, (e1, e2) -> e1.getDate().compareTo(e2.getDate()));
 
-            Toast.makeText(this, "Updated event list size: " + eventList.size(), Toast.LENGTH_SHORT).show();
+
 
             adapter.notifyDataSetChanged();
             dialog.dismiss();
