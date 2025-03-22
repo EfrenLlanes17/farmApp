@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -562,9 +563,11 @@ public class CalenderActivity extends AppCompatActivity {
         AutoCompleteTextView eventTitle = dialogView.findViewById(R.id.eventTitle);
         Spinner eventType = dialogView.findViewById(R.id.eventType);
         Spinner recurrence = dialogView.findViewById(R.id.recurrence);
+        Spinner com = dialogView.findViewById(R.id.completed);
         EditText etStartDate = dialogView.findViewById(R.id.etStartDate);
         EditText etEndDate = dialogView.findViewById(R.id.etEndDate);
         Button btnOk = dialogView.findViewById(R.id.btnOk);
+
 
         // Create and show dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -583,6 +586,11 @@ public class CalenderActivity extends AppCompatActivity {
         recurrenceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         recurrence.setAdapter(recurrenceAdapter);
 
+        ArrayAdapter<CharSequence> completedAdapter = ArrayAdapter.createFromResource(
+                this, R.array.completedfilter, android.R.layout.simple_spinner_item);
+        recurrenceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        com.setAdapter(completedAdapter);
+
         // Handle date selection (You need to implement openDatePicker())
 
 
@@ -593,8 +601,9 @@ public class CalenderActivity extends AppCompatActivity {
             String recurrenceFilter = recurrence.getSelectedItem().toString();
             String startDateFilter = etStartDate.getText().toString();
             String endDateFilter = etEndDate.getText().toString();
+            String completed = com.getSelectedItem().toString();
 
-            List<Event> filteredList = filterEvents(titleFilter, typeFilter, recurrenceFilter, startDateFilter, endDateFilter);
+            List<Event> filteredList = filterEvents(titleFilter, typeFilter, recurrenceFilter, startDateFilter, endDateFilter,completed);
 
             updateUI(filteredList); // Update calendar with filtered results
 
@@ -605,16 +614,24 @@ public class CalenderActivity extends AppCompatActivity {
     /**
      * Filters the eventList based on the given parameters.
      */
-    private List<Event> filterEvents(String title, String type, String recurrence, String startDate, String endDate) {
+    private List<Event> filterEvents(String title, String type, String recurrence, String startDate, String endDate, String com) {
         List<Event> filteredList = new ArrayList<>();
-        if(!title.isEmpty() || !type.equals("All") || !recurrence.equals("All") ||!startDate.isEmpty()||!endDate.isEmpty()) {
+        if(!title.isEmpty() || !type.equals("All") || !recurrence.equals("All") ||!startDate.isEmpty()||!endDate.isEmpty() ||!com.equals("All Statuses")) {
             for (Event event : eventList) {
                 boolean matchesTitle = title.isEmpty() || event.getTitle().toLowerCase().contains(title.toLowerCase());
                 boolean matchesType = type.equals("All") || event.getType().equalsIgnoreCase(type);
                 boolean matchesRecurrence = recurrence.equals("All") || event.getRecurrence().equalsIgnoreCase(recurrence);
                 boolean matchesDateRange = isWithinDateRange(event.getDate(), startDate, endDate);
 
-                if (matchesTitle && matchesType && matchesRecurrence && matchesDateRange) {
+                boolean status = true;
+                if(com.equals("Completed")){
+                    status = true;
+                } else if (com.equals("Not Completed")) {
+                    status = false;
+                }
+                boolean matchesCompleted = com.equals("All Statuses") || event.getFinished() == status;
+
+                if (matchesTitle && matchesType && matchesRecurrence && matchesDateRange &&  matchesCompleted) {
                     filteredList.add(event);
                 }
             }

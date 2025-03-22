@@ -36,4 +36,11 @@
         <item>Monthly</item>
         <item>Yearly</item>
     </string-array>
+
+    <string-array name="completedfilter">
+        <item>All Statuses</item>
+        <item>Completed</item>
+        <item>Not Completed</item>
+
+    </string-array>
 </resources>
