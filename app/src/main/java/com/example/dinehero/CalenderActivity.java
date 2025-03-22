@@ -616,11 +616,11 @@ public class CalenderActivity extends AppCompatActivity {
      */
     private List<Event> filterEvents(String title, String type, String recurrence, String startDate, String endDate, String com) {
         List<Event> filteredList = new ArrayList<>();
-        if(!title.isEmpty() || !type.equals("All") || !recurrence.equals("All") ||!startDate.isEmpty()||!endDate.isEmpty() ||!com.equals("All Statuses")) {
+        if(!title.isEmpty() || !type.equals("All Types") || !recurrence.equals("All Recurrences") ||!startDate.isEmpty()||!endDate.isEmpty() ||!com.equals("All Statuses")) {
             for (Event event : eventList) {
                 boolean matchesTitle = title.isEmpty() || event.getTitle().toLowerCase().contains(title.toLowerCase());
-                boolean matchesType = type.equals("All") || event.getType().equalsIgnoreCase(type);
-                boolean matchesRecurrence = recurrence.equals("All") || event.getRecurrence().equalsIgnoreCase(recurrence);
+                boolean matchesType = type.equals("All Types") || event.getType().equalsIgnoreCase(type);
+                boolean matchesRecurrence = recurrence.equals("All Recurrences") || event.getRecurrence().equalsIgnoreCase(recurrence);
                 boolean matchesDateRange = isWithinDateRange(event.getDate(), startDate, endDate);
 
                 boolean status = true;
@@ -639,7 +639,7 @@ public class CalenderActivity extends AppCompatActivity {
             return filteredList;
         }
         else{
-            Toast.makeText(this, "Filter Cancled " , Toast.LENGTH_SHORT).show();
+
 
             return eventList;
         }
@@ -690,7 +690,7 @@ public class CalenderActivity extends AppCompatActivity {
      * Updates the calendar UI with the filtered event list.
      */
     private void updateUI(List<Event> filteredList) {
-        Toast.makeText(this, "Filterrrr " , Toast.LENGTH_SHORT).show();
+
         EventAdapter adapter2 = new EventAdapter(this, filteredList);
         recyclerView.setAdapter(adapter2);
         if(filteredList.size() ==0){

@@ -12,7 +12,7 @@
     </string-array>
 
     <string-array name="event_typesfilter">
-        <item>All</item>
+        <item>All Types</item>
         <item>Task</item>
         <item>Employee Schedule</item>
         <item>Harvest</item>
@@ -29,7 +29,7 @@
     </string-array>
 
     <string-array name="recurrence_optionsfilter">
-        <item>All</item>
+        <item>All Recurrences</item>
         <item>None</item>
         <item>Daily</item>
         <item>Weekly</item>
