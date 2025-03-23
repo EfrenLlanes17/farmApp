@@ -64,7 +64,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
        holder.txtName.setText(products.get(position).getProductName());
 
        holder.image.setImageDrawable(ContextCompat.getDrawable(context,products.get(position).getProductImage()));
-       holder.txtPrice.setText((products.get(position).getSignedUp()) + " / " + products.get(position).getMaxSignedUp() + " Attending");
+       holder.txtPrice.setText("$" + products.get(position).getPrice());
        holder.txtPercentOff.setText(products.get(position).getDate());
        holder.txtSeller.setText(products.get(position).getLocation());
 

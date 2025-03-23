@@ -29,8 +29,14 @@ public class Product {
     private boolean userMadeEvent;
     private boolean hasbeenSaved;
 
+    private String phone;
+
+    private String web;
+    private String loc;
+    private double price;
+
     //Regular Event Builder
-    public Product(String productName, String productDiscription, String location, User productSeller, int image, boolean hasBeenSaved, String date, int signedUp, int maxSignedUp, int cost) {
+    public Product(String productName, String productDiscription, String location, User productSeller, int image, boolean hasBeenSaved, String date, int signedUp, int maxSignedUp, int cost, String phone,String web, String loc, double price) {
         this.productName = productName;
         this.location = location;
         this.productDiscription = productDiscription;
@@ -41,6 +47,10 @@ public class Product {
         this.maxSignedUp = maxSignedUp;
         this.signedUp = signedUp;
         this.cost = cost;
+        this.phone = phone;
+        this.web = web;
+        this.loc = loc;
+        this.price = price;
         userMadeEvent = false;
     }
     //Event Builder for Pictures taken by User
@@ -78,6 +88,23 @@ public class Product {
     }
     public int getMaxSignedUp() {
         return maxSignedUp;
+    }
+
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getWeb() {
+        return web;
+    }
+
+    public String getLoc() {
+        return loc;
+    }
+
+    public double getPrice() {
+        return price;
     }
 
 
