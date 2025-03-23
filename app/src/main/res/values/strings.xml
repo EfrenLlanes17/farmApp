@@ -43,4 +43,26 @@
         <item>Not Completed</item>
 
     </string-array>
+
+
+    <string-array name="employList">
+        <item>Ethan Lam</item>
+        <item>Gio Nonzioli</item>
+        <item>Jack Ross</item>
+        <item>Ben Smith</item>
+    </string-array>
+
+    <string-array name="HarvestList">
+        <item>Corn</item>
+        <item>Beans</item>
+        <item>Strawberry</item>
+        <item>Wheat</item>
+    </string-array>
+
+    <string-array name="IoTList">
+        <item>Sprinklers</item>
+        <item>Humidity Sensor</item>
+        <item>C02 Sensor</item>
+        <item>Nutrition Sensor</item>
+    </string-array>
 </resources>

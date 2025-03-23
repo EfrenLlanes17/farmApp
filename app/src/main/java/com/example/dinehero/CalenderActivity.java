@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -510,6 +511,7 @@ public class CalenderActivity extends AppCompatActivity {
         AutoCompleteTextView eventTitleInput = dialogView.findViewById(R.id.eventTitle);
         Spinner eventTypeSpinner = dialogView.findViewById(R.id.eventType);
         Spinner recurrenceSpinner = dialogView.findViewById(R.id.recurrence);
+        Spinner moreData = dialogView.findViewById(R.id.moreData);
         Button okButton = dialogView.findViewById(R.id.btnOk);
         Button cancelButton = dialogView.findViewById(R.id.btnCancel);
 
@@ -523,6 +525,70 @@ public class CalenderActivity extends AppCompatActivity {
                 this, R.array.recurrence_options, android.R.layout.simple_spinner_item);
         recurrenceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         recurrenceSpinner.setAdapter(recurrenceAdapter);
+
+        Boolean moreInfo = false;
+
+        eventTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Check the selected item
+                if (eventTypeSpinner.getSelectedItem().equals("Employee Schedule")) {
+                    moreData.setVisibility(View.VISIBLE);
+
+                    // Set the adapter for moreData spinner based on the selection
+                    ArrayAdapter<CharSequence> employeeAdapter = ArrayAdapter.createFromResource(
+                            CalenderActivity.this, R.array.employList, android.R.layout.simple_spinner_item);
+                    employeeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    moreData.setAdapter(employeeAdapter);
+                } else if (eventTypeSpinner.getSelectedItem().equals("Harvest")) {
+                    moreData.setVisibility(View.VISIBLE);
+
+                    // Set the adapter for moreData spinner based on the selection
+                    ArrayAdapter<CharSequence> harvestAdapter = ArrayAdapter.createFromResource(
+                            CalenderActivity.this, R.array.HarvestList, android.R.layout.simple_spinner_item);
+                    harvestAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    moreData.setAdapter(harvestAdapter);
+                }
+             else if (eventTypeSpinner.getSelectedItem().equals("IoT")) {
+                moreData.setVisibility(View.VISIBLE);
+
+                // Set the adapter for moreData spinner based on the selection
+                ArrayAdapter<CharSequence> iotAdapter = ArrayAdapter.createFromResource(
+                        CalenderActivity.this, R.array.IoTList, android.R.layout.simple_spinner_item);
+                    iotAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                moreData.setAdapter(iotAdapter);
+            }
+            else {
+                    moreData.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // You can handle the case where no item is selected, if needed
+            }
+        });
+
+
+
+
+        moreData.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                eventTitleInput.setText(eventTitleInput.getText() + " " + moreData.getSelectedItem().toString()) ;
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // You can handle the case where no item is selected, if needed
+            }
+        });
+
+
+
+
+
 
         AlertDialog dialog = builder.create();
 
