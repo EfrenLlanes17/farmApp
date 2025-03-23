@@ -107,7 +107,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
        holder.btnAccept.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               CalenderActivity.eventList.add(new Event(products.get(position).getDate(),products.get(position).getProductName(),"Order","None"));
+               CalenderActivity.eventList.add(new Event(products.get(position).getDate(),products.get(position).getProductName() + " to " + products.get(position).getProductSeller() + " at " + products.get(position).getLoc(),"Order","None"));
                CalenderActivity.adapter.notifyDataSetChanged();
                products.remove(position);
                notifyDataSetChanged();
@@ -123,7 +123,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
                String name = products.get(position).getProductName();
                int image = products.get(position).getProductImage();
-               String sell = products.get(position).getProductSeller().getUsername().toString();
+              // String sell = products.get(position).getProductSeller().getUsername().toString();
 
 
 
@@ -143,7 +143,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                    }
                }
 
-               openProductPage(name,image,sell);
+               openProductPage(name,image);
 
 
            }
@@ -164,14 +164,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 //               .into(holder.image);
     }
 
-    public void openProductPage(String text1,int text3,String text7){
+    public void openProductPage(String text1,int text3){
 
         Intent intent = new Intent(context, ProductPage.class);
         intent.putExtra(EXTRA_TEXT,text1);
 
         intent.putExtra(EXTRA_TEXT3,text3);
 
-        intent.putExtra(EXTRA_TEXT7,text7);
+        //intent.putExtra(EXTRA_TEXT7,text7);
         context.startActivity(intent);
     }
     @Override

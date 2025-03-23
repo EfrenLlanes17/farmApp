@@ -36,17 +36,13 @@ public class Product {
     private double price;
 
     //Regular Event Builder
-    public Product(String productName, String productDiscription, String location, User productSeller, int image, boolean hasBeenSaved, String date, int signedUp, int maxSignedUp, int cost, String phone,String web, String loc, double price) {
+    public Product(String productName, String productDiscription, String location, int image, boolean hasBeenSaved, String date, String phone,String web, String loc, double price) {
         this.productName = productName;
         this.location = location;
         this.productDiscription = productDiscription;
-        this.productSeller = productSeller;
         this.image = image;
-        this.hasbeenSaved = hasbeenSaved;
+        this.hasbeenSaved = hasBeenSaved;
         this.date = date;
-        this.maxSignedUp = maxSignedUp;
-        this.signedUp = signedUp;
-        this.cost = cost;
         this.phone = phone;
         this.web = web;
         this.loc = loc;

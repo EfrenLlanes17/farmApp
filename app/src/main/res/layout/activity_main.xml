@@ -9,11 +9,47 @@
 
     >
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_search_24"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="250dp"
+        android:layout_below="@+id/topNavView"
+        android:backgroundTint="@color/white"
+        />
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Search"
+        android:textColorHint="#FF8E9F"
+        android:textSize="20dp"
+        android:id="@+id/searchET"
+        android:inputType="text"
+        android:textColor="#FF8E9F"
+        android:layout_marginTop="35dp"
+        android:layout_below="@id/topNavView"
+        android:imeOptions="actionDone"
+        android:focusableInTouchMode="false"
+        />
+
+    <TextView
+        android:id="@+id/noResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+        android:text="No Results"
+        android:textColor="#FF8E9F"
+        android:textSize="20dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="1dp"
-        android:layout_below="@+id/topNavView"
+        android:layout_below="@+id/searchET"
         tools:layout_editor_absoluteY="1dp"
         android:id="@+id/Products"
         android:layout_centerHorizontal="true"

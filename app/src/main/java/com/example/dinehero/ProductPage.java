@@ -51,7 +51,7 @@ public class ProductPage extends AppCompatActivity {
         String text1 = intent.getStringExtra(ProductAdapter.EXTRA_TEXT);
 
         String text3 = intent.getStringExtra(ProductAdapter.EXTRA_TEXT3);
-        String text7 = intent.getStringExtra(ProductAdapter.EXTRA_TEXT7);
+        //String text7 = intent.getStringExtra(ProductAdapter.EXTRA_TEXT7);
         Product temp = MainActivity2.findProduct(text1);
         boolean temp2 = ProfileActivity.getCurrentUserUsername().equals("");
 
@@ -128,8 +128,8 @@ public class ProductPage extends AppCompatActivity {
                 String email = MainActivity2.findProduct(text1).getLocation() + "Main@" + MainActivity2.findProduct(text1).getLocation() + ".com";
                 intent.setType("message/rfc822");
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{ email.toString().replace(" ","")});
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Check Out This Petition on VoiceIt : " );
-                intent.putExtra(Intent.EXTRA_TEXT, "" + "Test");
+                intent.putExtra(Intent.EXTRA_SUBJECT, MainActivity2.findProduct(text1).getProductName() );
+//                intent.putExtra(Intent.EXTRA_TEXT, "" + "Test");
 
                 // Check if there is an app that can handle this intent
                 if (intent.resolveActivity(context.getPackageManager()) != null) {
@@ -142,7 +142,7 @@ public class ProductPage extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q=Googleplex, Mountain View, CA");
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + MainActivity2.findProduct(text1).getLoc());
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps"); // Open in Google Maps app if available
                 if (mapIntent.resolveActivity(getPackageManager()) != null) {
@@ -159,7 +159,7 @@ public class ProductPage extends AppCompatActivity {
         PPButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www." + MainActivity2.findProduct(text1).getWeb()));
                 startActivity(intent);
             }
         });
