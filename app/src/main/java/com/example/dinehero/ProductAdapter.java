@@ -68,6 +68,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
        holder.txtPercentOff.setText(products.get(position).getDate());
        holder.txtSeller.setText(products.get(position).getLocation());
 
+       if (products.get(position).getHasbeenSaved()){
+           holder.pickUp.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.baseline_location_on_24));
+       }
+       else{
+           holder.pickUp.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.baseline_local_shipping_24));
+
+       }
+
 
 
        holder.btnDecline.setOnClickListener(new View.OnClickListener() {
@@ -203,6 +211,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         private Button btnAccept;
 
         private Button btnDecline;
+        private ImageView pickUp;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -215,6 +224,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             PPProductName = itemView.findViewById(R.id.txtPPName);
             btnAccept = itemView.findViewById(R.id.btnAccept);
             btnDecline = itemView.findViewById(R.id.btnDecline);
+            pickUp = itemView.findViewById(R.id.pickUpImage);
 
         }
     }

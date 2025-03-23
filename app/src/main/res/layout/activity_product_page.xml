@@ -48,15 +48,6 @@
         android:textColor="#FE8D9E"
         />
 
-    <!--  Event Price -->
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/free"
-        android:src="@drawable/free"
-        android:layout_alignParentRight="true"
-        />
 
 
     <!--  Event Description -->

@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -25,7 +27,7 @@ public class ProductPage extends AppCompatActivity {
 
     public TextView PPProductName;
     public TextView PPDiscription;
-    public ImageView freeImg;
+
     public ImageView PPImage;
     public TextView PPPrice;
     private TextView PPPercentOff;
@@ -34,6 +36,8 @@ public class ProductPage extends AppCompatActivity {
     private Button saveButton;
     private Button followingButton;
     private static User goingToUser;
+
+    private TextView phone;
 
 
 
@@ -67,7 +71,8 @@ public class ProductPage extends AppCompatActivity {
         PPButton = findViewById(R.id.sitePPButton);
         saveButton = findViewById(R.id.savePPButton);
         followingButton = findViewById(R.id.followPPButton);
-        freeImg = findViewById(R.id.free);
+        phone = findViewById(R.id.txtPhone);
+
 
         if(MainActivity2.findProduct(text1).getUserMadeEvent()){
             PPProductName.setText("You are Hosting");
@@ -75,6 +80,8 @@ public class ProductPage extends AppCompatActivity {
         else {
             PPProductName.setText(text1);
         }
+
+        phone.setText(MainActivity2.findProduct(text1).getPhone());
 
         PPDiscription.setText(text2);
         PPPrice.setText(MainActivity2.findProduct(text1).getLocation());
@@ -86,11 +93,11 @@ public class ProductPage extends AppCompatActivity {
         }
 
         if(MainActivity2.findProduct(text1).getCost() == 0){
-            freeImg.setVisibility(View.VISIBLE);
+
             PPPercentOff.setVisibility(View.INVISIBLE);
         }
         else{
-            freeImg.setVisibility(View.INVISIBLE);
+
             PPPercentOff.setVisibility(View.VISIBLE);
             PPPercentOff.setText("$" +MainActivity2.findProduct(text1).getCost() + ".00" );
         }
