@@ -51,8 +51,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.EventListener;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class ForYouActivity extends AppCompatActivity {
 
@@ -268,8 +270,16 @@ public class ForYouActivity extends AppCompatActivity {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();
-            int pixel = bitmap.getPixel(width / 2, height / 2);
-            return pixel;
+
+            // Sample multiple pixels for better accuracy
+            int[] pixels = new int[5];
+            pixels[0] = bitmap.getPixel(width / 2, height / 2);  // Center
+            pixels[1] = bitmap.getPixel(width / 4, height / 4);  // Top-left
+            pixels[2] = bitmap.getPixel(3 * width / 4, height / 4);  // Top-right
+            pixels[3] = bitmap.getPixel(width / 4, 3 * height / 4);  // Bottom-left
+            pixels[4] = bitmap.getPixel(3 * width / 4, 3 * height / 4);  // Bottom-right
+
+            return getDominantColor(pixels);
         } catch (IOException e) {
             e.printStackTrace();
             return Color.BLACK;
@@ -277,19 +287,72 @@ public class ForYouActivity extends AppCompatActivity {
     }
 
 
+    private int getDominantColor(int[] colors) {
+        HashMap<Integer, Integer> colorCount = new HashMap<>();
+
+        for (int color : colors) {
+            colorCount.put(color, colorCount.getOrDefault(color, 0) + 1);
+        }
+
+        int dominantColor = colors[0];
+        int maxCount = 0;
+
+        for (Map.Entry<Integer, Integer> entry : colorCount.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                dominantColor = entry.getKey();
+                maxCount = entry.getValue();
+            }
+        }
+
+        return dominantColor;
+    }
+
+
+//        Toast.makeText(ForYouActivity.this, "Red: " + red + " Green: " + green +" Blue: " + blue , Toast.LENGTH_LONG).show();
+
     private String getColorName(int color) {
         int red = Color.red(color);
         int green = Color.green(color);
         int blue = Color.blue(color);
 
-        if (green > red && green > blue) return "green";
-        if (red > green && red > blue) return "red";
-        if (blue > red && blue > green) return "blue";
-        if (red > 100 && green > 100 && blue < 100) return "yellow";
-        if (red > 139 && green < 69 && blue < 19) return "brown";
+        Toast.makeText(ForYouActivity.this, "Red: " + red + " Green: " + green +" Blue: " + blue , Toast.LENGTH_LONG).show();
+
+        // Define thresholds for detecting colors
+        int high = 200;   // High intensity threshold
+        int medium = 140; // Medium intensity threshold
+        int low = 80;     // Low intensity threshold
+
+        // White & Black
+        if (red > 220 && green > 220 && blue > 220) return "white";
+        if (red < 50 && green < 50 && blue < 50) return "black";
+
+        // Primary Colors
+        if (red > high && green < low && blue < low) return "red";
+        if (green > high && red < low && blue < low) return "green";
+        if (blue > high && red < low && green < low) return "blue";
+
+        // Improved Blue Detection (Handling Dark Blue)
+        if (blue > 70 && blue > red + 20 && blue > green + 20) return "blue";  // More lenient blue detection
+        if (blue > 70 && green > 50 && red < 80) return "dark blue"; // Handling darker shades of blue
+
+        // Yellow vs Orange Fix
+        if (red > 200 && green > 150 && blue < 50) return "yellow";
+        if (red > 200 && green > 100 && green <= 150 && blue < 80) return "orange";
+
+        // Secondary & Other Colors
+        if (red < 100 && green > high && blue > high) return "cyan";
+        if (red > medium && green < medium && blue > medium) return "magenta";
+        if (red > 100 && green > 50 && blue > 50 && red > green && red > blue) return "brown";
+        if (red > 120 && green > 120 && blue > 120 && red < 200 && green < 200 && blue < 200) return "gray";
 
         return "unknown";
     }
+
+
+
+
+
+
 
 
 
