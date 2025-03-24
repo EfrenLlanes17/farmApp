@@ -103,6 +103,15 @@ public class Product {
         return price;
     }
 
+    public String getPickupString(){
+        if(hasbeenSaved){
+            return "pickup";
+        }
+        else{
+            return "delivery";
+        }
+    }
+
 
     public void setHasbeenSaved(boolean hasbeenSaved) {
         this.hasbeenSaved = hasbeenSaved;
