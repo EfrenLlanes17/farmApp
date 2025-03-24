@@ -46,10 +46,12 @@
 
 
     <string-array name="employList">
+        <item>New Employee</item>
         <item>Ethan Lam</item>
         <item>Gio Nonzioli</item>
         <item>Jack Ross</item>
         <item>Ben Smith</item>
+
     </string-array>
 
     <string-array name="HarvestList">

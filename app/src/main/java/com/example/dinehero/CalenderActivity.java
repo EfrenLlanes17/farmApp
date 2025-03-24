@@ -52,6 +52,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -503,7 +504,11 @@ public class CalenderActivity extends AppCompatActivity {
         Spinner moreData = dialogView.findViewById(R.id.moreData);
         Button okButton = dialogView.findViewById(R.id.btnOk);
         Button cancelButton = dialogView.findViewById(R.id.btnCancel);
+        EditText newTxt = dialogView.findViewById(R.id.newTxt);
+        Button newBTn = dialogView.findViewById(R.id.newBTn);
 
+        newTxt.setVisibility(View.INVISIBLE);
+        newBTn.setVisibility(View.INVISIBLE);
 
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(
                 this, R.array.event_types, android.R.layout.simple_spinner_item);
@@ -563,8 +568,19 @@ public class CalenderActivity extends AppCompatActivity {
         moreData.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                eventTitleInput.setText(eventTitleInput.getText() + " " + moreData.getSelectedItem().toString()) ;
 
+                if (moreData.getSelectedItem().toString().equals("New Employee")){
+                    newTxt.setVisibility(View.VISIBLE);
+                    newBTn.setVisibility(View.VISIBLE);
+
+
+
+                }
+                else{
+                    eventTitleInput.setText(eventTitleInput.getText() + " " + moreData.getSelectedItem().toString()) ;
+                    newTxt.setVisibility(View.INVISIBLE);
+                    newBTn.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -573,7 +589,25 @@ public class CalenderActivity extends AppCompatActivity {
         });
 
 
+        newBTn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                String[] array = getResources().getStringArray(R.array.employList);
+
+                List<String> stringList = new ArrayList<>(Arrays.asList(array));
+
+                stringList.add(stringList.size(),newTxt.getText().toString());
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(CalenderActivity.this, android.R.layout.simple_spinner_item, stringList);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                moreData.setAdapter(adapter);
+
+                eventTitleInput.setText(eventTitleInput.getText() + " " + newTxt.getText().toString()) ;
+
+            }
+        });
 
 
 

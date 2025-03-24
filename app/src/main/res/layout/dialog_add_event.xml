@@ -24,6 +24,25 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"/>
 
+    <EditText
+        android:id="@+id/newTxt"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/black"
+        android:layout_width="400dp"
+        android:hint="New Option"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/black"
+        android:text="DONE"
+        android:visibility="invisible"
+        android:id="@+id/newBTn"
+    />
+
     <Spinner
         android:id="@+id/recurrence"
         android:layout_width="match_parent"
