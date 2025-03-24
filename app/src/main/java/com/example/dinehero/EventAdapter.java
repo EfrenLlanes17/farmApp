@@ -58,7 +58,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 String formattedDate = newFormat.format(date);
                 holder.headerTitle.setText(formattedDate);
             } catch (Exception e) {
-                holder.headerTitle.setText(event.getDate()); // Display date header
+                holder.headerTitle.setText(event.getDate());
             }
 
         } else {
@@ -74,7 +74,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
             holder.eventTitle.setText(event.getTitle());
             if (event.getFinished()) {
-                // Remove strikethrough
+
                 holder.eventTitle.setPaintFlags(holder.eventTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }
 
@@ -82,11 +82,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 @Override
                 public void onClick(View view) {
                     if ((holder.eventTitle.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0) {
-                        // Remove strikethrough
+
                         holder.eventTitle.setPaintFlags(holder.eventTitle.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                         event.setFinished(false);
                     } else {
-                        // Apply strikethrough
+
                         holder.eventTitle.setPaintFlags(holder.eventTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                         event.setFinished(true);
                     }
@@ -121,7 +121,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
     public void updateEvents(List<Event> rawEvents) {
-        // Clear the current list and rebuild with headers
+
         eventList.clear();
         Collections.sort(rawEvents, (e1, e2) -> e1.getDate().compareTo(e2.getDate()));
         String lastDate = "";
@@ -228,7 +228,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 eventList.add(new Event(event.getDate(),true)); // Add header
                 lastDate = event.getDate();
             }
-            eventList.add(event); // Add event
+            eventList.add(event);
         }
         notifyDataSetChanged();
     }

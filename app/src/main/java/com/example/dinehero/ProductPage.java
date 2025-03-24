@@ -131,7 +131,6 @@ public class ProductPage extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_SUBJECT, MainActivity2.findProduct(text1).getProductName() );
 //                intent.putExtra(Intent.EXTRA_TEXT, "" + "Test");
 
-                // Check if there is an app that can handle this intent
                 if (intent.resolveActivity(context.getPackageManager()) != null) {
                     context.startActivity(Intent.createChooser(intent, "Choose an email client"));
                 }
@@ -148,7 +147,6 @@ public class ProductPage extends AppCompatActivity {
                 if (mapIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(mapIntent);
                 } else {
-                    // If Google Maps app is not available, open in browser
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("https://www.google.com/maps/search/?api=1&query=Googleplex,Mountain+View,CA"));
                     startActivity(browserIntent);

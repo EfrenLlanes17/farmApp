@@ -9,7 +9,7 @@ public class Event {
 
     private boolean finished;
 
-    // Constructor for regular event
+
     public Event(String date, String title, String type, String recurrence) {
         this.date = date;
         this.title = title;
@@ -19,7 +19,7 @@ public class Event {
         this.finished = false;
     }
 
-    // Constructor for date headers
+
     public Event(String date, boolean isHeader) {
         this.date = date;
         this.isHeader = isHeader;
@@ -28,7 +28,7 @@ public class Event {
         this.recurrence = "";
     }
 
-    // Getters
+
     public String getDate() { return date; }
 
     public boolean getFinished() { return finished; }
@@ -37,7 +37,7 @@ public class Event {
     public String getRecurrence() { return recurrence; }
     public boolean isHeader() { return isHeader; }
 
-    // Setters
+
     public void setDate(String date) { this.date = date; }
     public void setTitle(String title) {
         if (!isHeader) {

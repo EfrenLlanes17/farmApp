@@ -17,7 +17,6 @@
         android:padding="16dp"
         android:background="@color/white">
 
-        <!-- Event Date -->
         <TextView
             android:id="@+id/eventDate"
             android:layout_width="wrap_content"
@@ -28,7 +27,6 @@
             android:textStyle="bold"
             android:layout_marginBottom="4dp" />
 
-        <!-- Event Title -->
         <TextView
             android:id="@+id/eventTitle"
             android:layout_width="wrap_content"
@@ -39,14 +37,12 @@
             android:textStyle="bold"
             android:layout_marginBottom="4dp" />
 
-        <!-- Horizontal Row: Event Type + Recurrence -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="start">
 
-            <!-- Event Type Badge -->
             <TextView
                 android:id="@+id/eventType"
                 android:layout_width="wrap_content"
@@ -60,7 +56,6 @@
                 android:textStyle="bold"
                 android:layout_marginEnd="8dp" />
 
-            <!-- Recurrence Badge -->
             <TextView
                 android:id="@+id/recurrenceStatus"
                 android:layout_width="wrap_content"

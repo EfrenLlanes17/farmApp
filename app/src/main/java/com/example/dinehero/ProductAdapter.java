@@ -95,10 +95,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                            }
                        });
 
-// Customize the action button color (optional)
                snackbar.setActionTextColor(Color.YELLOW);
 
-// Show the Snackbar
                snackbar.show();
            }
        });
@@ -119,7 +117,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
        holder.image.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               //Set Up producot Pages
 
                String name = products.get(position).getProductName();
                int image = products.get(position).getProductImage();

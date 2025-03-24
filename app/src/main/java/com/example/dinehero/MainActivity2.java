@@ -59,7 +59,7 @@ public class MainActivity2 extends AppCompatActivity {
 
 
 
-        //Top Navigation View - Allows User to navigate through app.   Java File
+
         TNV.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -91,7 +91,6 @@ public class MainActivity2 extends AppCompatActivity {
         if(ForYouActivity.getFirst()) {
 
 
-            //Events are called Products. This code allows all events to be displayed in the Event Page
 
             productsList.add(new Product("400lb of Carrots", "Walmart is a global retail giant known for its low prices and wide selection of products. Founded in 1962 by Sam Walton, it operates thousands of stores worldwide, including supercenters, discount stores, and neighborhood markets. Walmart offers groceries, electronics, clothing, home goods, and more. With a strong emphasis on affordability and convenience, it also provides online shopping and services like pharmacy and financial solutions. Its mission is to help customers Save Money. Live Better.", "Walmart", R.drawable.picnic,false,"07/05/24","405-567-9847","walmart.com","2200 W Danforth Rd, Edmond",480.24));
             productsList.add(new Product("200lb of Potatoes", "Sam’s Club is a membership-based warehouse retailer that provides bulk groceries, fresh produce, and household essentials at competitive prices. Catering to individuals and businesses alike, it offers an extensive range of food products, meats, and pantry staples. With a strong emphasis on cost savings, Sam’s Club also provides online shopping, curbside pickup, and home delivery services, ensuring convenience for its customers while maintaining its commitment to affordability and quality.",

@@ -117,7 +117,7 @@ public class CalenderActivity extends AppCompatActivity {
 
     private FloatingActionButton fabFilterEvent;
 
-    private static final String CHANNEL_ID = "eventReminderChannel"; // Unique ID for notifications
+    private static final String CHANNEL_ID = "eventReminderChannel";
 
 
     @Override
@@ -217,7 +217,7 @@ public class CalenderActivity extends AppCompatActivity {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
         List<Event> newEvents = new ArrayList<>();
-//        newEvents.add(event); // Add the original event
+//        newEvents.add(event);
 
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/M/dd", Locale.getDefault());
         String todayDate = sdf.format(Calendar.getInstance().getTime());
@@ -249,7 +249,7 @@ public class CalenderActivity extends AppCompatActivity {
                     recurrenceCount = 1;
                     break;
                 default:
-                    recurrenceCount = 0; // No recurrence
+                    recurrenceCount = 0;
             }
             newEvents.add(new Event(sdf.format(calendar.getTime()), event.getTitle(), event.getType(), event.getRecurrence()));
             for (int i = 1; i <= recurrenceCount; i++) {
@@ -274,7 +274,7 @@ public class CalenderActivity extends AppCompatActivity {
 
 
 
-                // Compare the event date with today's date
+
                 if (recurringEvent.getDate().equals(todayDate)) {
                     doISend = true;
                     noteDate = recurringEvent.getDate();
@@ -352,7 +352,6 @@ public class CalenderActivity extends AppCompatActivity {
                 this,
                 android.R.style.Theme_DeviceDefault_Light_Dialog,
                 (view, year, month, dayOfMonth) -> {
-                    // This will be triggered when the user selects a date
                     String selectedDate = year + "/" + (month + 1) + "/" + dayOfMonth;
                     showEventDialog(selectedDate); // Pass the selected date to event dialog
                 },
@@ -368,15 +367,13 @@ public class CalenderActivity extends AppCompatActivity {
             int selectedMonth = datePicker.getMonth();
             int selectedDay = datePicker.getDayOfMonth();
             String confirmedDate = selectedYear + "/" + (selectedMonth + 1) + "/" + selectedDay;
-            showEventDialog(confirmedDate); // Show event dialog with confirmed date
+            showEventDialog(confirmedDate);
         });
 
-        // Set the negative (Cancel) button
         datePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", (dialog, which) -> {
-            dialog.dismiss(); // Simply dismiss the dialog
+            dialog.dismiss();
         });
 
-        // Show the date picker dialog
         datePickerDialog.show();
     }
 
@@ -395,7 +392,6 @@ public class CalenderActivity extends AppCompatActivity {
         }
     }
 
-    // Send an immediate notification if the event is today
     private void sendInstantNotification( String date) throws ParseException {
 
         String responseMessage;
@@ -422,25 +418,18 @@ public class CalenderActivity extends AppCompatActivity {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         notificationManager.notify(100, builder.build()); // 100 is notification ID
     }
 
-    // Schedule a notification using AlarmManager
+
     private void scheduleEventNotification(String eventName, String eventDate) {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {
             calendar.setTime(sdf.parse(eventDate));
-            calendar.set(Calendar.HOUR_OF_DAY, 9); // Set notification time (9 AM)
+            calendar.set(Calendar.HOUR_OF_DAY, 9);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
         } catch (Exception e) {
@@ -515,7 +504,7 @@ public class CalenderActivity extends AppCompatActivity {
         Button okButton = dialogView.findViewById(R.id.btnOk);
         Button cancelButton = dialogView.findViewById(R.id.btnCancel);
 
-        // Set up spinners
+
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(
                 this, R.array.event_types, android.R.layout.simple_spinner_item);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -531,11 +520,11 @@ public class CalenderActivity extends AppCompatActivity {
         eventTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Check the selected item
+
                 if (eventTypeSpinner.getSelectedItem().equals("Employee Schedule")) {
                     moreData.setVisibility(View.VISIBLE);
 
-                    // Set the adapter for moreData spinner based on the selection
+
                     ArrayAdapter<CharSequence> employeeAdapter = ArrayAdapter.createFromResource(
                             CalenderActivity.this, R.array.employList, android.R.layout.simple_spinner_item);
                     employeeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -543,7 +532,7 @@ public class CalenderActivity extends AppCompatActivity {
                 } else if (eventTypeSpinner.getSelectedItem().equals("Harvest")) {
                     moreData.setVisibility(View.VISIBLE);
 
-                    // Set the adapter for moreData spinner based on the selection
+
                     ArrayAdapter<CharSequence> harvestAdapter = ArrayAdapter.createFromResource(
                             CalenderActivity.this, R.array.HarvestList, android.R.layout.simple_spinner_item);
                     harvestAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -552,7 +541,7 @@ public class CalenderActivity extends AppCompatActivity {
              else if (eventTypeSpinner.getSelectedItem().equals("IoT")) {
                 moreData.setVisibility(View.VISIBLE);
 
-                // Set the adapter for moreData spinner based on the selection
+
                 ArrayAdapter<CharSequence> iotAdapter = ArrayAdapter.createFromResource(
                         CalenderActivity.this, R.array.IoTList, android.R.layout.simple_spinner_item);
                     iotAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -565,7 +554,6 @@ public class CalenderActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // You can handle the case where no item is selected, if needed
             }
         });
 
@@ -581,7 +569,6 @@ public class CalenderActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // You can handle the case where no item is selected, if needed
             }
         });
 
@@ -605,7 +592,7 @@ public class CalenderActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
 
-            // Sort events by date
+
             Collections.sort(eventList, (e1, e2) -> e1.getDate().compareTo(e2.getDate()));
 
 
@@ -625,7 +612,6 @@ public class CalenderActivity extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         View dialogView = inflater.inflate(R.layout.dialog_filter_event, null);
 
-        // Initialize dialog components
         AutoCompleteTextView eventTitle = dialogView.findViewById(R.id.eventTitle);
         Spinner eventType = dialogView.findViewById(R.id.eventType);
         Spinner recurrence = dialogView.findViewById(R.id.recurrence);
@@ -635,13 +621,11 @@ public class CalenderActivity extends AppCompatActivity {
         Button btnOk = dialogView.findViewById(R.id.btnOk);
 
 
-        // Create and show dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        // Populate Spinners (Example: You can replace this with actual data)
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(
                 this, R.array.event_typesfilter, android.R.layout.simple_spinner_item);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -657,10 +641,8 @@ public class CalenderActivity extends AppCompatActivity {
         recurrenceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         com.setAdapter(completedAdapter);
 
-        // Handle date selection (You need to implement openDatePicker())
 
 
-        // Filter on button click
         btnOk.setOnClickListener(v -> {
             String titleFilter = eventTitle.getText().toString().trim();
             String typeFilter = eventType.getSelectedItem().toString();
@@ -671,15 +653,13 @@ public class CalenderActivity extends AppCompatActivity {
 
             List<Event> filteredList = filterEvents(titleFilter, typeFilter, recurrenceFilter, startDateFilter, endDateFilter,completed);
 
-            updateUI(filteredList); // Update calendar with filtered results
+            updateUI(filteredList);
 
             dialog.dismiss();
         });
     }
 
-    /**
-     * Filters the eventList based on the given parameters.
-     */
+
     private List<Event> filterEvents(String title, String type, String recurrence, String startDate, String endDate, String com) {
         List<Event> filteredList = new ArrayList<>();
         if(!title.isEmpty() || !type.equals("All Types") || !recurrence.equals("All Recurrences") ||!startDate.isEmpty()||!endDate.isEmpty() ||!com.equals("All Statuses")) {
@@ -712,9 +692,7 @@ public class CalenderActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Checks if a given event date is within the selected date range.
-     */
+
     private boolean isWithinDateRange(String eventDate, String startDate, String endDate) {
         if (startDate.isEmpty() && endDate.isEmpty()) return true; // No date filter applied
 

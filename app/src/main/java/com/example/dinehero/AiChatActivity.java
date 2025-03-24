@@ -71,7 +71,7 @@ public class AiChatActivity extends AppCompatActivity {
 
                     String responseMessage = null;
 
-                    // Check if the message contains a plant name
+
                     for (ForYouActivity.Plant plant : ForYouActivity.plantList) {
                         if (message.toLowerCase().contains(plant.getName().toLowerCase())) {
                             responseMessage = "Here’s some information about " + plant.getName() + ":\n";
@@ -87,7 +87,7 @@ public class AiChatActivity extends AppCompatActivity {
                         }
                     }
 
-                    // If no plant was found, check for a date
+
                     if (responseMessage == null) {
                         String extractedDate = extractDate(message);
                         if (extractedDate != null) {
@@ -105,7 +105,7 @@ public class AiChatActivity extends AppCompatActivity {
                         }
                     }
 
-                    // Simulate AI response
+
                     String finalMessage = responseMessage;
                     handler.postDelayed(() -> simulateTypingEffect(finalMessage, recyclerView), 500);
                 }
@@ -173,14 +173,14 @@ public class AiChatActivity extends AppCompatActivity {
 
     private String extractDate(String message) {
         Pattern datePattern = Pattern.compile(
-                "(\\d{1,2}/\\d{1,2}/\\d{2,4})|" +  // Matches 4/3/24 or 12/25/2025
+                "(\\d{1,2}/\\d{1,2}/\\d{2,4})|" +
                         "(\\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\\s*\\d{1,2},?\\s*(?:\\d{2,4})?)",
                 Pattern.CASE_INSENSITIVE
         );
         Matcher matcher = datePattern.matcher(message);
 
         if (matcher.find()) {
-            return formatDate(matcher.group()); // Convert to "yyyy/MM/dd"
+            return formatDate(matcher.group());
         }
         return null;
     }
@@ -205,23 +205,23 @@ public class AiChatActivity extends AppCompatActivity {
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
 
         try {
-            return outputFormat.format(inputFormat2.parse(dateStr)); // Handles "4/3/24"
+            return outputFormat.format(inputFormat2.parse(dateStr));
         } catch (Exception ignored) {}
 
         try {
-            return outputFormat.format(inputFormat3.parse(dateStr)); // Handles "April 3, 2024"
+            return outputFormat.format(inputFormat3.parse(dateStr));
         } catch (Exception ignored) {}
 
         try {
             Calendar cal = Calendar.getInstance();
-            Date parsedDate = inputFormat4.parse(dateStr); // Handles "April 3"
+            Date parsedDate = inputFormat4.parse(dateStr);
             cal.setTime(parsedDate);
-            cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR)); // Assume current year
+            cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
             return outputFormat.format(cal.getTime());
         } catch (Exception ignored) {}
 
         try {
-            // Handles "04/03" -> Assumes current year
+
             Calendar cal = Calendar.getInstance();
             Date parsedDate = inputFormat1.parse(dateStr);
             cal.setTime(parsedDate);
@@ -241,7 +241,7 @@ public class AiChatActivity extends AppCompatActivity {
         recyclerView.scrollToPosition(messages.size() - 1);
 
         int messageLength = fullMessage.length();
-        int typingDelay = Math.max(30, 200 / messageLength); // Speed scales with text length
+        int typingDelay = Math.max(30, 200 / messageLength);
 
         new Thread(() -> {
             StringBuilder currentText = new StringBuilder();

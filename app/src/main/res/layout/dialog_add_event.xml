@@ -29,7 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <!-- OK Button -->
     <Button
         android:id="@+id/btnOk"
         android:layout_width="match_parent"
@@ -39,7 +38,6 @@
         android:textColor="#FFFFFF"
         android:backgroundTint="@color/green" />
 
-    <!-- Cancel Button -->
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="match_parent"

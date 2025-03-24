@@ -104,7 +104,7 @@ public class ForYouActivity extends AppCompatActivity {
         eventLoc = findViewById(R.id.edtTextLoc);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getUserLocation();
-        // Request location on click
+
 //        eventLoc.setOnClickListener(v -> getUserLocation());
 
 
@@ -195,10 +195,10 @@ public class ForYouActivity extends AppCompatActivity {
                 String colorName = getColorName(dominantColor);
                 String suggestion = getSuggestionBasedOnColor(colorName);
 
-                // Get additional plant information
+
                 String plantInfo = getPlantInfo(plantName);
 
-                // Expected color in the current season
+
                 String expectedColor = expectedColorForSeason(date);
 
                 String outputText = String.format(
@@ -268,11 +268,11 @@ public class ForYouActivity extends AppCompatActivity {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();
-            int pixel = bitmap.getPixel(width / 2, height / 2); // Sample the center pixel
+            int pixel = bitmap.getPixel(width / 2, height / 2);
             return pixel;
         } catch (IOException e) {
             e.printStackTrace();
-            return Color.BLACK; // Default to black in case of error
+            return Color.BLACK;
         }
     }
 
@@ -345,9 +345,9 @@ public class ForYouActivity extends AppCompatActivity {
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             if (addresses != null && !addresses.isEmpty()) {
                 Address address = addresses.get(0);
-                String city = address.getLocality();   // City
-                String state = address.getAdminArea(); // State
-                String country = address.getCountryName(); // Country
+                String city = address.getLocality();
+                String state = address.getAdminArea();
+                String country = address.getCountryName();
 
                 eventLoc.setText(city + ", " + state + ", " + country);
             } else {
