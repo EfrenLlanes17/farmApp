@@ -9,6 +9,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,6 +88,9 @@ public class ForYouActivity extends AppCompatActivity {
 
     public static ArrayList<Plant> plantList = new ArrayList<>();
 
+    private ProgressBar pbCircle;
+    private ProgressBar pbLine;
+
 
 
     ActivityMainBinding binding;
@@ -113,6 +118,9 @@ public class ForYouActivity extends AppCompatActivity {
         TNV = findViewById(R.id.topNavView2);
         //TNV.setSelectedItemId(findViewById(R.id.btnForYou).getId());
         TNV.setItemActiveIndicatorEnabled(false);
+
+        pbCircle = findViewById(R.id.progressBar);
+        pbLine = findViewById(R.id.progressBar2);
 
         ImageTings = findViewById(R.id.ImageTing);
         creatBtn = findViewById(R.id.createPostBtn);
@@ -146,6 +154,8 @@ public class ForYouActivity extends AppCompatActivity {
         eventLoc.setVisibility(View.VISIBLE);
         eventName.setVisibility(View.VISIBLE);
         imageOutputText.setVisibility(View.INVISIBLE);
+        pbLine.setVisibility(View.INVISIBLE);
+        pbCircle.setVisibility(View.INVISIBLE);
 
 
 
@@ -183,7 +193,6 @@ public class ForYouActivity extends AppCompatActivity {
                 }
 
                 String plantName = eventName.getText().toString().trim();
-
                 String location = eventLoc.getText().toString().trim();
                 String date = eventDate.getText().toString().trim();
 
@@ -192,15 +201,10 @@ public class ForYouActivity extends AppCompatActivity {
                     return;
                 }
 
-
                 int dominantColor = analyzeImageColor(uriiiii);
                 String colorName = getColorName(dominantColor);
                 String suggestion = getSuggestionBasedOnColor(colorName);
-
-
                 String plantInfo = getPlantInfo(plantName);
-
-
                 String expectedColor = expectedColorForSeason(date);
 
                 String outputText = String.format(
@@ -209,7 +213,7 @@ public class ForYouActivity extends AppCompatActivity {
                         colorName, plantName, location, suggestion, expectedColor, plantInfo
                 );
 
-                imageOutputText.setText(outputText);
+                // Hide input fields, show progress elements
                 ImageTings.setVisibility(View.INVISIBLE);
                 eventDate.setVisibility(View.INVISIBLE);
                 creatBtn.setVisibility(View.INVISIBLE);
@@ -218,8 +222,69 @@ public class ForYouActivity extends AppCompatActivity {
                 eventLoc.setVisibility(View.INVISIBLE);
                 eventName.setVisibility(View.INVISIBLE);
                 imageOutputText.setVisibility(View.VISIBLE);
+                pbCircle.setVisibility(View.VISIBLE);
+                pbLine.setVisibility(View.VISIBLE);
+                pbLine.setProgress(0);
 
-                Toast.makeText(ForYouActivity.this, "Analysis Complete", Toast.LENGTH_SHORT).show();
+                Handler handler = new Handler();
+                int delay = 1000; // Start with 1 second
+
+                handler.postDelayed(() -> {
+                    imageOutputText.setText("Text 1");
+                    pbLine.setProgress(7);
+                }, delay);
+
+                delay += 1000; // Increase delay for next step
+
+                handler.postDelayed(() -> {
+                    imageOutputText.setText("Text 2");
+                    pbLine.setProgress(32);
+                }, delay);
+
+                delay += 1000;
+
+                handler.postDelayed(() -> {
+                    imageOutputText.setText("Text 3");
+                    pbLine.setProgress(47);
+                }, delay);
+
+                delay += 1000;
+
+                handler.postDelayed(() -> {
+                    imageOutputText.setText("Text 4");
+                    pbLine.setProgress(56);
+                }, delay);
+
+                delay += 1000;
+
+                handler.postDelayed(() -> {
+                    imageOutputText.setText("Text 5");
+                    pbLine.setProgress(69);
+                }, delay);
+
+                delay += 1000;
+
+                handler.postDelayed(() -> {
+                    imageOutputText.setText("Text 6");
+                    pbLine.setProgress(87);
+                }, delay);
+
+                delay += 1000;
+
+                handler.postDelayed(() -> {
+                    pbLine.setProgress(100);
+                }, delay);
+
+                delay += 500; // Short delay before hiding progress bars
+
+                handler.postDelayed(() -> {
+                    pbCircle.setVisibility(View.INVISIBLE);
+                    pbLine.setVisibility(View.INVISIBLE);
+                }, delay);
+
+                // Finally, start the typing effect **after all progress updates**
+                delay += 500;
+                handler.postDelayed(() -> simulateTypingEffect(outputText), delay);
             }
         });
 
@@ -260,6 +325,28 @@ public class ForYouActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    private void simulateTypingEffect(String fullMessage) {
+        int messageLength = fullMessage.length();
+        int typingDelay = Math.max(30, 200 / messageLength);
+
+        new Thread(() -> {
+            StringBuilder currentText = new StringBuilder();
+            for (char c : fullMessage.toCharArray()) {
+                currentText.append(c);
+
+                // Run UI updates on the main thread
+                runOnUiThread(() -> imageOutputText.setText(currentText.toString()));
+
+                try {
+                    Thread.sleep(typingDelay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
 

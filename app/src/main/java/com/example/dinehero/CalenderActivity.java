@@ -214,7 +214,6 @@ public class CalenderActivity extends AppCompatActivity {
         Boolean doISend = false;
         String noteDate = "";
 
-        Log.d("EventAdapter", "Generating recurrence for: " + event.getTitle());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
         List<Event> newEvents = new ArrayList<>();
