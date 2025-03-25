@@ -105,7 +105,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
        holder.btnAccept.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               CalenderActivity.eventList.add(new Event(products.get(position).getDate(),products.get(position).getProductName() + " to " + products.get(position).getProductSeller() + " at " + products.get(position).getLoc(),"Order","None"));
+               CalenderActivity.eventList.add(new Event(products.get(position).getDate(),products.get(position).getProductName() + " to " + products.get(position).getLocation() + " at " + products.get(position).getLoc() + " for $" + products.get(position).getPrice(),"Order","None"));
                CalenderActivity.adapter.notifyDataSetChanged();
                products.remove(position);
                notifyDataSetChanged();
