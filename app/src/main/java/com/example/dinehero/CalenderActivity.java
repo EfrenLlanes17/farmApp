@@ -569,7 +569,7 @@ public class CalenderActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-                if (moreData.getSelectedItem().toString().equals("New Employee")){
+                if (moreData.getSelectedItem().toString().equals("New Employee") || moreData.getSelectedItem().toString().equals("New Crop") || moreData.getSelectedItem().toString().equals("New Device")){
                     newTxt.setVisibility(View.VISIBLE);
                     newBTn.setVisibility(View.VISIBLE);
 
@@ -593,18 +593,53 @@ public class CalenderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String[] array = getResources().getStringArray(R.array.employList);
+                if (moreData.getSelectedItem().toString().equals("New Employee")){
 
-                List<String> stringList = new ArrayList<>(Arrays.asList(array));
+                    String[] array = getResources().getStringArray(R.array.employList);
 
-                stringList.add(stringList.size(),newTxt.getText().toString());
+                    List<String> stringList = new ArrayList<>(Arrays.asList(array));
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(CalenderActivity.this, android.R.layout.simple_spinner_item, stringList);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    stringList.add(stringList.size(),newTxt.getText().toString());
 
-                moreData.setAdapter(adapter);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(CalenderActivity.this, android.R.layout.simple_spinner_item, stringList);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                eventTitleInput.setText(eventTitleInput.getText() + " " + newTxt.getText().toString()) ;
+                    moreData.setAdapter(adapter);
+
+                    eventTitleInput.setText(eventTitleInput.getText() + " " + newTxt.getText().toString()) ;
+
+                } else if (moreData.getSelectedItem().toString().equals("New Crop")) {
+
+                    String[] array = getResources().getStringArray(R.array.HarvestList);
+
+                    List<String> stringList = new ArrayList<>(Arrays.asList(array));
+
+                    stringList.add(stringList.size(),newTxt.getText().toString());
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(CalenderActivity.this, android.R.layout.simple_spinner_item, stringList);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    moreData.setAdapter(adapter);
+
+                    eventTitleInput.setText(eventTitleInput.getText() + " " + newTxt.getText().toString()) ;
+
+                } else if (moreData.getSelectedItem().toString().equals("New Device")) {
+
+                    String[] array = getResources().getStringArray(R.array.IoTList);
+
+                    List<String> stringList = new ArrayList<>(Arrays.asList(array));
+
+                    stringList.add(stringList.size(),newTxt.getText().toString());
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(CalenderActivity.this, android.R.layout.simple_spinner_item, stringList);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    moreData.setAdapter(adapter);
+
+                    eventTitleInput.setText(eventTitleInput.getText() + " " + newTxt.getText().toString()) ;
+
+                }
+
 
             }
         });

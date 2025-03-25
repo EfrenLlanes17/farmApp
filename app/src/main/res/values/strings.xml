@@ -55,6 +55,7 @@
     </string-array>
 
     <string-array name="HarvestList">
+        <item>New Crop</item>
         <item>Corn</item>
         <item>Beans</item>
         <item>Strawberry</item>
@@ -62,6 +63,7 @@
     </string-array>
 
     <string-array name="IoTList">
+        <item>New Device</item>
         <item>Sprinklers</item>
         <item>Humidity Sensor</item>
         <item>C02 Sensor</item>
