@@ -227,14 +227,14 @@ public class ForYouActivity extends AppCompatActivity {
                 pbLine.setProgress(0);
                 imageOutputText.setText("Scanning image...");
                 Handler handler = new Handler();
-                int delay = 1000; // Start with 1 second
+                int delay = 1000;
 
                 handler.postDelayed(() -> {
                     imageOutputText.setText("Extracting dominant color data...");
                     pbLine.setProgress(7);
                 }, delay);
 
-                delay += 1000; // Increase delay for next step
+                delay += 1000;
 
                 handler.postDelayed(() -> {
                     imageOutputText.setText("Comparing color with plant health database...");
@@ -275,14 +275,14 @@ public class ForYouActivity extends AppCompatActivity {
                     pbLine.setProgress(100);
                 }, delay);
 
-                delay += 500; // Short delay before hiding progress bars
+                delay += 500;
 
                 handler.postDelayed(() -> {
                     pbCircle.setVisibility(View.INVISIBLE);
                     pbLine.setVisibility(View.INVISIBLE);
                 }, delay);
 
-                // Finally, start the typing effect **after all progress updates**
+
 
                 handler.postDelayed(() -> simulateTypingEffect(outputText), delay);
             }

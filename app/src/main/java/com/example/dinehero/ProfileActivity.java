@@ -195,10 +195,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                User.setHasSignedIn(true);
-                setCurrentUserPassword(edtTxtPassword.getText().toString());
-                setCurrentUserUsername(edtTxtUsername.getText().toString());
-                Toast.makeText(ProfileActivity.this, "Signed in successfully, reload tab", Toast.LENGTH_LONG).show();
+//                User.setHasSignedIn(true);
+//                setCurrentUserPassword(edtTxtPassword.getText().toString());
+//                setCurrentUserUsername(edtTxtUsername.getText().toString());
+
+                //Toast.makeText(ProfileActivity.this, "Signed in successfully, reload tab", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileActivity.this, "Please Create an Account", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -207,24 +209,25 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 usernameNotFoundError.setVisibility(View.INVISIBLE);
-                if(edtTxtPassword.getText().toString().length() >= 10) {
-                    if(edtTxtPassword.getText().toString().indexOf("A") > -1 || edtTxtPassword.getText().toString().indexOf("B") > -1 || edtTxtPassword.getText().toString().indexOf("C") > -1|| edtTxtPassword.getText().toString().indexOf("D") > -1|| edtTxtPassword.getText().toString().indexOf("E") > -1|| edtTxtPassword.getText().toString().indexOf("F") > -1|| edtTxtPassword.getText().toString().indexOf("G") > -1|| edtTxtPassword.getText().toString().indexOf("H") > -1|| edtTxtPassword.getText().toString().indexOf("I") > -1|| edtTxtPassword.getText().toString().indexOf("J") > -1|| edtTxtPassword.getText().toString().indexOf("K") > -1|| edtTxtPassword.getText().toString().indexOf("L") > -1|| edtTxtPassword.getText().toString().indexOf("M") > -1|| edtTxtPassword.getText().toString().indexOf("N") > -1|| edtTxtPassword.getText().toString().indexOf("O") > -1|| edtTxtPassword.getText().toString().indexOf("P") > -1|| edtTxtPassword.getText().toString().indexOf("Q") > -1|| edtTxtPassword.getText().toString().indexOf("R") > -1|| edtTxtPassword.getText().toString().indexOf("S") > -1|| edtTxtPassword.getText().toString().indexOf("T") > -1|| edtTxtPassword.getText().toString().indexOf("U") > -1|| edtTxtPassword.getText().toString().indexOf("V") > -1|| edtTxtPassword.getText().toString().indexOf("W") > -1|| edtTxtPassword.getText().toString().indexOf("X") > -1|| edtTxtPassword.getText().toString().indexOf("Y") > -1|| edtTxtPassword.getText().toString().indexOf("Z") > -1) {
-                        if(edtTxtPassword.getText().toString().indexOf("1") >-1|| edtTxtPassword.getText().toString().indexOf("2") >-1|| edtTxtPassword.getText().toString().indexOf("3") >-1|| edtTxtPassword.getText().toString().indexOf("4") >-1|| edtTxtPassword.getText().toString().indexOf("5") >-1|| edtTxtPassword.getText().toString().indexOf("6") >-1|| edtTxtPassword.getText().toString().indexOf("7") >-1|| edtTxtPassword.getText().toString().indexOf("8") >-1|| edtTxtPassword.getText().toString().indexOf("9") >-1|| edtTxtPassword.getText().toString().indexOf("0") >-1){
-                            if(edtTxtPassword.getText().toString().indexOf(" ") == -1) {
-                                if(User.usernameNotTaken(edtTxtUsername.getText().toString())) {
-                                    if(edtTxtUsername.getText().toString().indexOf(" ") == -1) {
-                                        if(edtTxtUsername.getText().toString().length() < 12) {
-                                            ProfileActivity.setUsername(edtTxtUsername.getText().toString());
+                if(edtTxtPassword.getText().toString().length() >= 1) {
+                    if(true || edtTxtPassword.getText().toString().indexOf("A") > -1 || edtTxtPassword.getText().toString().indexOf("B") > -1 || edtTxtPassword.getText().toString().indexOf("C") > -1|| edtTxtPassword.getText().toString().indexOf("D") > -1|| edtTxtPassword.getText().toString().indexOf("E") > -1|| edtTxtPassword.getText().toString().indexOf("F") > -1|| edtTxtPassword.getText().toString().indexOf("G") > -1|| edtTxtPassword.getText().toString().indexOf("H") > -1|| edtTxtPassword.getText().toString().indexOf("I") > -1|| edtTxtPassword.getText().toString().indexOf("J") > -1|| edtTxtPassword.getText().toString().indexOf("K") > -1|| edtTxtPassword.getText().toString().indexOf("L") > -1|| edtTxtPassword.getText().toString().indexOf("M") > -1|| edtTxtPassword.getText().toString().indexOf("N") > -1|| edtTxtPassword.getText().toString().indexOf("O") > -1|| edtTxtPassword.getText().toString().indexOf("P") > -1|| edtTxtPassword.getText().toString().indexOf("Q") > -1|| edtTxtPassword.getText().toString().indexOf("R") > -1|| edtTxtPassword.getText().toString().indexOf("S") > -1|| edtTxtPassword.getText().toString().indexOf("T") > -1|| edtTxtPassword.getText().toString().indexOf("U") > -1|| edtTxtPassword.getText().toString().indexOf("V") > -1|| edtTxtPassword.getText().toString().indexOf("W") > -1|| edtTxtPassword.getText().toString().indexOf("X") > -1|| edtTxtPassword.getText().toString().indexOf("Y") > -1|| edtTxtPassword.getText().toString().indexOf("Z") > -1) {
+                        if(true || edtTxtPassword.getText().toString().indexOf("1") >-1|| edtTxtPassword.getText().toString().indexOf("2") >-1|| edtTxtPassword.getText().toString().indexOf("3") >-1|| edtTxtPassword.getText().toString().indexOf("4") >-1|| edtTxtPassword.getText().toString().indexOf("5") >-1|| edtTxtPassword.getText().toString().indexOf("6") >-1|| edtTxtPassword.getText().toString().indexOf("7") >-1|| edtTxtPassword.getText().toString().indexOf("8") >-1|| edtTxtPassword.getText().toString().indexOf("9") >-1|| edtTxtPassword.getText().toString().indexOf("0") >-1){
+                            if(true ||edtTxtPassword.getText().toString().indexOf(" ") == -1) {
+                                if(true ||User.usernameNotTaken(edtTxtUsername.getText().toString())) {
+                                    if(true ||edtTxtUsername.getText().toString().indexOf(" ") == -1) {
+                                        if(true ||edtTxtUsername.getText().toString().length() < 12) {
+//                                            ProfileActivity.setUsername(edtTxtUsername.getText().toString());
+//
+//                                            User newUser = new User(edtTxtUsername.getText().toString(), edtTxtPassword.getText().toString(),5,5,5.0,"",5);
+//
+//                                            User.setHasSignedIn(true);
+//
+//                                            setCurrentUserPassword(edtTxtPassword.getText().toString());
+//                                            setCurrentUserUsername(edtTxtUsername.getText().toString());
+//                                            User.setHasSignedIn(true);
+                                            openCalendarActivity();
 
-                                            User newUser = new User(edtTxtUsername.getText().toString(), edtTxtPassword.getText().toString(),5,5,5.0,"",5);
-
-                                            User.setHasSignedIn(true);
-
-                                            setCurrentUserPassword(edtTxtPassword.getText().toString());
-                                            setCurrentUserUsername(edtTxtUsername.getText().toString());
-                                            User.setHasSignedIn(true);
-
-                                            Toast.makeText(ProfileActivity.this, "Account created successfully, reload tab " , Toast.LENGTH_LONG).show();
+                                            Toast.makeText(ProfileActivity.this, "Account Created Successfully, Hello " + edtTxtUsername.getText().toString() , Toast.LENGTH_LONG).show();
 
                                         }
                                         else{
@@ -374,6 +377,12 @@ public class ProfileActivity extends AppCompatActivity {
     public void openMainActivity(){
 
         Intent intent = new Intent(this, MainActivity2.class);
+        this.startActivity(intent);
+    }
+
+    public void openCalendarActivity(){
+
+        Intent intent = new Intent(this, CalenderActivity.class);
         this.startActivity(intent);
     }
     public void openInboxActivity(){

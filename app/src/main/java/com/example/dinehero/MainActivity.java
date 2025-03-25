@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
 
             public void run() {
-                Intent intent = new Intent(getApplicationContext(), CalenderActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                 startActivity(intent);
             }
         }, 3000);
