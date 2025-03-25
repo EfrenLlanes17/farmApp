@@ -225,47 +225,47 @@ public class ForYouActivity extends AppCompatActivity {
                 pbCircle.setVisibility(View.VISIBLE);
                 pbLine.setVisibility(View.VISIBLE);
                 pbLine.setProgress(0);
-
+                imageOutputText.setText("Scanning image...");
                 Handler handler = new Handler();
                 int delay = 1000; // Start with 1 second
 
                 handler.postDelayed(() -> {
-                    imageOutputText.setText("Text 1");
+                    imageOutputText.setText("Extracting dominant color data...");
                     pbLine.setProgress(7);
                 }, delay);
 
                 delay += 1000; // Increase delay for next step
 
                 handler.postDelayed(() -> {
-                    imageOutputText.setText("Text 2");
+                    imageOutputText.setText("Comparing color with plant health database...");
                     pbLine.setProgress(32);
                 }, delay);
 
                 delay += 1000;
 
                 handler.postDelayed(() -> {
-                    imageOutputText.setText("Text 3");
+                    imageOutputText.setText("Checking for stress, deficiency, or optimal growth...");
                     pbLine.setProgress(47);
                 }, delay);
 
                 delay += 1000;
 
                 handler.postDelayed(() -> {
-                    imageOutputText.setText("Text 4");
+                    imageOutputText.setText("Matching with expected seasonal variations...");
                     pbLine.setProgress(56);
                 }, delay);
 
                 delay += 1000;
 
                 handler.postDelayed(() -> {
-                    imageOutputText.setText("Text 5");
+                    imageOutputText.setText("Generating recommendations...");
                     pbLine.setProgress(69);
                 }, delay);
 
                 delay += 1000;
 
                 handler.postDelayed(() -> {
-                    imageOutputText.setText("Text 6");
+                    imageOutputText.setText("Finalizing results...");
                     pbLine.setProgress(87);
                 }, delay);
 
@@ -283,7 +283,7 @@ public class ForYouActivity extends AppCompatActivity {
                 }, delay);
 
                 // Finally, start the typing effect **after all progress updates**
-                delay += 500;
+
                 handler.postDelayed(() -> simulateTypingEffect(outputText), delay);
             }
         });
