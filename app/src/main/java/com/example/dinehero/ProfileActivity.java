@@ -200,7 +200,9 @@ public class ProfileActivity extends AppCompatActivity {
 //                setCurrentUserUsername(edtTxtUsername.getText().toString());
 
                 //Toast.makeText(ProfileActivity.this, "Signed in successfully, reload tab", Toast.LENGTH_LONG).show();
-                Toast.makeText(ProfileActivity.this, "Please Create an Account", Toast.LENGTH_LONG).show();
+                openMainActivity();
+
+                Toast.makeText(ProfileActivity.this, "Signed in Successfully, Hello " + edtTxtUsername.getText().toString() , Toast.LENGTH_LONG).show();
             }
         });
 
@@ -225,7 +227,7 @@ public class ProfileActivity extends AppCompatActivity {
 //                                            setCurrentUserPassword(edtTxtPassword.getText().toString());
 //                                            setCurrentUserUsername(edtTxtUsername.getText().toString());
 //                                            User.setHasSignedIn(true);
-                                            openCalendarActivity();
+                                            openMainActivity();
 
                                             Toast.makeText(ProfileActivity.this, "Account Created Successfully, Hello " + edtTxtUsername.getText().toString() , Toast.LENGTH_LONG).show();
 
@@ -379,6 +381,8 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity2.class);
         this.startActivity(intent);
     }
+
+
 
     public void openCalendarActivity(){
 

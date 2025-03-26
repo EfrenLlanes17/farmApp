@@ -126,46 +126,7 @@ public class CalenderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calender);
 
-        if (!ForYouActivity.alreadyPlants) {
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Wheat", "golden", "green", "yellow", "brown", "wind", 48, "grass-like", "wind-pollinated, grows well in temperate regions"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Corn", "yellow", "green", "yellow", "brown", "wind", 72, "tall stalk", "wind-pollinated, requires warm weather"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Soybean", "green", "green", "purple", "brown", "bees", 36, "bushy", "fixes nitrogen, improves soil fertility"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Rice", "golden", "green", "white", "brown", "wind", 36, "grass-like", "requires flooded fields, wind-pollinated"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Barley", "golden", "green", "yellow", "brown", "wind", 40, "grass-like", "fast-growing, drought-resistant"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Oats", "golden", "green", "yellow", "brown", "wind", 42, "grass-like", "high yield, thrives in cooler climates"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Sorghum", "red", "green", "yellow", "brown", "wind", 60, "tall stalk", "drought-resistant, used for grain and forage"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Millet", "yellow", "green", "yellow", "brown", "wind", 50, "grass-like", "heat-tolerant, used for grains and fodder"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Potato", "brown", "green", "purple", "brown", "bees", 24, "underground tuber", "high-yield root crop"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Sweet Potato", "orange", "green", "purple", "brown", "bees", 18, "vine", "nutrient-dense root crop"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Carrot", "orange", "green", "white", "brown", "bees", 12, "taproot", "rich in beta-carotene, prefers loose soil"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Beet", "red", "green", "yellow", "brown", "bees", 12, "bulb", "high in iron, used for sugar production"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Onion", "white", "green", "white", "brown", "bees", 18, "bulb", "strong aroma deters pests, stores well"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Garlic", "white", "green", "white", "brown", "bees", 18, "bulb", "natural pest repellent, high market demand"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Tomato", "red", "green", "yellow", "brown", "bees", 24, "bushy", "high-value crop, needs staking for support"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Pepper", "red", "green", "white", "brown", "bees", 24, "bushy", "thrives in warm temperatures"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Cabbage", "green", "green", "yellow", "brown", "bees", 18, "compact leaves", "cold-tolerant, high market demand"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Lettuce", "green", "green", "yellow", "brown", "wind", 12, "leafy", "fast-growing, prefers cooler temperatures"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Spinach", "green", "green", "yellow", "brown", "wind", 12, "leafy", "nutrient-rich, thrives in early spring"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Broccoli", "green", "green", "yellow", "brown", "bees", 24, "tall stalk", "high-value crop, cool-weather plant"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Cauliflower", "white", "green", "yellow", "brown", "bees", 24, "tall stalk", "requires rich soil, sensitive to heat"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Pumpkin", "orange", "green", "yellow", "brown", "bees", 24, "vine", "long-growing season, attracts pollinators"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Watermelon", "red", "green", "yellow", "brown", "bees", 18, "vine", "high-water crop, needs warm temperatures"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Cucumber", "green", "green", "yellow", "brown", "bees", 18, "vine", "climbing plant, requires trellising"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Zucchini", "green", "green", "yellow", "brown", "bees", 18, "bushy", "high-yield, short growing period"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Strawberry", "red", "green", "white", "brown", "bees", 12, "low-growing", "high-value fruit, requires mulching"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Blueberry", "blue", "green", "white", "red", "bees", 36, "shrub", "acidic soil-loving, attracts pollinators"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Raspberry", "red", "green", "white", "brown", "bees", 48, "shrub", "prone to spreading, needs support"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Apple", "red", "green", "pink", "brown", "bees", 144, "tree", "requires cross-pollination for best yield"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Pear", "green", "green", "white", "brown", "bees", 180, "tree", "thrives in well-drained soil"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Peach", "orange", "green", "pink", "brown", "bees", 180, "tree", "early blooming, sensitive to frost"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Grapes", "purple", "green", "white", "brown", "bees", 72, "vine", "requires pruning, grows well in warm climates"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Alfalfa", "green", "green", "purple", "brown", "bees", 36, "legume", "fixes nitrogen, great forage crop"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Clover", "green", "green", "pink", "brown", "bees", 12, "ground cover", "improves soil fertility, attracts bees"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Sunflower", "yellow", "green", "yellow", "brown", "bees", 60, "tall stalk", "high oil content, attracts pollinators"));
-            ForYouActivity.plantList.add(new ForYouActivity.Plant("Cotton", "white", "green", "yellow", "brown", "bees", 48, "shrub", "warm-season crop, used for textiles"));
 
-            ForYouActivity.alreadyPlants = true;
-        }
 
 
         createNotificationChannel();
@@ -279,7 +240,7 @@ public class CalenderActivity extends AppCompatActivity {
                 case "Monthly":
                     recurrenceCount = 13;
                     break;
-                case "Yearly":
+                case "Annually":
                     recurrenceCount = 1;
                     break;
                 default:
@@ -297,7 +258,7 @@ public class CalenderActivity extends AppCompatActivity {
                     case "Monthly":
                         calendar.add(Calendar.MONTH, 1);
                         break;
-                    case "Yearly":
+                    case "Annually":
                         calendar.add(Calendar.YEAR, 1);
                         break;
                 }

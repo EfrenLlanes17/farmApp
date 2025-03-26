@@ -25,7 +25,7 @@
         <item>Daily</item>
         <item>Weekly</item>
         <item>Monthly</item>
-        <item>Yearly</item>
+        <item>Annually</item>
     </string-array>
 
     <string-array name="recurrence_optionsfilter">
@@ -34,7 +34,7 @@
         <item>Daily</item>
         <item>Weekly</item>
         <item>Monthly</item>
-        <item>Yearly</item>
+        <item>Annually</item>
     </string-array>
 
     <string-array name="completedfilter">
