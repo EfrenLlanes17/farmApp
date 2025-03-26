@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,25 +72,68 @@ public class AiChatActivity extends AppCompatActivity {
 
                     String responseMessage = null;
 
+                    if (message.toLowerCase().contains("what should i plant")) {
+                        responseMessage = "Please enter your soil type (e.g., sandy, clay, loamy) and season (spring, summer, fall, winter).";
+                    } else if (message.toLowerCase().matches(".*(sandy|clay|loamy).*(spring|summer|fall|winter).*")) {
+                        responseMessage = getCropRecommendation(message);
+                    }
+                    else {
+                        for (ForYouActivity.Plant plant : ForYouActivity.plantList) {
+                            if (message.toLowerCase().contains(plant.getName().toLowerCase())) {
+                                responseMessage = "Here’s some information about " + plant.getName() + ":\n";
+                                responseMessage += "- Color in Spring: " + plant.getColorBySeason("spring") + "\n";
+                                responseMessage += "- Color in Summer: " + plant.getColorBySeason("summer") + "\n";
+                                responseMessage += "- Color in Winter: " + plant.getColorBySeason("winter") + "\n";
+                                responseMessage += "- Color in Fall: " + plant.getColorBySeason("fall") + "\n";
+                                responseMessage += "- Pollinators: " + plant.getPollinators() + "\n";
+                                responseMessage += "- Plant Spacing: " + plant.getPlantSpacing() + "\n";
+                                responseMessage += "- Growth Pattern: " + plant.getGrowthPattern() + "\n";
+                                responseMessage += "- Pollinator Attraction: " + plant.getPollinatorAttraction() + "\n";
+                                break;
+                            }
+                        }
+                    }
 
-                    for (ForYouActivity.Plant plant : ForYouActivity.plantList) {
-                        if (message.toLowerCase().contains(plant.getName().toLowerCase())) {
-                            responseMessage = "Here’s some information about " + plant.getName() + ":\n";
-                            responseMessage += "- Color in Spring: " + plant.getColorBySeason("spring") + "\n";
-                            responseMessage += "- Color in Summer: " + plant.getColorBySeason("summer") + "\n";
-                            responseMessage += "- Color in Winter: " + plant.getColorBySeason("winter") + "\n";
-                            responseMessage += "- Color in Fall: " + plant.getColorBySeason("fall") + "\n";
-                            responseMessage += "- Pollinators: " + plant.getPollinators() + "\n";
-                            responseMessage += "- Plant Spacing: " + plant.getPlantSpacing() + "\n";
-                            responseMessage += "- Growth Pattern: " + plant.getGrowthPattern() + "\n";
-                            responseMessage += "- Pollinator Attraction: " + plant.getPollinatorAttraction() + "\n";
-                            break;
+                    if (responseMessage == null) {
+                        if (message.toLowerCase().contains("today")) {
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+
+                            String extractedDate = dateFormat.format(Calendar.getInstance().getTime());
+                            List<Event> eventsOnDate = getEventsForDate(extractedDate);
+                            if (!eventsOnDate.isEmpty()) {
+                                responseMessage = extractedDate + " contains these events:\n";
+                                for (Event event : eventsOnDate) {
+                                    responseMessage += "- " + event.getTitle() + "\n";
+                                }
+                            } else {
+                                responseMessage = "No events found on " + extractedDate;
+                            }
+                        }
+                    }
+
+                    if (responseMessage == null) {
+                        if (message.toLowerCase().contains("tomorrow")) {
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.add(Calendar.DAY_OF_YEAR, 1);
+                            String extractedDate = dateFormat.format(calendar.getTime());
+                            List<Event> eventsOnDate = getEventsForDate(extractedDate);
+                            if (!eventsOnDate.isEmpty()) {
+                                responseMessage = extractedDate + " contains these events:\n";
+                                for (Event event : eventsOnDate) {
+                                    responseMessage += "- " + event.getTitle() + "\n";
+                                }
+                            } else {
+                                responseMessage = "No events found on " + extractedDate;
+                            }
                         }
                     }
 
 
                     if (responseMessage == null) {
                         String extractedDate = extractDate(message);
+                        //Toast.makeText(AiChatActivity.this, extractedDate, Toast.LENGTH_SHORT).show();
+
                         if (extractedDate != null) {
                             List<Event> eventsOnDate = getEventsForDate(extractedDate);
                             if (!eventsOnDate.isEmpty()) {
@@ -167,6 +211,17 @@ public class AiChatActivity extends AppCompatActivity {
         public boolean isUser() {
             return isUser;
         }
+    }
+
+    private String getCropRecommendation(String message) {
+        if (message.contains("sandy")) {
+            return "For sandy soil, consider planting carrots, peanuts, or watermelon during spring and summer.";
+        } else if (message.contains("clay")) {
+            return "For clay soil, try corn, cabbage, or beans. These grow well in spring and summer.";
+        } else if (message.contains("loamy")) {
+            return "Loamy soil is ideal for most crops. You can plant tomatoes, potatoes, or lettuce based on the season.";
+        }
+        return "Please specify both soil type and season for the best recommendation.";
     }
 
 

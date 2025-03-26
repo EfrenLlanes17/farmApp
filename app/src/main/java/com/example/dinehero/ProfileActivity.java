@@ -150,6 +150,10 @@ public class ProfileActivity extends AppCompatActivity {
         settingBtn.setVisibility(View.INVISIBLE);
         helloUserName.setVisibility(View.INVISIBLE);
 
+        if (CalenderActivity.eventList == null) {
+            CalenderActivity.eventList = new ArrayList<>();
+        }
+
 
         if(User.isHasSignedIn()){
 
