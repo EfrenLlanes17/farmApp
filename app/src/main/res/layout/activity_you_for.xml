@@ -138,6 +138,49 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/beeImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/topNavView2"
+        android:layout_marginBottom="125dp"
+        ></ImageView>
+
+    <ImageView
+        android:id="@+id/OGImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/topNavView2"
+        android:layout_toRightOf="@+id/beeImage"
+        android:layout_marginBottom="125dp"
+
+        >
+    </ImageView>
+
+
+    <ImageView
+        android:id="@+id/HighImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/topNavView2"
+        android:layout_toRightOf="@+id/OGImage"
+        android:layout_marginBottom="125dp"
+
+        >
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/InferImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/topNavView2"
+        android:layout_toRightOf="@+id/HighImage"
+        android:layout_marginBottom="125dp"
+
+        >
+
+    </ImageView>
+
     <ImageButton
         android:layout_width="200dp"
         android:layout_height="200dp"

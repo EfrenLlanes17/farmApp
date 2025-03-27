@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -25,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,6 +52,8 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -91,6 +96,11 @@ public class ForYouActivity extends AppCompatActivity {
     private ProgressBar pbCircle;
     private ProgressBar pbLine;
 
+    private ImageView beeImage;
+    private ImageView OGImage;
+    private ImageView HighImage;
+    private ImageView InferImage;
+
 
 
     ActivityMainBinding binding;
@@ -130,6 +140,10 @@ public class ForYouActivity extends AppCompatActivity {
         eventLoc = findViewById(R.id.edtTextLoc);
         eventDate = findViewById(R.id.edtTextDate);
         imageOutputText = findViewById(R.id.imageOutputText);
+        beeImage = findViewById(R.id.beeImage);
+        OGImage = findViewById(R.id.OGImage);
+        HighImage = findViewById(R.id.HighImage);
+        InferImage = findViewById(R.id.InferImage);
 
 
 
@@ -156,6 +170,10 @@ public class ForYouActivity extends AppCompatActivity {
         imageOutputText.setVisibility(View.INVISIBLE);
         pbLine.setVisibility(View.INVISIBLE);
         pbCircle.setVisibility(View.INVISIBLE);
+        beeImage.setVisibility(View.INVISIBLE);
+        OGImage.setVisibility(View.INVISIBLE);
+        HighImage.setVisibility(View.INVISIBLE);
+        InferImage.setVisibility(View.INVISIBLE);
 
 
 
@@ -208,9 +226,9 @@ public class ForYouActivity extends AppCompatActivity {
                 String expectedColor = expectedColorForSeason(date);
 
                 String outputText = String.format(
-                        "Based on the %s color of your %s in %s, you should %s more. " +
-                                "The plant should look more %s this time of year.\n\n%s",
-                        colorName, plantName, location, suggestion, expectedColor, plantInfo
+                        "Based on the %s color of your %s in %s, you should %s. " +
+                                "\n\n%s",
+                        colorName, plantName, location, suggestion, plantInfo
                 );
 
                 // Hide input fields, show progress elements
@@ -280,6 +298,17 @@ public class ForYouActivity extends AppCompatActivity {
                 handler.postDelayed(() -> {
                     pbCircle.setVisibility(View.INVISIBLE);
                     pbLine.setVisibility(View.INVISIBLE);
+                    beeImage.setVisibility(View.VISIBLE);
+                    OGImage.setVisibility(View.VISIBLE);
+                    HighImage.setVisibility(View.VISIBLE);
+                    InferImage.setVisibility(View.VISIBLE);
+                    beeImage.setImageURI(uriiiii);
+                    OGImage.setImageURI(uriiiii);
+                    HighImage.setImageURI(uriiiii);
+                    InferImage.setImageURI(uriiiii);
+                    applyInfraredFilter(InferImage);
+                    applyBeeVisionFilter(beeImage);
+                    applyHighContrastFilter(HighImage);
                 }, delay);
 
 
@@ -327,6 +356,52 @@ public class ForYouActivity extends AppCompatActivity {
 
     }
 
+    private void applyPollinatorFilter(ImageView imageView) {
+        ColorMatrix colorMatrix = new ColorMatrix(new float[]{
+                0.4f, 0.2f, 0.7f, 0, 0,
+                0.3f, 0.5f, 0.6f, 0, 0,
+                0.2f, 0.3f, 1.5f, 0, 0,
+                0, 0, 0, 1, 0
+        });
+
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(colorMatrix);
+        imageView.setColorFilter(filter);
+    }
+
+    private void applyInfraredFilter(ImageView imageView) {
+        ColorMatrix colorMatrix = new ColorMatrix(new float[]{
+                1.5f, 0.0f, 0.0f, 0, 0,
+                0.0f, 1.0f, 0.0f, 0, 0,
+                0.0f, 0.0f, 0.5f, 0, 0,
+                0, 0, 0, 1, 0
+        });
+
+        imageView.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
+    }
+
+
+    private void applyBeeVisionFilter(ImageView imageView) {
+        ColorMatrix colorMatrix = new ColorMatrix(new float[]{
+                0.3f, 0.3f, 0.0f, 0, 0,
+                0.3f, 0.6f, 0.3f, 0, 0,
+                0.2f, 0.3f, 1.2f, 0, 0,
+                0, 0, 0, 1, 0
+        });
+
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(colorMatrix);
+        imageView.setColorFilter(filter);
+    }
+
+    private void applyHighContrastFilter(ImageView imageView) {
+        ColorMatrix colorMatrix = new ColorMatrix();
+        colorMatrix.setScale(1.5f, 1.5f, 1.5f, 1f);  // Boosts color intensity
+
+        imageView.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
+    }
+
+
+
+
 
     private void simulateTypingEffect(String fullMessage) {
         int messageLength = fullMessage.length();
@@ -348,6 +423,10 @@ public class ForYouActivity extends AppCompatActivity {
             }
         }).start();
     }
+
+
+
+
 
 
 
@@ -395,14 +474,16 @@ public class ForYouActivity extends AppCompatActivity {
     }
 
 
+
+
+
+
 //        Toast.makeText(ForYouActivity.this, "Red: " + red + " Green: " + green +" Blue: " + blue , Toast.LENGTH_LONG).show();
 
     private String getColorName(int color) {
         int red = Color.red(color);
         int green = Color.green(color);
         int blue = Color.blue(color);
-
-        Toast.makeText(ForYouActivity.this, "Red: " + red + " Green: " + green +" Blue: " + blue , Toast.LENGTH_LONG).show();
 
 
         int high = 200;
@@ -448,7 +529,7 @@ public class ForYouActivity extends AppCompatActivity {
             case "green":
                 return "continue regular care";
             case "yellow":
-                return "water";
+                return "water the plant more";
             case "brown":
                 return "prune and check for pests";
             case "red":
@@ -529,7 +610,7 @@ public class ForYouActivity extends AppCompatActivity {
     private String getPlantInfo(String plantName) {
         for (Plant plant : plantList) {
             if (plant.getName().equalsIgnoreCase(plantName)) {
-                return "The " + plant.getName() + " typically has " + plant.getColorBySeason(getCurrentSeason()) +
+                return "The " + plant.getName().toLowerCase() + " typically has " + plant.getColorBySeason(getCurrentSeason()) +
                         " color in this season. It is best planted " + plant.getPlantSpacing() + " inches apart. " +
                         "Common pollinators include " + plant.getPollinators() + ". It grows in a " + plant.getGrowthPattern() +
                         " pattern, and " + plant.getPollinatorAttraction() + ".";
