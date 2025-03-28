@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileActivity"
-    android:background="@drawable/background"
+    android:background="@drawable/ranchbackground"
     android:id="@+id/profileRelativelayout">
 
 
@@ -97,28 +97,42 @@
         android:layout_below="@+id/Saved"
         android:layout_centerHorizontal="true"/>
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/logoSign"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="220dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ranchlogotextremovebgpreview"
+
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome"
+        android:text="Howdy!"
         android:id="@+id/welcome"
-        android:textColor="#FFFFFF"
-        android:textSize="40dp"
+        android:textColor="#011B22"
+        android:textSize="65dp"
 
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="40dp"
         android:fontFamily="@font/notoserifvithkuqivariablefontwght"
         android:textStyle="bold"
-        android:layout_marginTop="150dp"/>
+        android:layout_marginTop="85dp"/>
+
+
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" Sign in for more personalized events"
+        android:text=" Grow More, Stress Less."
         android:id="@+id/signInHeader"
-        android:textColor="#FFFFFF"
-        android:textSize="15dp"
-android:layout_below="@+id/welcome"
-        android:layout_marginLeft="30dp"
+        android:textColor="#011B22"
+        android:textSize="28dp"
+        android:layout_below="@+id/welcome"
+        android:layout_marginLeft="40dp"
         android:fontFamily="@font/notoserifvithkuqivariablefontwght"
 
         android:layout_marginTop="10dp"
@@ -209,7 +223,7 @@ android:layout_below="@+id/welcome"
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#FF0000"
+        android:textColor="#011B22"
         android:id="@+id/numberError"
         android:text="must have at least one number"
         android:textSize="20dp"
@@ -226,7 +240,7 @@ android:layout_below="@+id/welcome"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="640dp"
         android:text="or"
-        android:textColor="#FC8B9C"
+        android:textColor="#011B22"
         android:textSize="30dp" />
 
 
@@ -237,8 +251,8 @@ android:layout_below="@+id/welcome"
         android:layout_centerHorizontal="true"
         android:id="@+id/edtTxtUsername"
         android:hint="Username"
-        android:textColorHint="#FD8C9D"
-        android:textColor="#FD8C9D"
+        android:textColorHint="#011B22"
+        android:textColor="#011B22"
         android:textSize="30dp"
         android:inputType="text"
         android:imeOptions="actionDone"
@@ -251,8 +265,8 @@ android:layout_below="@+id/welcome"
         android:id="@+id/edtTxtPassword"
         android:layout_below="@+id/edtTxtUsername"
         android:hint="Password"
-        android:textColorHint="#FD8C9D"
-        android:textColor="#FD8C9D"
+        android:textColorHint="#011B22"
+        android:textColor="#011B22"
         android:textSize="30dp"
         android:inputType="text"
         android:imeOptions="actionDone"
@@ -263,7 +277,7 @@ android:layout_below="@+id/welcome"
         android:layout_height="wrap_content"
         android:text="Sign in"
         android:id="@+id/signInProfileBtn"
-        android:backgroundTint="#FD8C9D"
+        android:backgroundTint="#E0B05F"
         android:textColor="#FFFFFF"
         android:fontFamily="@font/notoserifvithkuqivariablefontwght"
         android:textStyle="bold"
@@ -281,7 +295,7 @@ android:layout_below="@+id/welcome"
         android:textSize="30dp"
         android:fontFamily="@font/notoserifvithkuqivariablefontwght"
         android:textStyle="bold"
-        android:backgroundTint="#FD8C9D"
+        android:backgroundTint="#E0B05F"
         android:textColor="#FFFFFF"
         android:elevation="10dp"
         android:layout_below="@+id/signInProfileBtn"
