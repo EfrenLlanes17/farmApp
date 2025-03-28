@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
         ProB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openMainActivity();
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
             }
         });
 
