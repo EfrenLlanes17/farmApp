@@ -25,7 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:overScrollMode="never"/>
+        android:overScrollMode="never"
+        android:layout_marginTop="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +39,9 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Type a message"
+            android:hint="Message RanchHandAI"
+            android:textColor="#011B22"
+            android:textColorHint="#011B22"
             android:background="@android:drawable/editbox_background"
             android:padding="8dp"/>
 
@@ -46,7 +49,8 @@
             android:id="@+id/sendButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:backgroundTint="#E0B05F"
+            android:textColor="#011B22"
             android:text="Send"/>
 
     </LinearLayout>

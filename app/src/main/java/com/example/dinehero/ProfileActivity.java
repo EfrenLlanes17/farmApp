@@ -57,6 +57,8 @@ public class ProfileActivity extends AppCompatActivity {
     private static String currentUserPassword = "";
     private static String currentUserUsername = "";
 
+    public static String userName;
+
     private TextView usernameTakenError;
     private TextView passwordShortError;
     private TextView uppercaseError;
@@ -204,6 +206,7 @@ public class ProfileActivity extends AppCompatActivity {
 //                setCurrentUserUsername(edtTxtUsername.getText().toString());
 
                 //Toast.makeText(ProfileActivity.this, "Signed in successfully, reload tab", Toast.LENGTH_LONG).show();
+                userName = edtTxtUsername.getText().toString();
                 openMainActivity();
 
                 Toast.makeText(ProfileActivity.this, "Signed in Successfully, Hello " + edtTxtUsername.getText().toString() , Toast.LENGTH_LONG).show();
@@ -231,6 +234,8 @@ public class ProfileActivity extends AppCompatActivity {
 //                                            setCurrentUserPassword(edtTxtPassword.getText().toString());
 //                                            setCurrentUserUsername(edtTxtUsername.getText().toString());
 //                                            User.setHasSignedIn(true);
+                                            userName = edtTxtUsername.getText().toString();
+
                                             openMainActivity();
 
                                             Toast.makeText(ProfileActivity.this, "Account Created Successfully, Hello " + edtTxtUsername.getText().toString() , Toast.LENGTH_LONG).show();

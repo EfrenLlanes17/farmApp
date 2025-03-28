@@ -52,6 +52,8 @@ public class AiChatActivity extends AppCompatActivity {
 
 
 
+
+
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         EditText messageInput = findViewById(R.id.messageInput);
         Button sendButton = findViewById(R.id.sendButton);
@@ -59,6 +61,8 @@ public class AiChatActivity extends AppCompatActivity {
         messageAdapter = new MessageAdapter(messages);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(messageAdapter);
+
+        simulateTypingEffect("Welcome back "+ ProfileActivity.userName + "! Want to check today’s tasks, learn about crops, or get planting recommendations?",recyclerView);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +149,7 @@ public class AiChatActivity extends AppCompatActivity {
                                 responseMessage = "No events found on " + extractedDate;
                             }
                         } else {
-                            responseMessage = "I couldn't find relevant information in your message.";
+                            responseMessage = "Im sorry, I don't understand";
                         }
                     }
 
