@@ -15,13 +15,13 @@
 
     <item
         android:id="@+id/btnForYou"
-        android:title="Image Analysis"
+        android:title="Analysis"
         android:visible="true"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/btnFollowing"
-        android:title="AI Aid"
+        android:title="RanchHandAI"
         app:showAsAction="always" />
 
 <!--    android:icon="@drawable/baseline_search_24"-->

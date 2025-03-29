@@ -101,6 +101,11 @@ public class ForYouActivity extends AppCompatActivity {
     private ImageView HighImage;
     private ImageView InferImage;
 
+    private TextView oglabel;
+    private TextView beelabel;
+    private TextView inferlebel;
+    private TextView highlabel;
+
 
 
     ActivityMainBinding binding;
@@ -123,6 +128,12 @@ public class ForYouActivity extends AppCompatActivity {
         getUserLocation();
 
 //        eventLoc.setOnClickListener(v -> getUserLocation());
+
+
+        oglabel = findViewById(R.id.OGLabel);
+        beelabel = findViewById(R.id.BeeLabel);
+        inferlebel = findViewById(R.id.InferLabel);
+        highlabel = findViewById(R.id.HighLabel);
 
 
         TNV = findViewById(R.id.topNavView2);
@@ -302,6 +313,10 @@ public class ForYouActivity extends AppCompatActivity {
                     OGImage.setVisibility(View.VISIBLE);
                     HighImage.setVisibility(View.VISIBLE);
                     InferImage.setVisibility(View.VISIBLE);
+                    oglabel.setVisibility(View.VISIBLE);
+                    beelabel.setVisibility(View.VISIBLE);
+                    inferlebel.setVisibility(View.VISIBLE);
+                    highlabel.setVisibility(View.VISIBLE);
                     beeImage.setImageURI(uriiiii);
                     OGImage.setImageURI(uriiiii);
                     HighImage.setImageURI(uriiiii);

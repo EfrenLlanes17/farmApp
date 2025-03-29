@@ -7,6 +7,10 @@
     tools:context=".ForYouActivity"
     android:background="@color/white">
 
+
+
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +33,7 @@
         android:textColorHint="#BF011B22"
         android:textStyle="bold"
         android:imeOptions="actionDone"
-        android:textColor="#FD8C9D"
+        android:textColor="#011B22"
         android:fontFamily="@font/notoserifvithkuqivariablefontwght"
         android:textSize="40dp"
         android:layout_marginTop="270dp"
@@ -48,7 +52,7 @@
         android:layout_marginTop="450dp"
         android:layout_centerHorizontal="true"
         android:visibility="invisible"
-        android:indeterminateTint="#000000"
+        android:indeterminateTint="#011B22"
         />
 
     <ProgressBar
@@ -62,7 +66,7 @@
         android:progress="25"
         android:visibility="invisible"
         android:max="100"
-        android:progressTint="#000000"
+        android:progressTint="#011B22"
         android:backgroundTint="#D3D3D3"/>
 
     <TextView
@@ -106,11 +110,11 @@
         android:layout_centerInParent="true"
         android:fontFamily="@font/notoserifvithkuqivariablefontwght"
         android:text="Text Here"
-        android:visibility="invisible"
         android:textAlignment="center"
-        android:textColor="#FD8C9D"
+        android:textColor="#E0B05F"
         android:textSize="25dp"
-        android:textStyle="bold"></TextView>
+        android:textStyle="bold"
+        android:visibility="invisible"></TextView>
 
 
     <Button
@@ -138,43 +142,106 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/BeeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:text="Pollinator"
+        android:textAlignment="center"
+        android:textColor="#011B22"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        android:layout_marginTop="65dp"
+        android:layout_marginLeft="490dp"></TextView>
+
     <ImageView
         android:id="@+id/beeImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+
         android:layout_below="@id/topNavView2"
-        android:layout_marginBottom="125dp"
+        android:layout_toRightOf="@+id/OGImage"
+        android:layout_marginBottom="20dp"
         ></ImageView>
+
+
+    <TextView
+        android:id="@+id/OGLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:text="Original"
+        android:textAlignment="center"
+        android:textColor="#011B22"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        android:layout_marginTop="65dp"
+        android:layout_marginLeft="250dp"></TextView>
 
     <ImageView
         android:id="@+id/OGImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginRight="50dp"
         android:layout_below="@id/topNavView2"
-        android:layout_toRightOf="@+id/beeImage"
-        android:layout_marginBottom="125dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="185dp"
+        android:layout_marginBottom="20dp"
 
         >
     </ImageView>
 
+    <TextView
+        android:id="@+id/HighLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:text="Contrast"
+        android:textAlignment="center"
+        android:textColor="#011B22"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        android:layout_marginTop="285dp"
+        android:layout_marginLeft="490dp"></TextView>
 
     <ImageView
         android:id="@+id/HighImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_below="@id/topNavView2"
+        android:layout_below="@id/beeImage"
         android:layout_toRightOf="@+id/OGImage"
         android:layout_marginBottom="125dp"
 
         >
     </ImageView>
 
+    <TextView
+        android:id="@+id/InferLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notoserifvithkuqivariablefontwght"
+        android:text="Infrared"
+        android:textAlignment="center"
+        android:textColor="#011B22"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        android:layout_marginTop="285dp"
+        android:layout_marginLeft="250dp"></TextView>
+
     <ImageView
         android:id="@+id/InferImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_below="@id/topNavView2"
-        android:layout_toRightOf="@+id/HighImage"
+        android:layout_marginLeft="185dp"
+        android:layout_marginRight="50dp"
+
+        android:layout_below="@id/OGImage"
         android:layout_marginBottom="125dp"
 
         >
