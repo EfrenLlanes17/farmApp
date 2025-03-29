@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:hint="Message RanchHandAI"
             android:textColor="#011B22"
-            android:textColorHint="#011B22"
+            android:textColorHint="#BF011B22"
             android:background="@android:drawable/editbox_background"
             android:padding="8dp"/>
 

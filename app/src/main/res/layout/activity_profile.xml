@@ -98,7 +98,7 @@
         android:layout_centerHorizontal="true"/>
 
     <ImageView
-        android:layout_width="150dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:id="@+id/logoSign"
         android:layout_marginRight="20dp"
@@ -251,7 +251,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/edtTxtUsername"
         android:hint="Username"
-        android:textColorHint="#011B22"
+        android:textColorHint="#BF011B22"
         android:textColor="#011B22"
         android:textSize="30dp"
         android:inputType="text"
@@ -265,7 +265,7 @@
         android:id="@+id/edtTxtPassword"
         android:layout_below="@+id/edtTxtUsername"
         android:hint="Password"
-        android:textColorHint="#011B22"
+        android:textColorHint="#BF011B22"
         android:textColor="#011B22"
         android:textSize="30dp"
         android:inputType="text"
