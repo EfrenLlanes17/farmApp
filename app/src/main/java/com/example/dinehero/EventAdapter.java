@@ -104,23 +104,24 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             holder.eventType.setText(event.getType());
             holder.recurrenceStatus.setText(event.getRecurrence());
 
-            switch (event.getTitle()) {
+            switch (event.getType()) {
                 case "Task":
-                    holder.colorBar.setBackgroundColor(Color.parseColor("#0000FF"));
+                    holder.colorBar.setBackgroundColor(Color.parseColor("#8B0000")); // Dark Red
                     break;
                 case "Employee Schedule":
-                    holder.eventDate.setTextColor(Color.GREEN);
+                    holder.colorBar.setBackgroundColor(Color.parseColor("#00008B")); // Dark Blue
                     break;
                 case "Harvest":
-                    holder.eventDate.setTextColor(Color.RED);
+                    holder.colorBar.setBackgroundColor(Color.parseColor("#006400")); // Dark Green
                     break;
                 case "IoT":
-                    holder.eventDate.setTextColor(Color.MAGENTA);
+                    holder.colorBar.setBackgroundColor(Color.parseColor("#A9A9A9")); // gray
                     break;
                 case "Order":
-                    holder.eventDate.setTextColor(Color.BLACK);
+                    holder.colorBar.setBackgroundColor(Color.parseColor("#654321")); // Dark brown
                     break;
             }
+
 
             holder.itemView.setOnLongClickListener(v -> {
                 showEditEventDialog(event, position);
