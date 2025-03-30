@@ -23,8 +23,9 @@ android:layout_height="match_parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="#E0B05F"
         android:layout_marginBottom="100dp"
-        android:src="@android:drawable/ic_menu_search" />
+        android:src="@drawable/baseline_search_25"/>
 
     <TextView
         android:id="@+id/noResults"
@@ -47,7 +48,8 @@ android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:src="@android:drawable/ic_input_add" />
+        android:backgroundTint="#E0B05F"
+        android:src="@drawable/baseline_add_24" />
 
 
 

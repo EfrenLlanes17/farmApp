@@ -2,10 +2,15 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/headerTitle"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
-    android:textSize="18sp"
+    android:layout_height="70dp"
+    android:textSize="30dp"
+    android:text="Test"
     android:textStyle="bold"
-    android:textColor="@color/black"
+    android:textColor="#C39649"
     android:padding="12dp"
-    android:background="#535252"
-    android:gravity="center"/>
+
+    />
+<!--android:background="#E0B05F"
+    android:textColor="#011B22"
+    android:gravity="center"
+-->
