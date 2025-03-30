@@ -1,6 +1,7 @@
 package com.example.dinehero;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
@@ -61,7 +63,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 holder.headerTitle.setText(event.getDate());
             }
 
+            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+            layoutParams.setMarginStart(20);
+            holder.itemView.setLayoutParams(layoutParams);
+
         } else {
+            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+            layoutParams.setMarginStart(120);
+            holder.itemView.setLayoutParams(layoutParams);
             try {
                 SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
                 SimpleDateFormat newFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
@@ -97,7 +106,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
             switch (event.getTitle()) {
                 case "Task":
-                    holder.eventDate.setTextColor(Color.BLUE);
+                    holder.colorBar.setBackgroundColor(Color.parseColor("#0000FF"));
                     break;
                 case "Employee Schedule":
                     holder.eventDate.setTextColor(Color.GREEN);
@@ -235,6 +244,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     static class EventViewHolder extends RecyclerView.ViewHolder {
         TextView eventDate, eventTitle, eventType, recurrenceStatus, headerTitle;
+        View colorBar;
 
         EventViewHolder(View itemView, int viewType) {
             super(itemView);
@@ -245,6 +255,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 eventTitle = itemView.findViewById(R.id.eventTitle);
                 eventType = itemView.findViewById(R.id.eventType);
                 recurrenceStatus = itemView.findViewById(R.id.recurrenceStatus);
+                colorBar = itemView.findViewById(R.id.colorBar);
             }
         }
     }

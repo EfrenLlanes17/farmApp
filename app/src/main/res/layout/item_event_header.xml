@@ -6,7 +6,7 @@
     android:textSize="30dp"
     android:text="Test"
     android:textStyle="bold"
-    android:textColor="#C39649"
+    android:textColor="#011B22"
     android:padding="12dp"
 
     />
