@@ -95,7 +95,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                            }
                        });
 
-               snackbar.setActionTextColor(Color.YELLOW);
+               snackbar.setActionTextColor(Color.parseColor("#E0B05F"));
 
                snackbar.show();
            }

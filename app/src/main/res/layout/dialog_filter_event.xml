@@ -12,15 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Event Title"
+        android:textColor="#011B22"
+        android:textColorHint="#BF011B22"
         android:inputType="text" />
 
     <Spinner
         android:id="@+id/eventType"
+        android:textColor="#011B22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Spinner
         android:id="@+id/recurrence"
+        android:textColor="#011B22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -28,6 +32,7 @@
 
     <Spinner
         android:id="@+id/completed"
+        android:textColor="#011B22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -38,6 +43,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Start Date (MM-DD-YY)"
+        android:textColorHint="#BF011B22"
+        android:textColor="#011B22"
         android:inputType="date"
          />
 
@@ -46,6 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="End Date (MM-DD-YY)"
+        android:textColorHint="#BF011B22"
+        android:textColor="#011B22"
         android:inputType="date"
         />
 
@@ -58,6 +67,6 @@
         android:layout_height="wrap_content"
         android:text="FILTER"
         android:layout_marginTop="16dp"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="@color/green" />
+        android:textColor="#011B22"
+        android:backgroundTint="#E0B05F" />
 </LinearLayout>
