@@ -33,7 +33,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder>{
 
@@ -71,7 +75,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
        holder.txtName.setText(products.get(position).getProductName());
 
        holder.image.setImageDrawable(ContextCompat.getDrawable(context,products.get(position).getProductImage()));
-       holder.txtPrice.setText("$" + products.get(position).getPrice());
+        holder.txtPrice.setText(String.format("$%.2f", products.get(position).getPrice()));
        holder.txtPercentOff.setText(products.get(position).getDate());
        holder.txtSeller.setText(products.get(position).getLocation());
 
@@ -114,11 +118,24 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
        holder.btnAccept.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               CalenderActivity.eventList.add(new Event(products.get(position).getDate(),products.get(position).getProductName() + " to " + products.get(position).getLocation() + " at " + products.get(position).getLoc() + " for $" + products.get(position).getPrice(),"Order","None"));
+
+               SimpleDateFormat oldFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
+               SimpleDateFormat newFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+               Date date = null;
+               try {
+                   date = oldFormat.parse(products.get(position).getDate());
+               } catch (ParseException e) {
+                   throw new RuntimeException(e);
+               }
+               String formattedDate = newFormat.format(date);
+
+
+               CalenderActivity.eventList.add(new Event(formattedDate,products.get(position).getProductName() + " to " + products.get(position).getLocation() + " at " + products.get(position).getLoc() + " for $" + products.get(position).getPrice(),"Order","None"));
+               CalenderActivity.adapter = new EventAdapter(holder.txtSeller.getContext(), CalenderActivity.eventList);
                CalenderActivity.adapter.notifyDataSetChanged();
                products.remove(position);
                notifyDataSetChanged();
-               Toast.makeText(holder.btnAccept.getContext(), "Order Added To Calender", Toast.LENGTH_SHORT).show();
+               Toast.makeText(holder.btnAccept.getContext(), "Order Added To Calender" , Toast.LENGTH_SHORT).show();
 
            }
        });
