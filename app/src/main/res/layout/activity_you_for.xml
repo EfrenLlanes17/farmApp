@@ -69,6 +69,7 @@
         android:progressTint="#011B22"
         android:backgroundTint="#D3D3D3"/>
 
+
     <TextView
         android:id="@+id/edtTextDate"
         android:layout_width="550dp"

@@ -404,7 +404,7 @@ public class CalenderActivity extends AppCompatActivity {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.baseline_person_24)
+                .setSmallIcon(R.drawable.ranchlogosquare)
                 .setContentTitle("Today's Events")
                 .setContentText(responseMessage)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
