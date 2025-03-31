@@ -20,8 +20,7 @@
             android:id="@+id/txtImage"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@drawable/ranchbackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -36,6 +35,7 @@
             android:id="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_below="@+id/txtImage"
             android:fontFamily="@font/notoserifvithkuqivariablefontwght"
             android:text="Product Name"
@@ -57,13 +57,15 @@
             android:id="@+id/txtSeller"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtPrice"
+
             android:text="Product Seller"
             android:textSize="18dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/txtImage"
             android:textStyle="italic"
-            android:textColor="#FE8D9E"
-            android:textColorHint="#FFFEC86C"
+            android:textColor="#E0B05F"
+            android:textColorHint="#E0B05F"
             android:fontFamily="@font/notoserifvithkuqivariablefontwght" />
 
         <TextView
@@ -71,36 +73,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtPrice"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="20dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
             android:fontFamily="@font/notoserifvithkuqivariablefontwght"
-            android:text="70"
+            android:text="07/05/24"
             android:textColor="#000000"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnAccept"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtSeller"
+            android:layout_below="@+id/txtPrice"
             android:layout_marginTop="10dp"
             android:text="Accept"
-            android:backgroundTint="#4CAF50"
+            android:backgroundTint="#E0B05F"
             android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/btnDecline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtSeller"
+            android:layout_below="@+id/txtPrice"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/btnAccept"
             android:layout_marginLeft="10dp"
             android:text="Decline"
-            android:backgroundTint="#F44336"
-            android:textColor="#FFFFFF" />
+            android:backgroundTint="#011B22"
+            android:textColor="#E0B05F" />
 
 
 

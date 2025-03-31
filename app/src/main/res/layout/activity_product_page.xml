@@ -51,7 +51,7 @@
 
     <TextView
         android:id="@+id/txtPPDiscription"
-        android:textColor="#000000"
+        android:textColor="#011B22"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -69,7 +69,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
         android:layout_toLeftOf="@id/followPPButton"
-        android:backgroundTint="#FF8E9F"
+        android:backgroundTint="#E0B05F"
         android:text="WEBSITE"
         android:textColor="#FFFFFF" />
 
@@ -84,7 +84,7 @@
         android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="#FF8E9F"
+        android:backgroundTint="#E0B05F"
         />
 
     <Button
@@ -93,7 +93,7 @@
         android:id="@+id/savePPButton"
         android:text="MAP"
         android:layout_alignParentBottom="true"
-        android:backgroundTint="#FF8E9F"
+        android:backgroundTint="#E0B05F"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:textColor="#FFFFFF"
@@ -113,7 +113,7 @@
                 android:fontFamily="@font/notoserifvithkuqivariablefontwght"
 
                 android:text="Product Price"
-                android:textColor="#000000"
+                android:textColor="#011B22"
                 android:textAlignment="center"
                 android:textSize="40dp"
                 android:layout_marginLeft="60dp"/>
@@ -127,7 +127,7 @@
         android:fontFamily="@font/notoserifvithkuqivariablefontwght"
         android:layout_below="@id/txtPPPrice"
         android:text="4059876545"
-        android:textColor="#000000"
+        android:textColor="#011B22"
         android:textAlignment="center"
         android:textSize="40dp"
         android:layout_marginLeft="60dp"/>

@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -345,7 +346,7 @@ public class CalenderActivity extends AppCompatActivity {
         // Create a DatePickerDialog
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this,
-                android.R.style.Theme_DeviceDefault_Light_Dialog,
+                android.R.style.Theme_Material_Dialog,
                 (view, year, month, dayOfMonth) -> {
                     String selectedDate = year + "/" + (month + 1) + "/" + dayOfMonth;
                     showEventDialog(selectedDate); // Pass the selected date to event dialog
@@ -523,6 +524,10 @@ public class CalenderActivity extends AppCompatActivity {
                 if (eventTypeSpinner.getSelectedItem().equals("Employee Schedule")) {
                     moreData.setVisibility(View.VISIBLE);
 
+                    ViewGroup.LayoutParams params = moreData.getLayoutParams();
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Expand when clicked
+                    moreData.setLayoutParams(params);
+
 
                     ArrayAdapter<CharSequence> employeeAdapter = ArrayAdapter.createFromResource(
                             CalenderActivity.this, R.array.employList, android.R.layout.simple_spinner_item);
@@ -566,6 +571,14 @@ public class CalenderActivity extends AppCompatActivity {
                 if (moreData.getSelectedItem().toString().equals("New Employee") || moreData.getSelectedItem().toString().equals("New Crop") || moreData.getSelectedItem().toString().equals("New Device")){
                     newTxt.setVisibility(View.VISIBLE);
                     newBTn.setVisibility(View.VISIBLE);
+
+                    ViewGroup.LayoutParams params = newTxt.getLayoutParams();
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Expand when clicked
+                    newTxt.setLayoutParams(params);
+
+                    ViewGroup.LayoutParams params2 = newBTn.getLayoutParams();
+                    params2.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Expand when clicked
+                    newBTn.setLayoutParams(params2);
 
 
 

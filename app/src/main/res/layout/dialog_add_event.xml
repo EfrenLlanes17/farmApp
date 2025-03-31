@@ -10,10 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Event Title"
+        android:textColor="#011B22"
         android:inputType="text" />
 
     <Spinner
         android:id="@+id/eventType"
+        android:textColor="#011B22"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -21,29 +24,35 @@
         android:id="@+id/moreData"
         android:layout_marginLeft="50dp"
         android:layout_width="400dp"
-        android:layout_height="wrap_content"
+        android:textColor="#011B22"
+
+        android:layout_height="0dp"
         android:visibility="invisible"/>
 
     <EditText
         android:id="@+id/newTxt"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginLeft="50dp"
-        android:textColor="@color/black"
+        android:textColor="#011B22"
+
         android:layout_width="400dp"
         android:hint="New Option"
         android:visibility="invisible"/>
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginLeft="50dp"
-        android:textColor="@color/black"
+        android:textColor="#011B22"
+        android:backgroundTint="#E0B05F"
         android:text="DONE"
         android:visibility="invisible"
         android:id="@+id/newBTn"
     />
 
     <Spinner
+        android:textColor="#011B22"
+
         android:id="@+id/recurrence"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -54,8 +63,8 @@
         android:layout_height="wrap_content"
         android:text="OK"
         android:layout_marginTop="16dp"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="@color/green" />
+        android:textColor="#011B22"
+        android:backgroundTint="#E0B05F" />
 
     <Button
         android:id="@+id/btnCancel"
@@ -63,6 +72,6 @@
         android:layout_height="wrap_content"
         android:text="Cancel"
         android:layout_marginTop="8dp"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="@color/red" />
+        android:textColor="#E0B05F"
+        android:backgroundTint="#011B22" />
 </LinearLayout>

@@ -24,11 +24,11 @@
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:hint="Search"
-        android:textColorHint="#FF8E9F"
-        android:textSize="20dp"
+        android:textColorHint="#BF011B22"
+        android:textSize="25dp"
         android:id="@+id/searchET"
         android:inputType="text"
-        android:textColor="#FF8E9F"
+        android:textColor="#011B22"
         android:layout_marginTop="35dp"
         android:layout_below="@id/topNavView"
         android:imeOptions="actionDone"
@@ -42,7 +42,7 @@
 
         android:layout_centerInParent="true"
         android:text="No Results"
-        android:textColor="#FF8E9F"
+        android:textColor="#011B22"
         android:textSize="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView

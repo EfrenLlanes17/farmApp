@@ -203,7 +203,7 @@ public class ForYouActivity extends AppCompatActivity {
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    ForYouActivity.this, android.R.style.Theme_DeviceDefault_Light_Dialog,
+                    ForYouActivity.this, android.R.style.Theme_Material_Dialog,
                     (view, selectedYear, selectedMonth, selectedDay) -> {
                         String selectedDate = (selectedMonth + 1)  + "/" + selectedDay + "/" + selectedYear;
                         eventDate.setText(selectedDate);
