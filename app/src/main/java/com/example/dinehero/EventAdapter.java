@@ -12,8 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -80,6 +82,19 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             } catch (Exception e) {
                 holder.eventDate.setText(event.getDate());
             }
+
+            holder.itemView.setOnClickListener(v -> {
+                if ((holder.eventTitle.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0) {
+
+                    holder.eventTitle.setPaintFlags(holder.eventTitle.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    event.setFinished(false);
+                } else {
+
+                    holder.eventTitle.setPaintFlags(holder.eventTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    event.setFinished(true);
+                }
+            });
+
 
             holder.eventTitle.setText(event.getTitle());
             if (event.getFinished()) {
@@ -247,6 +262,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         TextView eventDate, eventTitle, eventType, recurrenceStatus, headerTitle;
         View colorBar;
 
+        CardView card;
+
         EventViewHolder(View itemView, int viewType) {
             super(itemView);
             if (viewType == 0) {
@@ -257,7 +274,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 eventType = itemView.findViewById(R.id.eventType);
                 recurrenceStatus = itemView.findViewById(R.id.recurrenceStatus);
                 colorBar = itemView.findViewById(R.id.colorBar);
+                card = itemView.findViewById(R.id.card);
             }
         }
+
+
+
     }
 }
