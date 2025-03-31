@@ -18,6 +18,7 @@ import com.example.dinehero.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -103,14 +104,25 @@ public class AiChatActivity extends AppCompatActivity {
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
 
                             String extractedDate = dateFormat.format(Calendar.getInstance().getTime());
+
+                            SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+                            SimpleDateFormat newFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
+                            Date date = null;
+                            try {
+                                date = oldFormat.parse(extractedDate);
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            }
+                            String formattedDate = newFormat.format(date);
+
                             List<Event> eventsOnDate = getEventsForDate(extractedDate);
                             if (!eventsOnDate.isEmpty()) {
-                                responseMessage = extractedDate + " contains these events:\n";
+                                responseMessage = formattedDate + " contains these events:\n";
                                 for (Event event : eventsOnDate) {
                                     responseMessage += "- " + event.getTitle() + "\n";
                                 }
                             } else {
-                                responseMessage = "No events found on " + extractedDate;
+                                responseMessage = "No events found on " + formattedDate;
                             }
                         }
                     }
@@ -122,13 +134,25 @@ public class AiChatActivity extends AppCompatActivity {
                             calendar.add(Calendar.DAY_OF_YEAR, 1);
                             String extractedDate = dateFormat.format(calendar.getTime());
                             List<Event> eventsOnDate = getEventsForDate(extractedDate);
+
+
+                            SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+                            SimpleDateFormat newFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
+                            Date date = null;
+                            try {
+                                date = oldFormat.parse(extractedDate);
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            }
+                            String formattedDate = newFormat.format(date);
+
                             if (!eventsOnDate.isEmpty()) {
-                                responseMessage = extractedDate + " contains these events:\n";
+                                responseMessage = formattedDate + " contains these events:\n";
                                 for (Event event : eventsOnDate) {
                                     responseMessage += "- " + event.getTitle() + "\n";
                                 }
                             } else {
-                                responseMessage = "No events found on " + extractedDate;
+                                responseMessage = "No events found on " + formattedDate;
                             }
                         }
                     }
@@ -139,14 +163,25 @@ public class AiChatActivity extends AppCompatActivity {
                         //Toast.makeText(AiChatActivity.this, extractedDate, Toast.LENGTH_SHORT).show();
 
                         if (extractedDate != null) {
+
+                            SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+                            SimpleDateFormat newFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
+                            Date date = null;
+                            try {
+                                date = oldFormat.parse(extractedDate);
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            }
+                            String formattedDate = newFormat.format(date);
+
                             List<Event> eventsOnDate = getEventsForDate(extractedDate);
                             if (!eventsOnDate.isEmpty()) {
-                                responseMessage = extractedDate + " contains these events:\n";
+                                responseMessage = formattedDate + " contains these events:\n";
                                 for (Event event : eventsOnDate) {
                                     responseMessage += "- " + event.getTitle() + "\n";
                                 }
                             } else {
-                                responseMessage = "No events found on " + extractedDate;
+                                responseMessage = "No events found on " + formattedDate;
                             }
                         } else {
                             responseMessage = "Im sorry, I don't understand";
