@@ -285,11 +285,18 @@ public class MainActivity2 extends AppCompatActivity {
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(search.getText().toString().equals("")) {
+                    adapter.setProducts(productsList);
 
+                }
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(search.getText().toString().equals("")) {
+                    adapter.setProducts(productsList);
+
+                }
 
             }
 
@@ -298,18 +305,24 @@ public class MainActivity2 extends AppCompatActivity {
                 noResults.setVisibility(View.INVISIBLE);
                 searchArrayList.clear();
                 adapter.setProducts(searchArrayList);
-                for (int x = 0; x < MainActivity2.getProductsList().size(); x++) {
-                    if (ProfileActivity.isNotInsideSearch(MainActivity2.getProductsList().get(x).getProductName())) {
-                        if (MainActivity2.getProductsList().get(x).getProductName().toLowerCase().indexOf(search.getText().toString().toLowerCase()) > -1 || MainActivity2.getProductsList().get(x).getLocation().toLowerCase().indexOf(search.getText().toString().toLowerCase()) > -1 || MainActivity2.getProductsList().get(x).getDate().indexOf(search.getText().toString()) > -1 || ("$" +Double.toString(MainActivity2.getProductsList().get(x).getPrice())).indexOf(search.getText().toString()) > -1 || MainActivity2.getProductsList().get(x).getPickupString().indexOf(search.getText().toString()) > -1) {
-                            searchArrayList.add(0, MainActivity2.getProductsList().get(x));
-                            adapter.setProducts(searchArrayList);
+                if(!search.getText().toString().equals("")) {
+                    for (int x = 0; x < MainActivity2.getProductsList().size(); x++) {
+                        if (ProfileActivity.isNotInsideSearch(MainActivity2.getProductsList().get(x).getProductName())) {
+                            if (MainActivity2.getProductsList().get(x).getProductName().toLowerCase().indexOf(search.getText().toString().toLowerCase()) > -1 || MainActivity2.getProductsList().get(x).getLocation().toLowerCase().indexOf(search.getText().toString().toLowerCase()) > -1 || MainActivity2.getProductsList().get(x).getDate().indexOf(search.getText().toString()) > -1 || ("$" + Double.toString(MainActivity2.getProductsList().get(x).getPrice())).indexOf(search.getText().toString()) > -1 || MainActivity2.getProductsList().get(x).getPickupString().indexOf(search.getText().toString()) > -1) {
+                                searchArrayList.add(0, MainActivity2.getProductsList().get(x));
+                                adapter.setProducts(searchArrayList);
 
 
+                            }
                         }
                     }
+                    if (searchArrayList.isEmpty()) {
+                        noResults.setVisibility(View.VISIBLE);
+                    }
                 }
-                if(searchArrayList.isEmpty()){
-                    noResults.setVisibility(View.VISIBLE);
+                else{
+                    adapter.setProducts(productsList);
+
                 }
             }
         });
