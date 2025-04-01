@@ -9,7 +9,7 @@
 
 
 
-
+        <!--Page Header-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,6 +23,8 @@
         android:fontFamily="@font/notoserifvithkuqivariablefontwght"
         android:textStyle="bold"
         android:layout_marginTop="100dp"/>
+
+        <!--    Enter Plant name-->
 
     <EditText
         android:layout_width="550dp"

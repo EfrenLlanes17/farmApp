@@ -536,6 +536,10 @@ public class CalenderActivity extends AppCompatActivity {
                 } else if (eventTypeSpinner.getSelectedItem().equals("Harvest")) {
                     moreData.setVisibility(View.VISIBLE);
 
+                    ViewGroup.LayoutParams params = moreData.getLayoutParams();
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Expand when clicked
+                    moreData.setLayoutParams(params);
+
 
                     ArrayAdapter<CharSequence> harvestAdapter = ArrayAdapter.createFromResource(
                             CalenderActivity.this, R.array.HarvestList, android.R.layout.simple_spinner_item);
@@ -544,6 +548,10 @@ public class CalenderActivity extends AppCompatActivity {
                 }
              else if (eventTypeSpinner.getSelectedItem().equals("IoT")) {
                 moreData.setVisibility(View.VISIBLE);
+
+                    ViewGroup.LayoutParams params = moreData.getLayoutParams();
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Expand when clicked
+                    moreData.setLayoutParams(params);
 
 
                 ArrayAdapter<CharSequence> iotAdapter = ArrayAdapter.createFromResource(
