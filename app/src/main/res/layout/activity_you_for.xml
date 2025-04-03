@@ -44,7 +44,7 @@
         ></EditText>
 
 
-
+    <!--Loading Circle for image processing-->
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -56,6 +56,8 @@
         android:visibility="invisible"
         android:indeterminateTint="#011B22"
         />
+
+    <!--Progress Bar for image processing-->
 
     <ProgressBar
         android:id="@+id/progressBar2"
@@ -71,6 +73,7 @@
         android:progressTint="#011B22"
         android:backgroundTint="#D3D3D3"/>
 
+    <!--Select Date Text-->
 
     <TextView
         android:id="@+id/edtTextDate"
@@ -88,7 +91,7 @@
         android:padding="10dp"
         android:background="@android:color/transparent"/>
 
-
+    <!--Location Text-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -105,6 +108,8 @@
 
         ></TextView>
 
+    <!--Image Processing Result text-->
+
     <TextView
         android:id="@+id/imageOutputText"
         android:layout_width="700dp"
@@ -119,6 +124,7 @@
         android:textStyle="bold"
         android:visibility="invisible"></TextView>
 
+    <!--Go to sign in button-->
 
     <Button
         android:id="@+id/foryouSignIn"
@@ -131,6 +137,9 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:visibility="invisible" />
+
+    <!--Analyse Button-->
+
     <Button
         android:id="@+id/createPostBtn"
         android:layout_width="wrap_content"
@@ -144,6 +153,8 @@
         android:text="ANALYSE"
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
+
+    <!--Label for Pollinator Image-->
 
     <TextView
         android:id="@+id/BeeLabel"
@@ -159,6 +170,9 @@
         android:layout_marginTop="65dp"
         android:layout_marginLeft="490dp"></TextView>
 
+    <!--Pollinator Image-->
+
+
     <ImageView
         android:id="@+id/beeImage"
         android:layout_width="200dp"
@@ -169,6 +183,9 @@
         android:layout_toRightOf="@+id/OGImage"
         android:layout_marginBottom="20dp"
         ></ImageView>
+
+
+    <!--Label for Original Image-->
 
 
     <TextView
@@ -185,6 +202,9 @@
         android:layout_marginTop="65dp"
         android:layout_marginLeft="250dp"></TextView>
 
+
+    <!--Original Image-->
+
     <ImageView
         android:id="@+id/OGImage"
         android:layout_width="200dp"
@@ -197,6 +217,10 @@
 
         >
     </ImageView>
+
+
+    <!--Label for High Contrast Image-->
+
 
     <TextView
         android:id="@+id/HighLabel"
@@ -212,6 +236,9 @@
         android:layout_marginTop="285dp"
         android:layout_marginLeft="490dp"></TextView>
 
+    <!--High Contrast Image-->
+
+
     <ImageView
         android:id="@+id/HighImage"
         android:layout_width="200dp"
@@ -222,6 +249,10 @@
 
         >
     </ImageView>
+
+
+    <!--Label for Infrared Image-->
+
 
     <TextView
         android:id="@+id/InferLabel"
@@ -237,6 +268,8 @@
         android:layout_marginTop="285dp"
         android:layout_marginLeft="250dp"></TextView>
 
+    <!--Infrared Image-->
+
     <ImageView
         android:id="@+id/InferImage"
         android:layout_width="200dp"
@@ -251,6 +284,8 @@
 
     </ImageView>
 
+    <!--Image Upload Button-->
+
     <ImageButton
         android:layout_width="200dp"
         android:layout_height="200dp"
@@ -261,6 +296,8 @@
 android:background="@drawable/baseline_image_search_24222222222"
 
         ></ImageButton>
+
+    <!--Navigation Bar-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
