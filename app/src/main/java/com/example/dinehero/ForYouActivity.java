@@ -65,6 +65,8 @@ import java.util.Map;
 
 public class ForYouActivity extends AppCompatActivity {
 
+    //Initialize Variables
+
     private BottomNavigationView BNV;
     private BottomNavigationView TNV;
     private RecyclerView FRV;
@@ -116,6 +118,10 @@ public class ForYouActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_you_for);
+        //Attach XML page to this java file
+
+
+
 //        if (!alreadyPlants) {
 //            plantList.add(new Plant("Tomato", "red", "green", "yellow", "brown", "bees", 12, "bushy", "flowers attract bees"));
 //            plantList.add(new Plant("Sunflower", "yellow", "yellow", "yellow", "brown", "bees, butterflies", 24, "tall stalk", "large, bright flowers attract pollinators"));
@@ -128,6 +134,10 @@ public class ForYouActivity extends AppCompatActivity {
         getUserLocation();
 
 //        eventLoc.setOnClickListener(v -> getUserLocation());
+
+
+        //Attaching Variables to xml elements
+
 
 
         oglabel = findViewById(R.id.OGLabel);
@@ -158,6 +168,8 @@ public class ForYouActivity extends AppCompatActivity {
 
 
 
+
+
 //        if(!(ProfileActivity.getCurrentUserUsername().equals(""))){
 //            goToSignIN.setVisibility(View.INVISIBLE);
 //            createPostTxt.setVisibility(View.VISIBLE);
@@ -170,6 +182,9 @@ public class ForYouActivity extends AppCompatActivity {
 //            eventAttending.setVisibility(View.VISIBLE);
 //            eventDate.setVisibility(View.VISIBLE);
 //        }
+
+        //Setting Elements to be visible or invisible when page gets loaded
+
 
         ImageTings.setVisibility(View.VISIBLE);
         eventDate.setVisibility(View.VISIBLE);
@@ -195,6 +210,8 @@ public class ForYouActivity extends AppCompatActivity {
             }
         });
 
+        //Button that allows the user to press on the event date textview and open the date picker
+
 
         eventDate.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
@@ -211,6 +228,8 @@ public class ForYouActivity extends AppCompatActivity {
             this.month2 = month;
             datePickerDialog.show();
         });
+
+        //Analyse Button checks to make sure the input fields are not empty and then begins to process Image
 
 
         creatBtn.setOnClickListener(new View.OnClickListener() {
@@ -307,6 +326,9 @@ public class ForYouActivity extends AppCompatActivity {
                 delay += 500;
 
                 handler.postDelayed(() -> {
+
+                    // showing results after image is processed
+
                     pbCircle.setVisibility(View.INVISIBLE);
                     pbLine.setVisibility(View.INVISIBLE);
                     beeImage.setVisibility(View.VISIBLE);
@@ -335,7 +357,7 @@ public class ForYouActivity extends AppCompatActivity {
 
 
 
-
+//Button that allows user to upload a picture when pressed
 
         ImageTings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -348,6 +370,9 @@ public class ForYouActivity extends AppCompatActivity {
 
             }
         });
+
+
+        //Navigation Bar
 
         TNV.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -370,6 +395,8 @@ public class ForYouActivity extends AppCompatActivity {
 
 
     }
+
+    //Functions for Color filters to simulate Pollinator vision as well as other views
 
     private void applyPollinatorFilter(ImageView imageView) {
         ColorMatrix colorMatrix = new ColorMatrix(new float[]{
@@ -443,7 +470,7 @@ public class ForYouActivity extends AppCompatActivity {
 
 
 
-
+//Use Pixel Colors from around the image to eventually get dominate color
 
 
     private int analyzeImageColor(Uri imageUri) {
@@ -493,7 +520,7 @@ public class ForYouActivity extends AppCompatActivity {
 
 
 
-//        Toast.makeText(ForYouActivity.this, "Red: " + red + " Green: " + green +" Blue: " + blue , Toast.LENGTH_LONG).show();
+//      associate the RGB Value with an understandable color for the user
 
     private String getColorName(int color) {
         int red = Color.red(color);
@@ -537,7 +564,7 @@ public class ForYouActivity extends AppCompatActivity {
 
 
 
-
+//Suggestions for plants not included in built in plant database
 
     private String getSuggestionBasedOnColor(String color) {
         switch (color) {
@@ -567,7 +594,7 @@ public class ForYouActivity extends AppCompatActivity {
         }
     }
 
-
+//Function gets user's location and defaults to Norman if unable
     private void getUserLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
@@ -584,6 +611,8 @@ public class ForYouActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    //Turn Geo Mapping Location into understandable place for user
 
     private void getCityStateCountry(Location location) {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -608,6 +637,7 @@ public class ForYouActivity extends AppCompatActivity {
 
         }
     }
+    //Location permission prompt
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -621,6 +651,7 @@ public class ForYouActivity extends AppCompatActivity {
         }
     }
 
+    //Check if plant entered by the user is in built in plant database
 
     private String getPlantInfo(String plantName) {
         for (Plant plant : plantList) {
@@ -634,7 +665,7 @@ public class ForYouActivity extends AppCompatActivity {
         return "Information on " + plantName + " is limited. Ensure proper spacing and consider local pollinators.";
     }
 
-
+//associate month with season
     private String getCurrentSeason() {
         if (month2 >= 3 && month2 <= 5) return "spring";
         if (month2 >= 6 && month2 <= 8) return "summer";
@@ -650,6 +681,7 @@ public class ForYouActivity extends AppCompatActivity {
         return null;
     }
 
+    //plant class
 
     public static class Plant {
         private String name;
