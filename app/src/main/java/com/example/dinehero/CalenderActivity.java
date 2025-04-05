@@ -215,7 +215,7 @@ public class CalenderActivity extends AppCompatActivity {
         List<Event> newEvents = new ArrayList<>();
 //        newEvents.add(event);
 
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/M/dd", Locale.getDefault());
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/M/d", Locale.getDefault());
         String todayDate = sdf.format(Calendar.getInstance().getTime());
         String todayDateEvent = sdf2.format(Calendar.getInstance().getTime());
 
@@ -224,6 +224,8 @@ public class CalenderActivity extends AppCompatActivity {
             noteDate = event.getDate();
 
         }
+        //Toast.makeText(this,  event.getDate() + " not equal  " + todayDateEvent, Toast.LENGTH_SHORT).show();
+
 
 
         if (event.getRecurrence() != null && !event.getRecurrence().equals("None")) {

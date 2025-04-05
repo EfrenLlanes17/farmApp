@@ -91,7 +91,7 @@ public class AiChatActivity extends AppCompatActivity {
                                 responseMessage += "- Color in Winter: " + plant.getColorBySeason("winter") + "\n";
                                 responseMessage += "- Color in Fall: " + plant.getColorBySeason("fall") + "\n";
                                 responseMessage += "- Pollinators: " + plant.getPollinators() + "\n";
-                                responseMessage += "- Plant Spacing: " + plant.getPlantSpacing() + "\n";
+                                responseMessage += "- Plant Spacing: " + plant.getPlantSpacing() + "in\n";
                                 responseMessage += "- Growth Pattern: " + plant.getGrowthPattern() + "\n";
                                 responseMessage += "- Pollinator Attraction: " + plant.getPollinatorAttraction() + "\n";
                                 break;
