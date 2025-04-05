@@ -64,7 +64,7 @@ public class ImageAnalActivity extends AppCompatActivity {
     private TextView eventLoc;
     private EditText eventPrice;
     private EditText eventDisc;
-    private Button creatBtn;
+    private Button analyseBtn;
 
     private ImageButton ImageTings;
 
@@ -140,7 +140,7 @@ public class ImageAnalActivity extends AppCompatActivity {
         pbLine = findViewById(R.id.progressBar2);
 
         ImageTings = findViewById(R.id.ImageTing);
-        creatBtn = findViewById(R.id.createPostBtn);
+        analyseBtn = findViewById(R.id.analyseBtn);
         goToSignIN = findViewById(R.id.foryouSignIn);
         createPostTxt = findViewById(R.id.createPostText);
         eventName = findViewById(R.id.edtTextTitle);
@@ -174,7 +174,7 @@ public class ImageAnalActivity extends AppCompatActivity {
 
         ImageTings.setVisibility(View.VISIBLE);
         eventDate.setVisibility(View.VISIBLE);
-        creatBtn.setVisibility(View.VISIBLE);
+        analyseBtn.setVisibility(View.VISIBLE);
         goToSignIN.setVisibility(View.INVISIBLE);
         createPostTxt.setVisibility(View.VISIBLE);
         eventLoc.setVisibility(View.VISIBLE);
@@ -218,7 +218,7 @@ public class ImageAnalActivity extends AppCompatActivity {
         //Analyse Button checks to make sure the input fields are not empty and then begins to process Image
 
 
-        creatBtn.setOnClickListener(new View.OnClickListener() {
+        analyseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (uriiiii == null) {
@@ -250,7 +250,7 @@ public class ImageAnalActivity extends AppCompatActivity {
                 // Hide input fields, show progress elements
                 ImageTings.setVisibility(View.INVISIBLE);
                 eventDate.setVisibility(View.INVISIBLE);
-                creatBtn.setVisibility(View.INVISIBLE);
+                analyseBtn.setVisibility(View.INVISIBLE);
                 goToSignIN.setVisibility(View.INVISIBLE);
                 createPostTxt.setVisibility(View.INVISIBLE);
                 eventLoc.setVisibility(View.INVISIBLE);
