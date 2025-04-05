@@ -79,6 +79,8 @@ public class ImageAnalActivity extends AppCompatActivity {
 
     public static ArrayList<Plant> plantList = new ArrayList<>();
 
+    //Initialize Variables
+
     private ProgressBar pbCircle;
     private ProgressBar pbLine;
 
