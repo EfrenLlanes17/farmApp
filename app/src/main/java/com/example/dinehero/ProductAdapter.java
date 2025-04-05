@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -133,9 +135,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                CalenderActivity.eventList.add(new Event(formattedDate,products.get(position).getProductName() + " to " + products.get(position).getLocation() + " at " + products.get(position).getLoc() + " for $" + products.get(position).getPrice(),"Order","None"));
                CalenderActivity.adapter = new EventAdapter(holder.txtSeller.getContext(), CalenderActivity.eventList);
                CalenderActivity.adapter.notifyDataSetChanged();
+               Product p = products.get(position);
                products.remove(position);
                notifyDataSetChanged();
                Toast.makeText(holder.btnAccept.getContext(), "Order Added To Calender" , Toast.LENGTH_SHORT).show();
+
+               Snackbar snackbar = Snackbar.make(view, "Order Confirmed", Snackbar.LENGTH_LONG)
+                       .setAction("Cancel", new View.OnClickListener() {
+                           @Override
+                           public void onClick(View v) {
+                               CalenderActivity.eventList.remove(0);
+                               CalenderActivity.adapter.notifyDataSetChanged();
+                               products.add(position,p);
+                               notifyDataSetChanged();
+
+
+                           }
+                       });
+
+               snackbar.setActionTextColor(Color.parseColor("#E0B05F"));
+
+               snackbar.show();
 
            }
        });
