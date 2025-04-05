@@ -430,7 +430,6 @@ public class CalenderActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }
-            Toast.makeText(this, "Headers: " + header + " Not: " + notHeader + " Scrolling to: " + closestIndex + " Today " + today.toString(), Toast.LENGTH_SHORT).show();
 
         recyclerView.scrollToPosition(closestIndex);
 

@@ -212,7 +212,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
         btnDelete.setOnClickListener(v -> {
             eventList.remove(position);
+            eventList.remove(position-1);
             notifyDataSetChanged();
+            CalenderActivity.eventList = eventList;
             dialog.dismiss();
         });
 
