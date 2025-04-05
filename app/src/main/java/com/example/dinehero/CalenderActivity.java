@@ -12,17 +12,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -41,18 +36,10 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
@@ -60,46 +47,11 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.datepicker.MaterialDatePicker;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.datepicker.MaterialDatePicker;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import android.app.AlertDialog;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -201,7 +153,7 @@ public class CalenderActivity extends AppCompatActivity {
 
     public void openForYouActivity() {
 
-        Intent intent = new Intent(this, ForYouActivity.class);
+        Intent intent = new Intent(this, ImageAnalActivity.class);
         this.startActivity(intent);
     }
 

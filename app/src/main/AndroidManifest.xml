@@ -58,7 +58,7 @@
             android:name=".FollowingActivity"
             android:exported="false" />
         <activity
-            android:name=".ForYouActivity"
+            android:name=".ImageAnalActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"

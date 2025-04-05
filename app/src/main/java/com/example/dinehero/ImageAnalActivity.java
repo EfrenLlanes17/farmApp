@@ -26,9 +26,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dinehero.databinding.ActivityMainBinding;
@@ -37,33 +34,20 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import org.w3c.dom.Text;
-
 import android.Manifest;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import com.google.android.gms.location.LocationServices;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class ForYouActivity extends AppCompatActivity {
+public class ImageAnalActivity extends AppCompatActivity {
 
     //Initialize Variables
 
@@ -117,7 +101,7 @@ public class ForYouActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_you_for);
+        setContentView(R.layout.activity_image_analysis);
         //Attach XML page to this java file
 
 
@@ -220,7 +204,7 @@ public class ForYouActivity extends AppCompatActivity {
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    ForYouActivity.this, android.R.style.Theme_Material_Dialog,
+                    ImageAnalActivity.this, android.R.style.Theme_Material_Dialog,
                     (view, selectedYear, selectedMonth, selectedDay) -> {
                         String selectedDate = (selectedMonth + 1)  + "/" + selectedDay + "/" + selectedYear;
                         eventDate.setText(selectedDate);
@@ -236,7 +220,7 @@ public class ForYouActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (uriiiii == null) {
-                    Toast.makeText(ForYouActivity.this, "Please select an image first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ImageAnalActivity.this, "Please select an image first", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -245,7 +229,7 @@ public class ForYouActivity extends AppCompatActivity {
                 String date = eventDate.getText().toString().trim();
 
                 if (plantName.isEmpty() || date.isEmpty()) {
-                    Toast.makeText(ForYouActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ImageAnalActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -362,7 +346,7 @@ public class ForYouActivity extends AppCompatActivity {
         ImageTings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImagePicker.with(ForYouActivity.this)
+                ImagePicker.with(ImageAnalActivity.this)
                                 .crop()
                                 .compress(1024)
                                 .maxResultSize(1580,1080)
@@ -755,7 +739,7 @@ public class ForYouActivity extends AppCompatActivity {
     }
     public void openInboxActivity(){
 
-        Intent intent = new Intent(this, ForYouActivity.class);
+        Intent intent = new Intent(this, ImageAnalActivity.class);
         this.startActivity(intent);
     }
 
@@ -771,7 +755,7 @@ public class ForYouActivity extends AppCompatActivity {
     }
     public void openForYouActivity(){
 
-        Intent intent = new Intent(this, ForYouActivity.class);
+        Intent intent = new Intent(this, ImageAnalActivity.class);
         this.startActivity(intent);
     }
 

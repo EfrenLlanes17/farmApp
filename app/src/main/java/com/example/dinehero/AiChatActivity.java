@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -83,7 +82,7 @@ public class AiChatActivity extends AppCompatActivity {
                         responseMessage = getCropRecommendation(message);
                     }
                     else {
-                        for (ForYouActivity.Plant plant : ForYouActivity.plantList) {
+                        for (ImageAnalActivity.Plant plant : ImageAnalActivity.plantList) {
                             if (message.toLowerCase().contains(plant.getName().toLowerCase())) {
                                 responseMessage = "Here’s some information about " + plant.getName() + ":\n";
                                 responseMessage += "- Color in Spring: " + plant.getColorBySeason("spring") + "\n";
@@ -374,7 +373,7 @@ public class AiChatActivity extends AppCompatActivity {
     }
     public void openForYouActivity(){
 
-        Intent intent = new Intent(this, ForYouActivity.class);
+        Intent intent = new Intent(this, ImageAnalActivity.class);
         this.startActivity(intent);
     }
     public void openAIChatActivity(){
